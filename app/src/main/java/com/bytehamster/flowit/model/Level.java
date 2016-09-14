@@ -19,7 +19,7 @@ public class Level {
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(context.getAssets().open("levels.xml"));
+            Document doc = db.parse(context.getAssets().open("levels_compressed.xml"));
             doc.getDocumentElement().normalize();
 
             NodeList levelList = doc.getDocumentElement().getChildNodes();
