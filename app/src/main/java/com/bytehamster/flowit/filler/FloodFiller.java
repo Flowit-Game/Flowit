@@ -20,6 +20,7 @@ public class FloodFiller {
     private Level levelData;
     private State state;
     private Stack<Thread> threads = new Stack<>();
+    private long lastSound = 0;
 
     public FloodFiller(Level levelData, State state, Runnable execAfter) {
         this.levelData = levelData;
@@ -38,7 +39,7 @@ public class FloodFiller {
 
                 try {
                     floodDFS(col, row, true);
-                    while(!threads.isEmpty()) {
+                    while (!threads.isEmpty()) {
                         threads.pop().join();
                     }
 
@@ -48,7 +49,7 @@ public class FloodFiller {
                         fillTo = Modifier.EMPTY;
                         floodDFS(col, row, true);
 
-                        while(!threads.isEmpty()) {
+                        while (!threads.isEmpty()) {
                             threads.pop().join();
                         }
                     }
@@ -81,11 +82,18 @@ public class FloodFiller {
 
             if (f.getModifier() == fillFrom || isFirst) {
 
-                if(!isFirst) {
+                if (!isFirst) {
                     somethingWasFilled = true;
                     f.setModifier(fillTo);
-                    state.playSound(R.raw.fill);
-                    Thread.sleep(90);
+
+                    synchronized (FloodFiller.this) {
+                        if (lastSound < System.currentTimeMillis() - 80) {
+                            lastSound = System.currentTimeMillis();
+                            state.playSound(R.raw.fill);
+                        }
+                    }
+
+                    Thread.sleep(80);
                 }
 
                 if (col > 0) {
