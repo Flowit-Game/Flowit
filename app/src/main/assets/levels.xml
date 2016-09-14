@@ -657,4 +657,34 @@
                0Xd00
                0FFd0
                UXXBU" />
+
+    <level number="43"
+        color="gg0gg
+               bbggg
+               bbbbb
+               ggggg
+               gbboo
+               gb0bo"
+        modifier="
+               D0XFB
+               0B00L
+               0000L
+               0000L
+               00F00
+               0UXUF" />
+
+    <level number="44"
+        color="roo0b
+               roorb
+               oooob
+               bbbrb
+               robob
+               r0bbb"
+        modifier="
+               D0DXF
+               000F0
+               000L0
+               000L0
+               BU0L0
+               oX000" />
 </levels>
