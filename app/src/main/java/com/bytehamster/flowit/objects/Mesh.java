@@ -24,13 +24,15 @@ public abstract class Mesh implements Drawable{
             return;
         }
 
+        gl.glPushMatrix();
         gl.glTranslatef(x, y, 0);
         gl.glScalef(scale, scale, scale);
+
         gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVerticesBuffer);
         gl.glTexCoordPointer(2, GL10.GL_FLOAT, 0, mTextureBuffer);
         gl.glDrawElements(GL10.GL_TRIANGLES, mNumOfIndices, GL10.GL_UNSIGNED_SHORT, mIndicesBuffer);
-        gl.glScalef(1f/scale, 1f/scale, 1f/scale);
-        gl.glTranslatef(-x, -y, 0);
+
+        gl.glPopMatrix();
     }
 
     void setVertices(float[] vertices) {
