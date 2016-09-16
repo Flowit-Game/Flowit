@@ -687,4 +687,34 @@
                000L0
                BU0L0
                oX000" />
+
+    <level number="45"
+        color="gggoo
+               goorr
+               boorr
+               boobb
+               bbbbb
+               ooobb"
+        modifier="
+               0B0DF
+               00000
+               00B0F
+               U0000
+               0B00B
+               0000L" />
+
+    <level number="46"
+        color="bbgor
+               bogor
+               rogob
+               rooor
+               rroor
+               rrorb"
+        modifier="
+               00F00
+               00000
+               00B0L
+               0000L
+               F0000
+               BUFUF" />
 </levels>
