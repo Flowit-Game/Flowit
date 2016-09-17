@@ -717,4 +717,52 @@
                0000L
                F0000
                BUFUF" />
+
+    <level number="47"
+        color="0o0dd
+               bg0dd
+               bgggd
+               bgggb
+               oob00
+               oobdd"
+        modifier="
+               X0XBF
+               00X00
+               B0B00
+               R0000
+               00BXX
+               BU00B" />
+
+    <level number="48"
+        color="rrrgg
+               obrgg
+               drrrg
+               drrrr
+               bbrrd
+               bddr0"
+        modifier="
+               000DB
+               R0R0F
+               00B00
+               B000L
+               0U00L
+               FUUFX" />
+
+    <level number="49"
+        color="googg
+               boogg
+               boddd
+               bbddd
+               bbdoo
+               bbboo"
+        modifier="
+               0000L
+               0DBFB
+               00F00
+               0L0B0
+               0B00L
+               UR00B" />
+
+    <!-- =========== LEVEL PACK 3 ============ -->
+
 </levels>
