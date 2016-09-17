@@ -228,16 +228,16 @@ public class GameState extends State {
                                 }).fill(col, row);
                                 break;
                             case UP:
-                                doFill(0, -1);
+                                doFill(col, row, 0, -1);
                                 break;
                             case RIGHT:
-                                doFill(1, 0);
+                                doFill(col, row, 1, 0);
                                 break;
                             case LEFT:
-                                doFill(-1, 0);
+                                doFill(col, row, -1, 0);
                                 break;
                             case DOWN:
-                                doFill(0, 1);
+                                doFill(col, row, 0, 1);
                                 break;
                             default:
                                 //Ignore
@@ -249,7 +249,7 @@ public class GameState extends State {
         }
     }
 
-    private void doFill(int col, int row) {
+    private void doFill(int col, int row, int dx, int dy) {
         playSound(R.raw.click);
         isFilling = true;
         new DirectionFiller(levelData, this, new Runnable() {
@@ -258,7 +258,7 @@ public class GameState extends State {
                 isFilling = false;
                 checkWon();
             }
-        }, col, row).fill(col, row);
+        }, dx, dy).fill(col, row);
     }
 
     public int getLevel() {
