@@ -2,6 +2,13 @@
 header('Content-Type: text/html; charset=UTF-8');
 session_start();
 
+function begins_with($haystack, $needle) {
+    return strpos($haystack, $needle) === 0;
+}
+function contains($haystack, $needle) {
+    return strpos($haystack, $needle) !== false;
+}
+
 
 $TYPE_EMPTY = 0;
 $TYPE_FLOW = 1;
@@ -43,19 +50,13 @@ if (@$_GET["action"] == "restart") {
     $_GET["action"] = "edit";
 } else if (@$_GET["action"] == "save_type") {
     $_SESSION["level_data"][$_GET["r"]][$_GET["c"]]["type"] = $_GET["type"];
-    $_SESSION["level_data"][$_GET["r"]][$_GET["c"]]["dest_color"] = $COLOR_BLACK;
+    if($_GET["type"] == 0)
+        $_SESSION["level_data"][$_GET["r"]][$_GET["c"]]["dest_color"] = $COLOR_RED;
+    else
+        $_SESSION["level_data"][$_GET["r"]][$_GET["c"]]["dest_color"] = $COLOR_BLACK;
     $_GET["action"] = "edit";
-} else if (@$_GET["action"] == "save_up") {
-    $_SESSION["level_data"][$_GET["r"]][$_GET["c"]]["up"] = !$_SESSION["level_data"][$_GET["r"]][$_GET["c"]]["up"];
-    $_GET["action"] = "edit";
-} else if (@$_GET["action"] == "save_down") {
-    $_SESSION["level_data"][$_GET["r"]][$_GET["c"]]["down"] = !$_SESSION["level_data"][$_GET["r"]][$_GET["c"]]["down"];
-    $_GET["action"] = "edit";
-} else if (@$_GET["action"] == "save_left") {
-    $_SESSION["level_data"][$_GET["r"]][$_GET["c"]]["left"] = !$_SESSION["level_data"][$_GET["r"]][$_GET["c"]]["left"];
-    $_GET["action"] = "edit";
-} else if (@$_GET["action"] == "save_right") {
-    $_SESSION["level_data"][$_GET["r"]][$_GET["c"]]["right"] = !$_SESSION["level_data"][$_GET["r"]][$_GET["c"]]["right"];
+} else if (begins_with(@$_GET["action"], "save_")) {
+    $_SESSION["level_data"][$_GET["r"]][$_GET["c"]]["action"] = str_replace("save_", "", $_GET["action"]);
     $_GET["action"] = "edit";
 }
 
@@ -68,7 +69,7 @@ if (!isset($_SESSION["level_data"])) {
     for ($i = 0; $i < $_SESSION["rows"]; $i++) {
         $_SESSION["level_data"][$i] = array();
         for ($y = 0; $y < $_SESSION["cols"]; $y++) {
-            $_SESSION["level_data"][$i][$y] = array("type" => $TYPE_EMPTY, "color" => $COLOR_EMPTY, "dest_color" => $COLOR_RED, "left" => false, "right" => false, "up" => true, "down" => false);
+            $_SESSION["level_data"][$i][$y] = array("type" => $TYPE_EMPTY, "color" => $COLOR_EMPTY, "dest_color" => $COLOR_RED, "action" => "up");
         }
     }
 }
@@ -152,17 +153,22 @@ if (!isset($_SESSION["level_data"])) {
                 echo "\n               ";
                 foreach ($row as $col) {
                     if ($col["type"] == $TYPE_LIMIT) {
-                        if ($col["left"]) {
+                        if ($col["action"] == "left") {
                             echo "L";
-                        }
-                        if ($col["right"]) {
+                        } else if ($col["action"] == "right") {
                             echo "R";
-                        }
-                        if ($col["up"]) {
+                        } else if ($col["action"] == "up") {
                             echo "U";
-                        }
-                        if ($col["down"]) {
+                        } else if ($col["action"] == "down") {
                             echo "D";
+                        } else if ($col["action"] == "rotate_left") {
+                            echo "a";
+                        } else if ($col["action"] == "rotate_right") {
+                            echo "x";
+                        } else if ($col["action"] == "rotate_up") {
+                            echo "w";
+                        } else if ($col["action"] == "rotate_down") {
+                            echo "s";
                         }
                     } else if ($col["type"] == $TYPE_FLOW) {
                         echo "F";
@@ -218,20 +224,8 @@ if (!isset($_SESSION["level_data"])) {
                         echo "<img src=\"./drawable/level_box_color_" . $COLOR_MAPPING[$_SESSION["level_data"][$i][$y]["dest_color"]] . ".png\" style=\"width:80px;position:relative;top:-80px;\" />";
                         $delta = -160;
 
-                        if ($_SESSION["level_data"][$i][$y]["up"]) {
-                            echo "<img src=\"./drawable/level_box_type_limit_up.png\" style=\"width:80px;position:relative;top:$delta" . "px;\" />";
-                            $delta -= 80;
-                        }
-                        if ($_SESSION["level_data"][$i][$y]["down"]) {
-                            echo "<img src=\"./drawable/level_box_type_limit_down.png\" style=\"width:80px;position:relative;top:$delta" . "px;\" />";
-                            $delta -= 80;
-                        }
-                        if ($_SESSION["level_data"][$i][$y]["left"]) {
-                            echo "<img src=\"./drawable/level_box_type_limit_left.png\" style=\"width:80px;position:relative;top:$delta" . "px;\" />";
-                            $delta -= 80;
-                        }
-                        if ($_SESSION["level_data"][$i][$y]["right"]) {
-                            echo "<img src=\"./drawable/level_box_type_limit_right.png\" style=\"width:80px;position:relative;top:$delta" . "px;\" />";
+                        if(isset($_SESSION["level_data"][$i][$y]["action"])) {
+                            echo "<img src=\"./drawable/level_box_type_limit_".$_SESSION["level_data"][$i][$y]["action"].".png\" style=\"width:80px;position:relative;top:$delta" . "px;\" />";
                             $delta -= 80;
                         }
 
@@ -287,7 +281,6 @@ if (!isset($_SESSION["level_data"])) {
                 echo "<img src=\"./drawable/level_box_hole.jpg\" style=\"width:80px;\" />";
                 echo "<img src=\"./drawable/level_box_color_black.png\" style=\"width:80px;position:relative;top:-80px;\" />";
                 echo "<img src=\"./drawable/level_box_type_limit_up.png\" style=\"width:80px;position:relative;top:-160px;\" />";
-                echo "<img src=\"./drawable/level_box_type_limit_down.png\" style=\"width:80px;position:relative;top:-240px;\" />";
                 echo "</a>";
                 echo "</td>";
 
@@ -377,7 +370,6 @@ if (!isset($_SESSION["level_data"])) {
                             echo "<img src=\"./drawable/level_box_hole.jpg\" style=\"width:80px;\" />";
                             echo "<img src=\"./drawable/level_box_color_$b.png\" style=\"width:80px;position:relative;top:-80px;\" />";
                             echo "<img src=\"./drawable/level_box_type_limit_up.png\" style=\"width:80px;position:relative;top:-160px;\" />";
-                            echo "<img src=\"./drawable/level_box_type_limit_down.png\" style=\"width:80px;position:relative;top:-240px;\" />";
                             echo "</a>";
                             echo "</td>";
                         }
@@ -389,38 +381,26 @@ if (!isset($_SESSION["level_data"])) {
 
                     echo "<table>";
                     echo "<tr>";
+                    
+                    function direction($d) {
+                        echo "<td width=\"80\" height=\"80\">";
+                        echo "<a href=\"./?action=save_$d&c=" . $_GET["c"] . "&r=" . $_GET["r"] . "\" style=\"height:80px;\">";
+                        echo "<img src=\"./drawable/level_box_hole.jpg\" style=\"width:80px;\" />";
+                        echo "<img src=\"./drawable/level_box_color_black.png\" style=\"width:80px;position:relative;top:-80px;\" />";
+                        echo "<img src=\"./drawable/level_box_type_limit_$d.png\" style=\"width:80px;position:relative;top:-160px;\" />";
+                        echo "</a>";
+                        echo "</td>";
+                    }
 
-                    echo "<td width=\"80\" height=\"80\">";
-                    echo "<a href=\"./?action=save_up&c=" . $_GET["c"] . "&r=" . $_GET["r"] . "\" style=\"height:80px;\">";
-                    echo "<img src=\"./drawable/level_box_hole.jpg\" style=\"width:80px;\" />";
-                    echo "<img src=\"./drawable/level_box_color_black.png\" style=\"width:80px;position:relative;top:-80px;\" />";
-                    echo "<img src=\"./drawable/level_box_type_limit_up.png\" style=\"width:80px;position:relative;top:-160px;\" />";
-                    echo "</a>";
-                    echo "</td>";
-
-                    echo "<td width=\"80\" height=\"80\">";
-                    echo "<a href=\"./?action=save_down&c=" . $_GET["c"] . "&r=" . $_GET["r"] . "\" style=\"height:80px;\">";
-                    echo "<img src=\"./drawable/level_box_hole.jpg\" style=\"width:80px;\" />";
-                    echo "<img src=\"./drawable/level_box_color_black.png\" style=\"width:80px;position:relative;top:-80px;\" />";
-                    echo "<img src=\"./drawable/level_box_type_limit_down.png\" style=\"width:80px;position:relative;top:-160px;\" />";
-                    echo "</a>";
-                    echo "</td>";
-
-                    echo "<td width=\"80\" height=\"80\">";
-                    echo "<a href=\"./?action=save_left&c=" . $_GET["c"] . "&r=" . $_GET["r"] . "\" style=\"height:80px;\">";
-                    echo "<img src=\"./drawable/level_box_hole.jpg\" style=\"width:80px;\" />";
-                    echo "<img src=\"./drawable/level_box_color_black.png\" style=\"width:80px;position:relative;top:-80px;\" />";
-                    echo "<img src=\"./drawable/level_box_type_limit_left.png\" style=\"width:80px;position:relative;top:-160px;\" />";
-                    echo "</a>";
-                    echo "</td>";
-
-                    echo "<td width=\"80\" height=\"80\">";
-                    echo "<a href=\"./?action=save_right&c=" . $_GET["c"] . "&r=" . $_GET["r"] . "\" style=\"height:80px;\">";
-                    echo "<img src=\"./drawable/level_box_hole.jpg\" style=\"width:80px;\" />";
-                    echo "<img src=\"./drawable/level_box_color_black.png\" style=\"width:80px;position:relative;top:-80px;\" />";
-                    echo "<img src=\"./drawable/level_box_type_limit_right.png\" style=\"width:80px;position:relative;top:-160px;\" />";
-                    echo "</a>";
-                    echo "</td>";
+                    direction("up");
+                    direction("down");
+                    direction("left");
+                    direction("right");
+                    echo "<td width=\"25\">&nbsp;</td>";
+                    direction("rotate_up");
+                    direction("rotate_down");
+                    direction("rotate_left");
+                    direction("rotate_right");
 
                     echo "</tr>";
                     echo "</table>";
