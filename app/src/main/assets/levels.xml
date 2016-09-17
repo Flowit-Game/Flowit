@@ -799,4 +799,34 @@
                w0000
                XXXXX" />
 
+    <level number="52"
+        color="oogdd
+               oogdd
+               gggrr
+               bbgrr
+               bbgrr
+               00000"
+        modifier="
+               B000B
+               00000
+               00w00
+               00000
+               B000F
+               XXXXX" />
+
+    <level number="53"
+        color="rrgbb
+               rrgbb
+               gggrr
+               bbgrr
+               bbgrr
+               00000"
+        modifier="
+               rr00F
+               rr000
+               00w00
+               00000
+               F000F
+               XXXXX" />
+
 </levels>
