@@ -1,7 +1,6 @@
 package com.bytehamster.flowit.animation;
 
-import com.bytehamster.flowit.objects.Drawable;
-import com.bytehamster.flowit.objects.Mesh;
+import com.bytehamster.flowit.object.Drawable;
 
 public abstract class Animation {
     public static final int STEP_DELAY = 30;

@@ -1,4 +1,4 @@
-package com.bytehamster.flowit.objects;
+package com.bytehamster.flowit.object;
 
 public class TextureCoordinates {
     private float fromX;

@@ -1,6 +1,6 @@
 package com.bytehamster.flowit.animation;
 
-import com.bytehamster.flowit.objects.Mesh;
+import com.bytehamster.flowit.object.Mesh;
 
 public class AnimationFactory {
     public static void startMenuAnimationOutPressed(Mesh mesh, float width, float yPos) {

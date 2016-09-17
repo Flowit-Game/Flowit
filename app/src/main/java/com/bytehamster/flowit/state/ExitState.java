@@ -7,9 +7,6 @@ import android.view.MotionEvent;
 
 import com.bytehamster.flowit.GLRenderer;
 import com.bytehamster.flowit.animation.Animation;
-import com.bytehamster.flowit.animation.TranslateAnimation;
-import com.bytehamster.flowit.objects.Plane;
-import com.bytehamster.flowit.objects.TextureCoordinates;
 
 public class ExitState extends State {
     @SuppressLint("StaticFieldLeak")

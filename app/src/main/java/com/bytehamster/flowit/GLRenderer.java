@@ -5,17 +5,13 @@ import javax.microedition.khronos.opengles.GL10;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
-import android.graphics.Rect;
 import android.opengl.GLU;
 import android.opengl.GLUtils;
 import android.opengl.GLSurfaceView.Renderer;
-import android.util.Log;
 
-import com.bytehamster.flowit.animation.TranslateAnimation;
-import com.bytehamster.flowit.objects.Drawable;
-import com.bytehamster.flowit.objects.Mesh;
-import com.bytehamster.flowit.objects.Plane;
-import com.bytehamster.flowit.objects.TextureCoordinates;
+import com.bytehamster.flowit.object.Drawable;
+import com.bytehamster.flowit.object.Plane;
+import com.bytehamster.flowit.object.TextureCoordinates;
 
 import java.util.ArrayList;
 

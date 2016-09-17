@@ -8,9 +8,6 @@ import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.bytehamster.flowit.animation.TranslateAnimation;
-import com.bytehamster.flowit.objects.Plane;
-import com.bytehamster.flowit.objects.TextureCoordinates;
 import com.bytehamster.flowit.state.ExitState;
 import com.bytehamster.flowit.state.GameState;
 import com.bytehamster.flowit.state.LevelPackSelectState;

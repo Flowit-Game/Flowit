@@ -1,4 +1,4 @@
-package com.bytehamster.flowit.objects;
+package com.bytehamster.flowit.object;
 
 import javax.microedition.khronos.opengles.GL10;
 

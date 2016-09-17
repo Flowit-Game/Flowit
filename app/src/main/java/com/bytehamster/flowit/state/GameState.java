@@ -13,13 +13,11 @@ import com.bytehamster.flowit.animation.TranslateAnimation;
 import com.bytehamster.flowit.filler.BombFiller;
 import com.bytehamster.flowit.filler.DirectionFiller;
 import com.bytehamster.flowit.filler.FloodFiller;
-import com.bytehamster.flowit.model.Color;
 import com.bytehamster.flowit.model.Field;
 import com.bytehamster.flowit.model.Level;
-import com.bytehamster.flowit.model.Modifier;
-import com.bytehamster.flowit.objects.LevelDrawer;
-import com.bytehamster.flowit.objects.Plane;
-import com.bytehamster.flowit.objects.TextureCoordinates;
+import com.bytehamster.flowit.object.LevelDrawer;
+import com.bytehamster.flowit.object.Plane;
+import com.bytehamster.flowit.object.TextureCoordinates;
 
 public class GameState extends State {
     @SuppressLint("StaticFieldLeak")

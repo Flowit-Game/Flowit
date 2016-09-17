@@ -1,7 +1,6 @@
-package com.bytehamster.flowit.objects;
+package com.bytehamster.flowit.object;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 
 import com.bytehamster.flowit.model.Color;
 import com.bytehamster.flowit.model.Field;

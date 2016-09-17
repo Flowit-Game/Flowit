@@ -8,8 +8,8 @@ import com.bytehamster.flowit.GLRenderer;
 import com.bytehamster.flowit.R;
 import com.bytehamster.flowit.animation.Animation;
 import com.bytehamster.flowit.animation.AnimationFactory;
-import com.bytehamster.flowit.objects.Plane;
-import com.bytehamster.flowit.objects.TextureCoordinates;
+import com.bytehamster.flowit.object.Plane;
+import com.bytehamster.flowit.object.TextureCoordinates;
 
 public class LevelPackSelectState extends State {
     @SuppressLint("StaticFieldLeak")

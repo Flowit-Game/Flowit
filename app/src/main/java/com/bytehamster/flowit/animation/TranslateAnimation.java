@@ -1,7 +1,6 @@
 package com.bytehamster.flowit.animation;
 
-import com.bytehamster.flowit.objects.Drawable;
-import com.bytehamster.flowit.objects.Mesh;
+import com.bytehamster.flowit.object.Drawable;
 
 public class TranslateAnimation extends Animation {
     private final int steps;

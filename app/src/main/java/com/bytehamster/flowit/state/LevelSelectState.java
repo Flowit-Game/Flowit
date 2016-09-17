@@ -1,20 +1,16 @@
 package com.bytehamster.flowit.state;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
-import android.widget.Toast;
 
 import com.bytehamster.flowit.GLRenderer;
 import com.bytehamster.flowit.R;
 import com.bytehamster.flowit.animation.Animation;
-import com.bytehamster.flowit.animation.AnimationFactory;
 import com.bytehamster.flowit.animation.ScaleAnimation;
 import com.bytehamster.flowit.animation.TranslateAnimation;
-import com.bytehamster.flowit.objects.Mesh;
-import com.bytehamster.flowit.objects.Plane;
-import com.bytehamster.flowit.objects.TextureCoordinates;
+import com.bytehamster.flowit.object.Plane;
+import com.bytehamster.flowit.object.TextureCoordinates;
 
 public class LevelSelectState extends State {
     @SuppressLint("StaticFieldLeak")
