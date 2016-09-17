@@ -42,7 +42,7 @@ public class LevelDrawer implements Drawable{
         colors[4] = createSingleBox(8, 1);
         colors[5] = createSingleBox(11, 1);
 
-        modifiers = new Plane[13];
+        modifiers = new Plane[17];
         modifiers[0] = createSingleBox(9, 0);
         modifiers[1] = createSingleBox(11, 0);
         modifiers[2] = createSingleBox(13, 0);
@@ -56,6 +56,10 @@ public class LevelDrawer implements Drawable{
         modifiers[10] = createSingleBox(11, 2);
         modifiers[11] = createSingleBox(12, 2);
         modifiers[12] = createSingleBox(13, 2);
+        modifiers[13] = createSingleBox(10, 3);
+        modifiers[14] = createSingleBox(9, 3);
+        modifiers[15] = createSingleBox(11, 3);
+        modifiers[16] = createSingleBox(12, 3);
     }
 
     @Override
@@ -105,6 +109,14 @@ public class LevelDrawer implements Drawable{
                 return modifiers[10];
             case DOWN:
                 return modifiers[11];
+            case ROTATE_UP:
+                return modifiers[13];
+            case ROTATE_RIGHT:
+                return modifiers[14];
+            case ROTATE_LEFT:
+                return modifiers[15];
+            case ROTATE_DOWN:
+                return modifiers[16];
             case BOMB:
                 return modifiers[12];
             default:

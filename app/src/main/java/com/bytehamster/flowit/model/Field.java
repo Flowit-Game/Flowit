@@ -57,6 +57,18 @@ public class Field {
             case 'D':
                 this.modifier = Modifier.DOWN;
                 break;
+            case 'w':
+                this.modifier = Modifier.ROTATE_UP;
+                break;
+            case 'x':
+                this.modifier = Modifier.ROTATE_RIGHT;
+                break;
+            case 'a':
+                this.modifier = Modifier.ROTATE_LEFT;
+                break;
+            case 's':
+                this.modifier = Modifier.ROTATE_DOWN;
+                break;
             case 'B':
                 this.modifier = Modifier.BOMB;
                 break;

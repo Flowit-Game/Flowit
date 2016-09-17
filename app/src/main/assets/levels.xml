@@ -9,6 +9,10 @@
     L - Left
     D - Down
     B - Bomb
+    w - Up
+    x - Right
+    a - Left
+    s - Down
 -->
 <levels>
     <level number="0"
@@ -764,5 +768,35 @@
                UR00B" />
 
     <!-- =========== LEVEL PACK 3 ============ -->
+
+    <level number="50"
+        color="rrbrr
+               rrbrr
+               bbbbb
+               rrbrr
+               rrbrr
+               00000"
+        modifier="
+               F000F
+               00000
+               00w00
+               00000
+               F000F
+               XXXXX" />
+
+    <level number="51"
+        color="brgo0
+               brgoo
+               brggg
+               brrrr
+               bbbbb
+               00000"
+        modifier="
+               0000X
+               000w0
+               00w00
+               0w000
+               w0000
+               XXXXX" />
 
 </levels>

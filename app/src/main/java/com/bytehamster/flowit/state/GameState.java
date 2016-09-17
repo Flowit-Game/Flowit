@@ -15,6 +15,7 @@ import com.bytehamster.flowit.filler.DirectionFiller;
 import com.bytehamster.flowit.filler.FloodFiller;
 import com.bytehamster.flowit.model.Field;
 import com.bytehamster.flowit.model.Level;
+import com.bytehamster.flowit.model.Modifier;
 import com.bytehamster.flowit.object.LevelDrawer;
 import com.bytehamster.flowit.object.Plane;
 import com.bytehamster.flowit.object.TextureCoordinates;
@@ -238,6 +239,22 @@ public class GameState extends State {
                                 break;
                             case DOWN:
                                 doFill(col, row, 0, 1);
+                                break;
+                            case ROTATE_UP:
+                                doFill(col, row, 0, -1);
+                                levelData.fieldAt(col, row).setModifier(Modifier.ROTATE_RIGHT);
+                                break;
+                            case ROTATE_RIGHT:
+                                doFill(col, row, 1, 0);
+                                levelData.fieldAt(col, row).setModifier(Modifier.ROTATE_DOWN);
+                                break;
+                            case ROTATE_LEFT:
+                                doFill(col, row, -1, 0);
+                                levelData.fieldAt(col, row).setModifier(Modifier.ROTATE_UP);
+                                break;
+                            case ROTATE_DOWN:
+                                doFill(col, row, 0, 1);
+                                levelData.fieldAt(col, row).setModifier(Modifier.ROTATE_LEFT);
                                 break;
                             default:
                                 //Ignore
