@@ -218,50 +218,6 @@ public class GameState extends State {
                                     }
                                 }).fill(col, row);
                                 break;
-                            case UP:
-                                playSound(R.raw.click);
-                                isFilling = true;
-                                new DirectionFiller(levelData, this, new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        isFilling = false;
-                                        checkWon();
-                                    }
-                                }, 0, -1).fill(col, row);
-                                break;
-                            case RIGHT:
-                                playSound(R.raw.click);
-                                isFilling = true;
-                                new DirectionFiller(levelData, this, new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        isFilling = false;
-                                        checkWon();
-                                    }
-                                }, 1, 0).fill(col, row);
-                                break;
-                            case LEFT:
-                                playSound(R.raw.click);
-                                isFilling = true;
-                                new DirectionFiller(levelData, this, new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        isFilling = false;
-                                        checkWon();
-                                    }
-                                }, -1, 0).fill(col, row);
-                                break;
-                            case DOWN:
-                                playSound(R.raw.click);
-                                isFilling = true;
-                                new DirectionFiller(levelData, this, new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        isFilling = false;
-                                        checkWon();
-                                    }
-                                }, 0, 1).fill(col, row);
-                                break;
                             case BOMB:
                                 playSound(R.raw.click);
                                 isFilling = true;
@@ -273,6 +229,18 @@ public class GameState extends State {
                                     }
                                 }).fill(col, row);
                                 break;
+                            case UP:
+                                doFill(0, -1);
+                                break;
+                            case RIGHT:
+                                doFill(1, 0);
+                                break;
+                            case LEFT:
+                                doFill(-1, 0);
+                                break;
+                            case DOWN:
+                                doFill(0, 1);
+                                break;
                             default:
                                 //Ignore
                                 break;
@@ -281,6 +249,18 @@ public class GameState extends State {
                 }
             }
         }
+    }
+
+    private void doFill(int col, int row) {
+        playSound(R.raw.click);
+        isFilling = true;
+        new DirectionFiller(levelData, this, new Runnable() {
+            @Override
+            public void run() {
+                isFilling = false;
+                checkWon();
+            }
+        }, col, row).fill(col, row);
     }
 
     public int getLevel() {
