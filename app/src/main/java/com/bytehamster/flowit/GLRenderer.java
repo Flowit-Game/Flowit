@@ -23,7 +23,6 @@ public class GLRenderer implements Renderer {
     private Runnable onReady = null;
     private int loadProgress = 0;
     private ArrayList<Drawable> objects = new ArrayList<>();
-    private long startTime, endTime = 0;
 
     public GLRenderer(Context c) {
         myContext = c;
@@ -31,17 +30,6 @@ public class GLRenderer implements Renderer {
 
     @Override
     public void onDrawFrame(GL10 gl) {
-        endTime = System.currentTimeMillis();
-        long dt = endTime - startTime;
-        if (dt < 33) {
-            try {
-                Thread.sleep(33 - dt);
-            } catch (InterruptedException ignore) {
-            }
-        }
-        startTime = endTime;
-
-
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
         gl.glLoadIdentity();
 
@@ -49,15 +37,15 @@ public class GLRenderer implements Renderer {
             gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[0]);
 
             float loaderSize = getWidth() / 4;
-            Plane loader = new Plane(getWidth() / 2 - loaderSize / 2, getHeight() / 2 - loaderSize / 2,
-                    loaderSize, loaderSize, new TextureCoordinates(0, 0, 1, 1));
+            Plane loader = new Plane(getWidth()/2 - loaderSize/2, getHeight()/2 - loaderSize/2,
+                    loaderSize, loaderSize, new TextureCoordinates(0,0,1,1));
             loader.draw(gl);
 
             gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[1]);
             loadProgress = 1;
         } else if (loadProgress == 1) {
             loadTex(gl);
-            if (onReady != null) {
+            if(onReady != null) {
                 onReady.run();
             }
             loadProgress = 2;
@@ -65,7 +53,7 @@ public class GLRenderer implements Renderer {
         }
 
 
-        for (Drawable o : objects) {
+        for(Drawable o : objects) {
             o.draw(gl);
         }
     }
