@@ -33,8 +33,10 @@ public class GameState extends State {
     private Plane lockedMessage;
     private Plane left;
     private Plane right;
+    private Plane restart;
     private boolean isFilling = false;
     private boolean won = false;
+    private float topButtonSize = 0;
 
     private GameState() {
 
@@ -64,19 +66,24 @@ public class GameState extends State {
         TextureCoordinates coordinatesLocked = TextureCoordinates.getFromBlocks(0, 13, 6, 15);
         lockedMessage = new Plane(0, glRenderer.getHeight(), glRenderer.getWidth(), glRenderer.getWidth() / 3, coordinatesLocked);
         lockedMessage.setVisible(false);
-        lockedMessage.setY(getScreenHeight() - getScreenWidth()*1.3f);
+        lockedMessage.setY(getScreenHeight() - getScreenWidth() * 1.3f);
         glRenderer.addDrawable(lockedMessage);
 
-        float size = glRenderer.getWidth() / 8f;
+        topButtonSize = glRenderer.getWidth() / 8f;
         TextureCoordinates coordinatesLeft = TextureCoordinates.getFromBlocks(0, 10, 1, 11);
-        left = new Plane(size * 0.5f, glRenderer.getHeight() - size * 1.5f, size, size, coordinatesLeft);
+        left = new Plane(topButtonSize * 0.5f, glRenderer.getHeight() - topButtonSize * 1.5f, topButtonSize, topButtonSize, coordinatesLeft);
         left.setVisible(false);
         glRenderer.addDrawable(left);
 
         TextureCoordinates coordinatesRight = TextureCoordinates.getFromBlocks(1, 10, 2, 11);
-        right = new Plane(glRenderer.getWidth() - size * 1.5f, glRenderer.getHeight() - size * 1.5f, size, size, coordinatesRight);
+        right = new Plane(glRenderer.getWidth() - topButtonSize * 1.5f, glRenderer.getHeight() - topButtonSize * 1.5f, topButtonSize, topButtonSize, coordinatesRight);
         right.setVisible(false);
         glRenderer.addDrawable(right);
+
+        TextureCoordinates coordinatesRestart = TextureCoordinates.getFromBlocks(2, 10, 3, 11);
+        restart = new Plane((glRenderer.getWidth() - topButtonSize) / 2, glRenderer.getHeight() - topButtonSize * 1.5f, topButtonSize, topButtonSize, coordinatesRestart);
+        restart.setVisible(false);
+        glRenderer.addDrawable(restart);
     }
 
     @Override
@@ -104,6 +111,13 @@ public class GameState extends State {
         rightAnimation.setFrom(0);
         rightAnimation.setTo(1);
         rightAnimation.start();
+
+        restart.setScale(0);
+        restart.setVisible(true);
+        ScaleAnimation restartAnimation = new ScaleAnimation(restart, Animation.DURATION_LONG, Animation.DURATION_LONG);
+        restartAnimation.setFrom(0);
+        restartAnimation.setTo(1);
+        restartAnimation.start();
     }
 
     private void reloadLevel() {
@@ -112,8 +126,8 @@ public class GameState extends State {
         levelData = new Level(level, getActivity());
         levelDrawer.setLevel(levelData);
 
-        if(!isPlayable(level)) {
-            if(!lockedMessage.isVisible()) {
+        if (!isPlayable(level)) {
+            if (!lockedMessage.isVisible()) {
                 lockedMessage.setY(-getScreenWidth() * 0.5f);
                 lockedMessage.setVisible(true);
                 TranslateAnimation inAnimation = new TranslateAnimation(lockedMessage, Animation.DURATION_SHORT, Animation.DURATION_SHORT);
@@ -123,7 +137,7 @@ public class GameState extends State {
             }
         } else {
             TranslateAnimation outAnimation = new TranslateAnimation(lockedMessage, Animation.DURATION_SHORT, 0);
-            outAnimation.setFrom(0, getScreenHeight() - getScreenWidth()*1.3f);
+            outAnimation.setFrom(0, getScreenHeight() - getScreenWidth() * 1.3f);
             outAnimation.setTo(0, -getScreenWidth() * 0.5f);
             outAnimation.setHideAfter(true);
             outAnimation.start();
@@ -150,8 +164,14 @@ public class GameState extends State {
         leftAnimation.setHideAfter(true);
         rightAnimation.start();
 
+        ScaleAnimation restartAnimation = new ScaleAnimation(restart, Animation.DURATION_LONG, Animation.DURATION_LONG);
+        restartAnimation.setFrom(1);
+        restartAnimation.setTo(0);
+        restartAnimation.setHideAfter(true);
+        restartAnimation.start();
+
         TranslateAnimation outAnimation = new TranslateAnimation(lockedMessage, Animation.DURATION_SHORT, 0);
-        outAnimation.setFrom(0, getScreenHeight() - getScreenWidth()*1.3f);
+        outAnimation.setFrom(0, getScreenHeight() - getScreenWidth() * 1.3f);
         outAnimation.setTo(0, -getScreenWidth() * 0.5f);
         outAnimation.setHideAfter(true);
         outAnimation.start();
@@ -175,6 +195,7 @@ public class GameState extends State {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
 
             if (event.getY() < getScreenWidth() / 8f * 2f) {
+                //Button row
                 if (event.getX() < getScreenWidth() / 8f * 2f) {
                     playSound(R.raw.click);
                     if (level % 25 == 0) {
@@ -191,6 +212,9 @@ public class GameState extends State {
                     } else {
                         reloadLevel();
                     }
+                } else if (event.getX() > (getScreenWidth() - topButtonSize) / 2 && event.getX() < (getScreenWidth() + topButtonSize) / 2) {
+                    playSound(R.raw.click);
+                    reloadLevel();
                 }
             }
 
@@ -306,11 +330,11 @@ public class GameState extends State {
             winMessage.setVisible(true);
             TranslateAnimation inAnimation = new TranslateAnimation(winMessage, Animation.DURATION_SHORT, 0);
             inAnimation.setFrom(0, -getScreenWidth() * 0.5f);
-            inAnimation.setTo(0, getScreenHeight() - getScreenWidth()*1.3f);
+            inAnimation.setTo(0, getScreenHeight() - getScreenWidth() * 1.3f);
             inAnimation.start();
 
             TranslateAnimation outAnimation = new TranslateAnimation(winMessage, Animation.DURATION_SHORT, 4 * Animation.DURATION_SHORT);
-            outAnimation.setFrom(0, getScreenHeight() - getScreenWidth()*1.3f);
+            outAnimation.setFrom(0, getScreenHeight() - getScreenWidth() * 1.3f);
             outAnimation.setTo(0, -getScreenWidth() * 0.5f);
             outAnimation.setHideAfter(true);
             outAnimation.start();
