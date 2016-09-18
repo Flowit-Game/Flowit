@@ -829,4 +829,19 @@
                F000F
                XXXXX" />
 
+    <level number="54"
+        color="bgbgg
+               gggdg
+               gbggg
+               gbooo
+               ggood
+               gggdg"
+        modifier="
+               s00F0
+               000D0
+               0w000
+               00F00
+               0000L
+               B000g" />
+
 </levels>
