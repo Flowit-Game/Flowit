@@ -844,4 +844,34 @@
                0000L
                B000g" />
 
+    <level number="55"
+        color="rrdrd
+               rddrr
+               rdrrd
+               drrrr
+               rrrrd
+               dddr0"
+        modifier="
+               0DDFF
+               00000
+               0000L
+               w0000
+               0000L
+               0UUUX" />
+
+    <level number="56"
+        color="bddog
+               booog
+               bggrg
+               bgrrg
+               bbbrg
+               0gddd"
+        modifier="
+               00s00
+               000a0
+               0x000
+               000w0
+               w000a
+               X0w00" />
+
 </levels>
