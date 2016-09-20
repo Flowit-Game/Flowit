@@ -802,14 +802,14 @@
     <level number="52"
         color="ddddd
                dgood
-               dg0rd
+               dgdrd
                dbbrd
                ddddd
                00000"
         modifier="
                00000
                0a0w0
-               00X00
+               00d00
                0s0x0
                F0000
                XXXXX" />
@@ -888,5 +888,20 @@
                00B0g
                x0000
                00U0F" />
+
+    <level number="58"
+        color="bbboo
+               bbgbb
+               bogbb
+               oogbb
+               bbgbb
+               0bobg"
+        modifier="
+               x0000
+               000a0
+               000a0
+               F000B
+               R0000
+               XwU0F" />
 
 </levels>
