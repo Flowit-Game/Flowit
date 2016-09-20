@@ -333,7 +333,7 @@ public class GameState extends State {
             inAnimation.setTo(0, getScreenHeight() - getScreenWidth() * 1.3f);
             inAnimation.start();
 
-            TranslateAnimation outAnimation = new TranslateAnimation(winMessage, Animation.DURATION_SHORT, 4 * Animation.DURATION_SHORT);
+            TranslateAnimation outAnimation = new TranslateAnimation(winMessage, Animation.DURATION_SHORT, 5 * Animation.DURATION_SHORT);
             outAnimation.setFrom(0, getScreenHeight() - getScreenWidth() * 1.3f);
             outAnimation.setTo(0, -getScreenWidth() * 0.5f);
             outAnimation.setHideAfter(true);
