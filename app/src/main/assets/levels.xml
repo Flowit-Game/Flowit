@@ -919,4 +919,34 @@
                R0000
                XUU0F" />
 
+    <level number="60"
+        color="gbbbo
+               gbbbo
+               ggbbo
+               bgbbb
+               brrrg
+               0grb0"
+        modifier="
+               00B0F
+               Bw000
+               00U00
+               0000L
+               R000L
+               XUFUX" />
+
+    <level number="61"
+        color="rrooo
+               rrbbo
+               rrrbo
+               rgrbo
+               rggbo
+               rrooo"
+        modifier="
+               0000F
+               B00s0
+               00000
+               00000
+               0w000
+               F0000" />
+
 </levels>
