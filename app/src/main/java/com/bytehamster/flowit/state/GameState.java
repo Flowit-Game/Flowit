@@ -17,6 +17,7 @@ import com.bytehamster.flowit.model.Field;
 import com.bytehamster.flowit.model.Level;
 import com.bytehamster.flowit.model.Modifier;
 import com.bytehamster.flowit.object.LevelDrawer;
+import com.bytehamster.flowit.object.ObjectFactory;
 import com.bytehamster.flowit.object.Plane;
 import com.bytehamster.flowit.object.TextureCoordinates;
 
@@ -70,18 +71,21 @@ public class GameState extends State {
         glRenderer.addDrawable(lockedMessage);
 
         topButtonSize = glRenderer.getWidth() / 8f;
-        TextureCoordinates coordinatesLeft = TextureCoordinates.getFromBlocks(0, 10, 1, 11);
-        left = new Plane(topButtonSize * 0.5f, glRenderer.getHeight() - topButtonSize * 1.5f, topButtonSize, topButtonSize, coordinatesLeft);
+        left = ObjectFactory.createSingleBox(0, 10, topButtonSize);
+        left.setX(topButtonSize * 0.5f);
+        left.setY(glRenderer.getHeight() - topButtonSize * 1.5f);
         left.setVisible(false);
         glRenderer.addDrawable(left);
 
-        TextureCoordinates coordinatesRight = TextureCoordinates.getFromBlocks(1, 10, 2, 11);
-        right = new Plane(glRenderer.getWidth() - topButtonSize * 1.5f, glRenderer.getHeight() - topButtonSize * 1.5f, topButtonSize, topButtonSize, coordinatesRight);
+        right = ObjectFactory.createSingleBox(1, 10, topButtonSize);
+        right.setX(glRenderer.getWidth() - topButtonSize * 1.5f);
+        right.setY(glRenderer.getHeight() - topButtonSize * 1.5f);
         right.setVisible(false);
         glRenderer.addDrawable(right);
 
-        TextureCoordinates coordinatesRestart = TextureCoordinates.getFromBlocks(2, 10, 3, 11);
-        restart = new Plane((glRenderer.getWidth() - topButtonSize) / 2, glRenderer.getHeight() - topButtonSize * 1.5f, topButtonSize, topButtonSize, coordinatesRestart);
+        restart = ObjectFactory.createSingleBox(2, 10, topButtonSize);
+        restart.setX((glRenderer.getWidth() - topButtonSize) / 2);
+        restart.setY(glRenderer.getHeight() - topButtonSize * 1.5f);
         restart.setVisible(false);
         glRenderer.addDrawable(restart);
     }
