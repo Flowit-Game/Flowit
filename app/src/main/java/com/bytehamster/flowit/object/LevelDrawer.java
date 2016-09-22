@@ -35,31 +35,31 @@ public class LevelDrawer implements Drawable{
         this.boxSize = this.screenWidth / 6f;
 
         colors = new Plane[6];
-        colors[0] = createSingleBox(8, 0);
-        colors[1] = createSingleBox(10, 0);
-        colors[2] = createSingleBox(12, 0);
-        colors[3] = createSingleBox(14, 0);
-        colors[4] = createSingleBox(8, 1);
-        colors[5] = createSingleBox(11, 1);
+        colors[0] = ObjectFactory.createSingleBox(8, 0, boxSize);
+        colors[1] = ObjectFactory.createSingleBox(10, 0, boxSize);
+        colors[2] = ObjectFactory.createSingleBox(12, 0, boxSize);
+        colors[3] = ObjectFactory.createSingleBox(14, 0, boxSize);
+        colors[4] = ObjectFactory.createSingleBox(8, 1, boxSize);
+        colors[5] = ObjectFactory.createSingleBox(11, 1, boxSize);
 
         modifiers = new Plane[17];
-        modifiers[0] = createSingleBox(9, 0);
-        modifiers[1] = createSingleBox(11, 0);
-        modifiers[2] = createSingleBox(13, 0);
-        modifiers[3] = createSingleBox(15, 0);
-        modifiers[4] = createSingleBox(9, 1);
-        modifiers[5] = createSingleBox(8, 2);
-        modifiers[6] = createSingleBox(10, 1);
-        modifiers[7] = createSingleBox(11, 1);
-        modifiers[8] = createSingleBox(10, 2);
-        modifiers[9] = createSingleBox(9, 2);
-        modifiers[10] = createSingleBox(11, 2);
-        modifiers[11] = createSingleBox(12, 2);
-        modifiers[12] = createSingleBox(13, 2);
-        modifiers[13] = createSingleBox(10, 3);
-        modifiers[14] = createSingleBox(9, 3);
-        modifiers[15] = createSingleBox(11, 3);
-        modifiers[16] = createSingleBox(12, 3);
+        modifiers[0] = ObjectFactory.createSingleBox(9, 0, boxSize);
+        modifiers[1] = ObjectFactory.createSingleBox(11, 0, boxSize);
+        modifiers[2] = ObjectFactory.createSingleBox(13, 0, boxSize);
+        modifiers[3] = ObjectFactory.createSingleBox(15, 0, boxSize);
+        modifiers[4] = ObjectFactory.createSingleBox(9, 1, boxSize);
+        modifiers[5] = ObjectFactory.createSingleBox(8, 2, boxSize);
+        modifiers[6] = ObjectFactory.createSingleBox(10, 1, boxSize);
+        modifiers[7] = ObjectFactory.createSingleBox(11, 1, boxSize);
+        modifiers[8] = ObjectFactory.createSingleBox(10, 2, boxSize);
+        modifiers[9] = ObjectFactory.createSingleBox(9, 2, boxSize);
+        modifiers[10] = ObjectFactory.createSingleBox(11, 2, boxSize);
+        modifiers[11] = ObjectFactory.createSingleBox(12, 2, boxSize);
+        modifiers[12] = ObjectFactory.createSingleBox(13, 2, boxSize);
+        modifiers[13] = ObjectFactory.createSingleBox(10, 3, boxSize);
+        modifiers[14] = ObjectFactory.createSingleBox(9, 3, boxSize);
+        modifiers[15] = ObjectFactory.createSingleBox(11, 3, boxSize);
+        modifiers[16] = ObjectFactory.createSingleBox(12, 3, boxSize);
     }
 
     @Override
@@ -139,11 +139,6 @@ public class LevelDrawer implements Drawable{
             default: // empty
                 return colors[5];
         }
-    }
-
-    private Plane createSingleBox(int texX, int texY) {
-        TextureCoordinates coordinates = TextureCoordinates.getFromBlocks(texX, texY, texX+1, texY+1);
-        return new Plane(0, 0, boxSize, boxSize, coordinates);
     }
 
     public Level getLevel() {

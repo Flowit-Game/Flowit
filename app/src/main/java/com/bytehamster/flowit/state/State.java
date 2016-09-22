@@ -14,6 +14,7 @@ abstract public class State {
     private float screenHeight;
     private SoundPool soundPool;
     private Activity activity;
+    private SharedPreferences playedPrefs;
     private SharedPreferences prefs;
 
     abstract public void entry();
@@ -33,17 +34,22 @@ abstract public class State {
         this.screenHeight = renderer.getHeight();
         this.soundPool = soundPool;
         this.activity = activity;
-        this.prefs = activity.getSharedPreferences("playedState", Context.MODE_PRIVATE);
+        this.playedPrefs = activity.getSharedPreferences("playedState", Context.MODE_PRIVATE);
+        this.prefs = activity.getSharedPreferences("preferences", Context.MODE_PRIVATE);
 
         initialize(renderer);
     }
 
     void makePlayed(int level) {
-        prefs.edit().putBoolean("l"+level, true).commit();
+        playedPrefs.edit().putBoolean("l"+level, true).commit();
     }
 
     boolean isPlayed(int level) {
-        return prefs.getBoolean("l"+level, false);
+        return playedPrefs.getBoolean("l"+level, false);
+    }
+
+    SharedPreferences getPreferences() {
+        return prefs;
     }
 
     boolean isPlayable(int level) {
@@ -73,7 +79,9 @@ abstract public class State {
     }
 
     public void playSound(int resId) {
-        soundPool.playSound(resId);
+        if(getPreferences().getBoolean("volumeOn", true)) {
+            soundPool.playSound(resId);
+        }
     }
 
     Activity getActivity() {
