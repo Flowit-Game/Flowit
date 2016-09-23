@@ -24,8 +24,8 @@ import com.bytehamster.flowit.object.TextureCoordinates;
 public class GameState extends State {
     @SuppressLint("StaticFieldLeak")
     private static GameState instance;
-
     private State nextState = this;
+
     private int level = 0;
     private Level levelData = null;
     private float boardStartY = 0;

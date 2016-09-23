@@ -15,8 +15,8 @@ import com.bytehamster.flowit.object.TextureCoordinates;
 public class SettingsState extends State {
     @SuppressLint("StaticFieldLeak")
     private static SettingsState instance;
-
     private State nextState = this;
+
     private Plane volumeOff;
     private Plane volumeOn;
 
@@ -36,12 +36,12 @@ public class SettingsState extends State {
         volumeOn  = ObjectFactory.createSingleBox(0, 15, getScreenWidth()/4);
         volumeOn.setVisible(false);
         volumeOn.setX(getScreenWidth()/8*3);
-        volumeOn.setY(getScreenHeight()/2);
+        volumeOn.setY((getScreenHeight()-volumeOn.getHeight())/2);
         glRenderer.addDrawable(volumeOn);
         volumeOff = ObjectFactory.createSingleBox(1, 15, getScreenWidth()/4);
         volumeOff.setVisible(false);
         volumeOff.setX(getScreenWidth()/8*3);
-        volumeOff.setY(getScreenHeight()/2);
+        volumeOff.setY((getScreenHeight()-volumeOff.getHeight())/2);
         glRenderer.addDrawable(volumeOff);
     }
 
@@ -86,8 +86,7 @@ public class SettingsState extends State {
     @Override
     public void onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            if (event.getX() > getScreenWidth()/8*3 && event.getX() < getScreenWidth()/8*5
-                    && event.getY() > getScreenHeight()/2-getScreenWidth()/4 && event.getY() < getScreenHeight()/2) {
+            if (volumeOn.collides(event, getScreenHeight())) {
                 playSound(R.raw.click);
                 boolean newVolume = ! getPreferences().getBoolean("volumeOn", true);
                 getPreferences().edit().putBoolean("volumeOn", newVolume).commit();
