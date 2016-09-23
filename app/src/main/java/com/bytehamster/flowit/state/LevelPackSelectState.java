@@ -20,12 +20,6 @@ public class LevelPackSelectState extends State {
     private Plane pack2;
     private Plane pack3;
 
-    private float menuEntriesWidth;
-    private float menuEntriesHeight;
-    private float pack1Y;
-    private float pack2Y;
-    private float pack3Y;
-
     private LevelPackSelectState() {
 
     }
@@ -39,22 +33,22 @@ public class LevelPackSelectState extends State {
 
     @Override
     protected void initialize(GLRenderer glRenderer) {
-        menuEntriesWidth = glRenderer.getWidth() * 0.75f;
-        menuEntriesHeight = menuEntriesWidth / 6;
+        float logoHeight = glRenderer.getWidth() / 3;
+        float menuEntriesWidth = glRenderer.getWidth() * 0.75f;
+        float menuEntriesHeight = menuEntriesWidth / 6;
+        float menuEntriesAvailableSpace = getScreenHeight() - getAdHeight() - logoHeight;
+        float menuEntriesStartY = getScreenHeight() - logoHeight - (menuEntriesAvailableSpace - 4 * menuEntriesHeight) / 2;
 
         TextureCoordinates coordinatesPack1 = TextureCoordinates.getFromBlocks(0, 5, 6, 6);
-        pack1Y = glRenderer.getHeight() - 5 * menuEntriesHeight;
-        pack1 = new Plane(-menuEntriesWidth, pack1Y, menuEntriesWidth, menuEntriesHeight, coordinatesPack1);
+        pack1 = new Plane(-menuEntriesWidth, menuEntriesStartY, menuEntriesWidth, menuEntriesHeight, coordinatesPack1);
         glRenderer.addDrawable(pack1);
 
         TextureCoordinates coordinatesPack2 = TextureCoordinates.getFromBlocks(0, 6, 6, 7);
-        pack2Y = glRenderer.getHeight() - 7 * menuEntriesHeight;
-        pack2 = new Plane(-menuEntriesWidth, pack2Y, menuEntriesWidth, menuEntriesHeight, coordinatesPack2);
+        pack2 = new Plane(-menuEntriesWidth, pack1.getY() - 2 * menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesPack2);
         glRenderer.addDrawable(pack2);
 
         TextureCoordinates coordinatesPack3 = TextureCoordinates.getFromBlocks(0, 7, 6, 8);
-        pack3Y = glRenderer.getHeight() - 9 * menuEntriesHeight;
-        pack3 = new Plane(-menuEntriesWidth, pack3Y, menuEntriesWidth, menuEntriesHeight, coordinatesPack3);
+        pack3 = new Plane(-menuEntriesWidth, pack2.getY() - 2 * menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesPack3);
         glRenderer.addDrawable(pack3);
     }
 
@@ -103,18 +97,15 @@ public class LevelPackSelectState extends State {
     @Override
     public void onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            if (event.getY() < getScreenHeight() - pack1Y
-                    && event.getY() > getScreenHeight() - (pack1Y + menuEntriesHeight)) {
+            if (pack1.collides(event, getScreenHeight())) {
                 nextState = LevelSelectState.getInstance();
                 LevelSelectState.getInstance().setPack(1);
                 playSound(R.raw.click);
-            } else if (event.getY() < getScreenHeight() - pack2Y
-                    && event.getY() > getScreenHeight() - (pack2Y + menuEntriesHeight)) {
+            } else if (pack2.collides(event, getScreenHeight())) {
                 nextState = LevelSelectState.getInstance();
                 LevelSelectState.getInstance().setPack(2);
                 playSound(R.raw.click);
-            } else if (event.getY() < getScreenHeight() - pack3Y
-                    && event.getY() > getScreenHeight() - (pack3Y + menuEntriesHeight)) {
+            } else if (pack3.collides(event, getScreenHeight())) {
                 nextState = LevelSelectState.getInstance();
                 LevelSelectState.getInstance().setPack(3);
                 playSound(R.raw.click);
