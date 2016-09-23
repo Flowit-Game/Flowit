@@ -36,12 +36,12 @@ public class SettingsState extends State {
         volumeOn  = ObjectFactory.createSingleBox(0, 15, getScreenWidth()/4);
         volumeOn.setVisible(false);
         volumeOn.setX(getScreenWidth()/8*3);
-        volumeOn.setY((getScreenHeight()-volumeOn.getHeight())/2);
+        volumeOn.setY((getScreenHeight() + getAdHeight() - volumeOn.getHeight())/2);
         glRenderer.addDrawable(volumeOn);
         volumeOff = ObjectFactory.createSingleBox(1, 15, getScreenWidth()/4);
         volumeOff.setVisible(false);
         volumeOff.setX(getScreenWidth()/8*3);
-        volumeOff.setY((getScreenHeight()-volumeOff.getHeight())/2);
+        volumeOff.setY((getScreenHeight() + getAdHeight() - volumeOff.getHeight())/2);
         glRenderer.addDrawable(volumeOff);
     }
 
