@@ -17,8 +17,7 @@ import com.bytehamster.flowit.state.SettingsState;
 import com.bytehamster.flowit.state.State;
 
 public class Main extends Activity {
-    private GLSurfaceView glSurfaceView;
-    private GLRenderer glRenderer;
+    private MyGLSurfaceView glSurfaceView;
     private SoundPool soundPool;
     private State currentState;
 
@@ -32,13 +31,10 @@ public class Main extends Activity {
     }
 
     private void createViews() {
-        glSurfaceView = new GLSurfaceView(this);
-        glRenderer = new GLRenderer(this);
+        setContentView(R.layout.main);
+        glSurfaceView = (MyGLSurfaceView) findViewById(R.id.gl_surface_view);
 
-        glSurfaceView.setRenderer(glRenderer);
-        setContentView(glSurfaceView);
-
-        glRenderer.setOnReady(new Runnable() {
+        glSurfaceView.getRenderer().setOnReady(new Runnable() {
             @Override
             public void run() {
                 soundPool = new SoundPool(Main.this);
@@ -46,12 +42,12 @@ public class Main extends Activity {
                 soundPool.loadSound(R.raw.fill);
                 soundPool.loadSound(R.raw.won);
 
-                MainMenuState.getInstance().initialize(glRenderer, soundPool, Main.this);
-                ExitState.getInstance().initialize(glRenderer, soundPool, Main.this);
-                SettingsState.getInstance().initialize(glRenderer, soundPool, Main.this);
-                LevelPackSelectState.getInstance().initialize(glRenderer, soundPool, Main.this);
-                LevelSelectState.getInstance().initialize(glRenderer, soundPool, Main.this);
-                GameState.getInstance().initialize(glRenderer, soundPool, Main.this);
+                MainMenuState.getInstance().initialize(glSurfaceView.getRenderer(), soundPool, Main.this);
+                ExitState.getInstance().initialize(glSurfaceView.getRenderer(), soundPool, Main.this);
+                SettingsState.getInstance().initialize(glSurfaceView.getRenderer(), soundPool, Main.this);
+                LevelPackSelectState.getInstance().initialize(glSurfaceView.getRenderer(), soundPool, Main.this);
+                LevelSelectState.getInstance().initialize(glSurfaceView.getRenderer(), soundPool, Main.this);
+                GameState.getInstance().initialize(glSurfaceView.getRenderer(), soundPool, Main.this);
 
                 currentState = MainMenuState.getInstance();
                 currentState.entry();
