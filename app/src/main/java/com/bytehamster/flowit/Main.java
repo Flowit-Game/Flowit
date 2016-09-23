@@ -1,6 +1,5 @@
 package com.bytehamster.flowit;
 
-import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.KeyEvent;
@@ -15,6 +14,9 @@ import com.bytehamster.flowit.state.LevelSelectState;
 import com.bytehamster.flowit.state.MainMenuState;
 import com.bytehamster.flowit.state.SettingsState;
 import com.bytehamster.flowit.state.State;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 public class Main extends Activity {
     private MyGLSurfaceView glSurfaceView;
@@ -24,16 +26,24 @@ public class Main extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-    }
-
-    private void createViews() {
         setContentView(R.layout.main);
         glSurfaceView = (MyGLSurfaceView) findViewById(R.id.gl_surface_view);
 
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544~3347511713");
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("BD77EB0FBCAB78BD7BD95E32C84D1F73")
+                .build();
+        mAdView.loadAd(adRequest);
+        //TODO: AdSize.BANNER.getHeightInPixels(this);
+
+        createViews();
+    }
+
+    private void createViews() {
         glSurfaceView.getRenderer().setOnReady(new Runnable() {
             @Override
             public void run() {
@@ -84,8 +94,6 @@ public class Main extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        createViews();
     }
 
     @Override
