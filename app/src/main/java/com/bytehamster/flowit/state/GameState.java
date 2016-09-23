@@ -198,28 +198,25 @@ public class GameState extends State {
     public void onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
 
-            if (event.getY() < getScreenWidth() / 8f * 2f) {
-                //Button row
-                if (event.getX() < getScreenWidth() / 8f * 2f) {
-                    playSound(R.raw.click);
-                    if (level % 25 == 0) {
-                        nextState = LevelSelectState.getInstance();
-                    } else {
-                        level--;
-                        reloadLevel();
-                    }
-                } else if (event.getX() > getScreenWidth() - getScreenWidth() / 8f * 2f) {
-                    playSound(R.raw.click);
-                    level++;
-                    if (level % 25 == 0) {
-                        nextState = LevelSelectState.getInstance();
-                    } else {
-                        reloadLevel();
-                    }
-                } else if (event.getX() > (getScreenWidth() - topButtonSize) / 2 && event.getX() < (getScreenWidth() + topButtonSize) / 2) {
-                    playSound(R.raw.click);
+            if (left.collides(event, getScreenHeight())) {
+                playSound(R.raw.click);
+                if (level % 25 == 0) {
+                    nextState = LevelSelectState.getInstance();
+                } else {
+                    level--;
                     reloadLevel();
                 }
+            } else if (right.collides(event, getScreenHeight())) {
+                playSound(R.raw.click);
+                level++;
+                if (level % 25 == 0) {
+                    nextState = LevelSelectState.getInstance();
+                } else {
+                    reloadLevel();
+                }
+            } else if (restart.collides(event, getScreenHeight())) {
+                playSound(R.raw.click);
+                reloadLevel();
             }
 
             if (isFilling || won || !isPlayable(level)) {
