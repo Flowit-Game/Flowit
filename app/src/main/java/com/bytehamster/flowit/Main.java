@@ -16,6 +16,7 @@ import com.bytehamster.flowit.state.MainMenuState;
 import com.bytehamster.flowit.state.SettingsState;
 import com.bytehamster.flowit.state.State;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
@@ -39,7 +40,6 @@ public class Main extends Activity {
                 .addTestDevice("BD77EB0FBCAB78BD7BD95E32C84D1F73")
                 .build();
         mAdView.loadAd(adRequest);
-        //TODO: AdSize.BANNER.getHeightInPixels(this);
 
         createViews();
     }
@@ -53,12 +53,19 @@ public class Main extends Activity {
                 soundPool.loadSound(R.raw.fill);
                 soundPool.loadSound(R.raw.won);
 
-                MainMenuState.getInstance().initialize(glSurfaceView.getRenderer(), soundPool, Main.this);
-                ExitState.getInstance().initialize(glSurfaceView.getRenderer(), soundPool, Main.this);
-                SettingsState.getInstance().initialize(glSurfaceView.getRenderer(), soundPool, Main.this);
-                LevelPackSelectState.getInstance().initialize(glSurfaceView.getRenderer(), soundPool, Main.this);
-                LevelSelectState.getInstance().initialize(glSurfaceView.getRenderer(), soundPool, Main.this);
-                GameState.getInstance().initialize(glSurfaceView.getRenderer(), soundPool, Main.this);
+                State[] states = new State[] {
+                        MainMenuState.getInstance(),
+                        ExitState.getInstance(),
+                        SettingsState.getInstance(),
+                        LevelPackSelectState.getInstance(),
+                        LevelSelectState.getInstance(),
+                        GameState.getInstance()
+                };
+
+                int adHeight = AdSize.SMART_BANNER.getHeightInPixels(Main.this);
+                for (State state : states) {
+                    state.initialize(glSurfaceView.getRenderer(), soundPool, Main.this, adHeight);
+                }
 
                 currentState = MainMenuState.getInstance();
                 currentState.entry();

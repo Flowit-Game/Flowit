@@ -12,6 +12,7 @@ import com.bytehamster.flowit.SoundPool;
 abstract public class State {
     private float screenWidth;
     private float screenHeight;
+    private float adHeight;
     private SoundPool soundPool;
     private Activity activity;
     private SharedPreferences playedPrefs;
@@ -29,13 +30,14 @@ abstract public class State {
 
     abstract protected void initialize(GLRenderer renderer);
 
-    public void initialize(GLRenderer renderer, SoundPool soundPool, Activity activity) {
+    public void initialize(GLRenderer renderer, SoundPool soundPool, Activity activity, float adHeight) {
         this.screenWidth = renderer.getWidth();
         this.screenHeight = renderer.getHeight();
         this.soundPool = soundPool;
         this.activity = activity;
         this.playedPrefs = activity.getSharedPreferences("playedState", Context.MODE_PRIVATE);
         this.prefs = activity.getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        this.adHeight = adHeight;
 
         initialize(renderer);
     }
@@ -72,6 +74,10 @@ abstract public class State {
 
     float getScreenWidth() {
         return screenWidth;
+    }
+
+    float getAdHeight() {
+        return adHeight;
     }
 
     float getScreenHeight() {
