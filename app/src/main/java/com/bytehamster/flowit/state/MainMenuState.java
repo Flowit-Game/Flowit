@@ -22,13 +22,6 @@ public class MainMenuState extends State {
     private Plane settingsButton;
     private Plane exitButton;
 
-    private float logoHeight;
-    private float startButtonY;
-    private float settingsButtonY;
-    private float exitButtonY;
-    private float menuEntriesWidth;
-    private float menuEntriesHeight;
-
     private MainMenuState() {
 
     }
@@ -43,26 +36,25 @@ public class MainMenuState extends State {
     @Override
     protected void initialize(GLRenderer glRenderer) {
         TextureCoordinates coordinatesLogo = TextureCoordinates.getFromBlocks(0, 0, 6, 2);
-        logoHeight = glRenderer.getWidth() / 3;
+        float logoHeight = glRenderer.getWidth() / 3;
         logo = new Plane(0, glRenderer.getHeight(), glRenderer.getWidth(), logoHeight, coordinatesLogo);
         glRenderer.addDrawable(logo);
 
-        menuEntriesWidth = glRenderer.getWidth() * 0.75f;
-        menuEntriesHeight = menuEntriesWidth / 6;
+        float menuEntriesWidth = glRenderer.getWidth() * 0.75f;
+        float menuEntriesHeight = menuEntriesWidth / 6;
+        float menuEntriesAvailableSpace = getScreenHeight() - getAdHeight() - logoHeight;
+        float menuEntriesStartY = getScreenHeight() - logoHeight - (menuEntriesAvailableSpace - 4 * menuEntriesHeight) / 2;
 
         TextureCoordinates coordinatesStart = TextureCoordinates.getFromBlocks(0, 2, 6, 3);
-        startButtonY = glRenderer.getHeight() - logoHeight * 1.5f - menuEntriesHeight;
-        startButton = new Plane(-menuEntriesWidth, startButtonY, menuEntriesWidth, menuEntriesHeight, coordinatesStart);
+        startButton = new Plane(-menuEntriesWidth, menuEntriesStartY, menuEntriesWidth, menuEntriesHeight, coordinatesStart);
         glRenderer.addDrawable(startButton);
 
         TextureCoordinates coordinatesSettings = TextureCoordinates.getFromBlocks(0, 3, 6, 4);
-        settingsButtonY = glRenderer.getHeight() - logoHeight * 1.5f - 3 * menuEntriesHeight;
-        settingsButton = new Plane(-menuEntriesWidth, settingsButtonY, menuEntriesWidth, menuEntriesHeight, coordinatesSettings);
+        settingsButton = new Plane(-menuEntriesWidth, startButton.getY() - 2 * menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesSettings);
         glRenderer.addDrawable(settingsButton);
 
         TextureCoordinates coordinatesExit = TextureCoordinates.getFromBlocks(0, 4, 6, 5);
-        exitButtonY = glRenderer.getHeight() - logoHeight * 1.5f - 5 * menuEntriesHeight;
-        exitButton = new Plane(-menuEntriesWidth, exitButtonY, menuEntriesWidth, menuEntriesHeight, coordinatesExit);
+        exitButton = new Plane(-menuEntriesWidth, settingsButton.getY() - 2 * menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesExit);
         glRenderer.addDrawable(exitButton);
     }
 
@@ -72,37 +64,37 @@ public class MainMenuState extends State {
 
         TranslateAnimation logoAnimation = new TranslateAnimation(logo, Animation.DURATION_LONG, Animation.DURATION_SHORT);
         logoAnimation.setFrom(0, getScreenHeight());
-        logoAnimation.setTo(0, getScreenHeight() - logoHeight);
+        logoAnimation.setTo(0, getScreenHeight() - logo.getHeight());
         logoAnimation.start();
 
-        AnimationFactory.startMenuAnimationEnter(startButton, menuEntriesWidth, startButtonY, 2 * Animation.DURATION_SHORT);
-        AnimationFactory.startMenuAnimationEnter(settingsButton, menuEntriesWidth, settingsButtonY, 3 * Animation.DURATION_SHORT);
-        AnimationFactory.startMenuAnimationEnter(exitButton, menuEntriesWidth, exitButtonY, 4 * Animation.DURATION_SHORT);
+        AnimationFactory.startMenuAnimationEnter(startButton, 2 * Animation.DURATION_SHORT);
+        AnimationFactory.startMenuAnimationEnter(settingsButton, 3 * Animation.DURATION_SHORT);
+        AnimationFactory.startMenuAnimationEnter(exitButton, 4 * Animation.DURATION_SHORT);
     }
 
     @Override
     public void exit() {
         TranslateAnimation logoAnimation = new TranslateAnimation(logo, Animation.DURATION_SHORT, 0);
-        logoAnimation.setFrom(0, getScreenHeight() - logoHeight);
+        logoAnimation.setFrom(0, getScreenHeight() - logo.getHeight());
         logoAnimation.setTo(0, getScreenHeight());
         logoAnimation.start();
 
         if (nextState == LevelPackSelectState.getInstance()) {
-            AnimationFactory.startMenuAnimationOutPressed(startButton, menuEntriesWidth, startButtonY);
+            AnimationFactory.startMenuAnimationOutPressed(startButton);
         } else {
-            AnimationFactory.startMenuAnimationOut(startButton, menuEntriesWidth, startButtonY);
+            AnimationFactory.startMenuAnimationOut(startButton);
         }
 
         if (nextState == SettingsState.getInstance()) {
-            AnimationFactory.startMenuAnimationOutPressed(settingsButton, menuEntriesWidth, settingsButtonY);
+            AnimationFactory.startMenuAnimationOutPressed(settingsButton);
         } else {
-            AnimationFactory.startMenuAnimationOut(settingsButton, menuEntriesWidth, settingsButtonY);
+            AnimationFactory.startMenuAnimationOut(settingsButton);
         }
 
         if (nextState == ExitState.getInstance()) {
-            AnimationFactory.startMenuAnimationOutPressed(exitButton, menuEntriesWidth, exitButtonY);
+            AnimationFactory.startMenuAnimationOutPressed(exitButton);
         } else {
-            AnimationFactory.startMenuAnimationOut(exitButton, menuEntriesWidth, exitButtonY);
+            AnimationFactory.startMenuAnimationOut(exitButton);
         }
     }
 
@@ -122,16 +114,13 @@ public class MainMenuState extends State {
     @Override
     public void onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            if (event.getY() < getScreenHeight() - startButtonY
-                    && event.getY() > getScreenHeight() - (startButtonY + menuEntriesHeight)) {
+            if (startButton.collides(event, getScreenHeight())) {
                 nextState = LevelPackSelectState.getInstance();
                 playSound(R.raw.click);
-            } else if (event.getY() < getScreenHeight() - settingsButtonY
-                    && event.getY() > getScreenHeight() - (settingsButtonY + menuEntriesHeight)) {
+            } else if (settingsButton.collides(event, getScreenHeight())) {
                 nextState = SettingsState.getInstance();
                 playSound(R.raw.click);
-            } else if (event.getY() < getScreenHeight() - exitButtonY
-                    && event.getY() > getScreenHeight() - (exitButtonY + menuEntriesHeight)) {
+            } else if (exitButton.collides(event, getScreenHeight())) {
                 nextState = ExitState.getInstance();
                 playSound(R.raw.click);
             }

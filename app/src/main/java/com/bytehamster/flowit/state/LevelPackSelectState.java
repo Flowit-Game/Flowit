@@ -61,29 +61,29 @@ public class LevelPackSelectState extends State {
     @Override
     public void entry() {
         nextState = this;
-        AnimationFactory.startMenuAnimationEnter(pack1, menuEntriesWidth, pack1Y, 3 * Animation.DURATION_SHORT);
-        AnimationFactory.startMenuAnimationEnter(pack2, menuEntriesWidth, pack2Y, 4 * Animation.DURATION_SHORT);
-        AnimationFactory.startMenuAnimationEnter(pack3, menuEntriesWidth, pack3Y, 5 * Animation.DURATION_SHORT);
+        AnimationFactory.startMenuAnimationEnter(pack1, 3 * Animation.DURATION_SHORT);
+        AnimationFactory.startMenuAnimationEnter(pack2, 4 * Animation.DURATION_SHORT);
+        AnimationFactory.startMenuAnimationEnter(pack3, 5 * Animation.DURATION_SHORT);
     }
 
     @Override
     public void exit() {
         if (LevelSelectState.getInstance().getPack() == 1) {
-            AnimationFactory.startMenuAnimationOutPressed(pack1, menuEntriesWidth, pack1Y);
+            AnimationFactory.startMenuAnimationOutPressed(pack1);
         } else {
-            AnimationFactory.startMenuAnimationOut(pack1, menuEntriesWidth, pack1Y);
+            AnimationFactory.startMenuAnimationOut(pack1);
         }
 
         if (LevelSelectState.getInstance().getPack() == 2) {
-            AnimationFactory.startMenuAnimationOutPressed(pack2, menuEntriesWidth, pack2Y);
+            AnimationFactory.startMenuAnimationOutPressed(pack2);
         } else {
-            AnimationFactory.startMenuAnimationOut(pack2, menuEntriesWidth, pack2Y);
+            AnimationFactory.startMenuAnimationOut(pack2);
         }
 
         if (LevelSelectState.getInstance().getPack() == 3) {
-            AnimationFactory.startMenuAnimationOutPressed(pack3, menuEntriesWidth, pack3Y);
+            AnimationFactory.startMenuAnimationOutPressed(pack3);
         } else {
-            AnimationFactory.startMenuAnimationOut(pack3, menuEntriesWidth, pack3Y);
+            AnimationFactory.startMenuAnimationOut(pack3);
         }
     }
 

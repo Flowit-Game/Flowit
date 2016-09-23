@@ -1,8 +1,14 @@
 package com.bytehamster.flowit.object;
 
+import android.view.MotionEvent;
+
 public class Plane extends Mesh {
+    private float width;
+    private float height;
 
     public Plane(float x, float y, float width, float height, TextureCoordinates coordinates) {
+        this.width = width;
+        this.height = height;
         setX(x);
         setY(y);
 
@@ -26,5 +32,20 @@ public class Plane extends Mesh {
                 coordinates.getToX(),   coordinates.getToY(),    // 2 - r.u.
                 coordinates.getToX(),   coordinates.getFromY(),  // 3 - r.o.
         });
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public boolean collides(MotionEvent event, float screenHeight) {
+        return event.getY() < screenHeight - getY()
+                && event.getY() > screenHeight - (getY() + getHeight())
+                && event.getX() > getX()
+                && event.getX() < getX() + getWidth();
     }
 }
