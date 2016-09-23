@@ -2,6 +2,7 @@ package com.bytehamster.flowit;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.Window;
@@ -67,7 +68,7 @@ public class Main extends Activity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(currentState != null) {
+        if(currentState != null && glSurfaceView.getRenderer().isReady()) {
             currentState.onKeyDown(keyCode, event);
             switchState();
         }
@@ -75,7 +76,7 @@ public class Main extends Activity {
     }
 
     public boolean onTouchEvent(MotionEvent event) {
-        if(currentState != null) {
+        if(currentState != null && glSurfaceView.getRenderer().isReady()) {
             currentState.onTouchEvent(event);
             switchState();
         }
@@ -94,6 +95,14 @@ public class Main extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                glSurfaceView.onResume();
+                glSurfaceView.getRenderer().onResume();
+            }
+        });
     }
 
     @Override
