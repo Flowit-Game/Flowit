@@ -14,7 +14,7 @@
         android:id="@+id/adView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        ads:adSize="BANNER"
+        ads:adSize="SMART_BANNER"
         ads:adUnitId="@string/banner_ad_unit_id"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
