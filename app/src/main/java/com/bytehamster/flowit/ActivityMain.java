@@ -1,5 +1,6 @@
 package com.bytehamster.flowit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.os.Handler;
@@ -20,7 +21,7 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
-public class Main extends Activity {
+public class ActivityMain extends Activity {
     private MyGLSurfaceView glSurfaceView;
     private SoundPool soundPool;
     private State currentState;
@@ -30,7 +31,7 @@ public class Main extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.main);
+        setContentView(R.layout.activity_main);
         glSurfaceView = (MyGLSurfaceView) findViewById(R.id.gl_surface_view);
 
         MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544~3347511713");
@@ -42,13 +43,19 @@ public class Main extends Activity {
         mAdView.loadAd(adRequest);
 
         createViews();
+        showTutorial();
+    }
+
+    private void showTutorial() {
+        Intent intent = new Intent(this, ActivityTutorial.class);
+        startActivity(intent);
     }
 
     private void createViews() {
         glSurfaceView.getRenderer().setOnReady(new Runnable() {
             @Override
             public void run() {
-                soundPool = new SoundPool(Main.this);
+                soundPool = new SoundPool(ActivityMain.this);
                 soundPool.loadSound(R.raw.click);
                 soundPool.loadSound(R.raw.fill);
                 soundPool.loadSound(R.raw.won);
@@ -62,9 +69,9 @@ public class Main extends Activity {
                         GameState.getInstance()
                 };
 
-                int adHeight = AdSize.SMART_BANNER.getHeightInPixels(Main.this);
+                int adHeight = AdSize.SMART_BANNER.getHeightInPixels(ActivityMain.this);
                 for (State state : states) {
-                    state.initialize(glSurfaceView.getRenderer(), soundPool, Main.this, adHeight);
+                    state.initialize(glSurfaceView.getRenderer(), soundPool, ActivityMain.this, adHeight);
                 }
 
                 currentState = MainMenuState.getInstance();
