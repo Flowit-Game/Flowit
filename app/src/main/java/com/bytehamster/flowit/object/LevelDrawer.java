@@ -156,4 +156,8 @@ public class LevelDrawer extends Drawable {
     public float getBoxSize() {
         return boxSize;
     }
+
+    public float getHeight() {
+        return 6*getBoxSize();
+    }
 }

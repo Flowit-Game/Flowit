@@ -71,12 +71,12 @@ public class GameState extends State {
         restart.setVisible(false);
         glRenderer.addDrawable(restart);
 
-        boardStartY = 0.5f * getScreenWidth();
         levelDrawer.setVisible(false);
         levelDrawer.setScreenHeight(getScreenHeight());
         levelDrawer.setScreenWidth(getScreenWidth());
         levelDrawer.initialize();
         glRenderer.addDrawable(levelDrawer);
+        boardStartY = 2 * topButtonSize + (getScreenHeight() - getAdHeight() - levelDrawer.getHeight())/2;
 
         TextureCoordinates coordinatesWin = TextureCoordinates.getFromBlocks(0, 8, 6, 10);
         winMessage = new Plane(0, glRenderer.getHeight(), glRenderer.getWidth(), glRenderer.getWidth() / 3, coordinatesWin);
