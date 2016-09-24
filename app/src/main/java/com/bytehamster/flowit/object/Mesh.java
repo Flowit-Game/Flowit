@@ -7,24 +7,20 @@ import java.nio.ShortBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
 
-public abstract class Mesh implements Drawable{
+public abstract class Mesh extends Drawable {
     private FloatBuffer mVerticesBuffer = null;
     private ShortBuffer mIndicesBuffer = null;
     private FloatBuffer mTextureBuffer;
     private int mNumOfIndices = -1;
-    private float x = 0;
-    private float y = 0;
-    private float scale = 1;
-    private boolean visible = true;
 
     public void draw(GL10 gl) {
-        if(!visible) {
+        if(!isVisible()) {
             return;
         }
 
         gl.glPushMatrix();
-        gl.glTranslatef(x, y, 0);
-        gl.glScalef(scale, scale, scale);
+        gl.glTranslatef(getX(), getY(), 0);
+        gl.glScalef(getScale(), getScale(), getScale());
 
         gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVerticesBuffer);
         gl.glTexCoordPointer(2, GL10.GL_FLOAT, 0, mTextureBuffer);
@@ -61,46 +57,5 @@ public abstract class Mesh implements Drawable{
         mTextureBuffer = byteBuf.asFloatBuffer();
         mTextureBuffer.put(textureCoords);
         mTextureBuffer.position(0);
-    }
-
-
-    public float getX() {
-        return x;
-    }
-
-    public void setX(float x) {
-        this.x = x;
-    }
-
-    public float getY() {
-        return y;
-    }
-
-    public void setY(float y) {
-        this.y = y;
-    }
-
-    public float getScale() {
-        if (this.scale == 0.0001f) {
-            // Division by zero
-            return 0;
-        }
-        return scale;
-    }
-
-    public void setScale(float scale) {
-        this.scale = scale;
-        if (this.scale == 0) {
-            // Division by zero
-            this.scale = 0.0001f;
-        }
-    }
-
-    public boolean isVisible() {
-        return visible;
-    }
-
-    public void setVisible(boolean visible) {
-        this.visible = visible;
     }
 }

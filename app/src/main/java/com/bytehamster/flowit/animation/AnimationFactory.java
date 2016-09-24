@@ -27,4 +27,21 @@ public class AnimationFactory {
         exitButtonAnimation.setTo(0, plane.getY());
         exitButtonAnimation.start();
     }
+
+    public static void startScaleShow(Plane plane) {
+        plane.setScale(0);
+        plane.setVisible(true);
+        ScaleAnimation leftAnimation = new ScaleAnimation(plane, Animation.DURATION_LONG, Animation.DURATION_LONG);
+        leftAnimation.setFrom(0);
+        leftAnimation.setTo(1);
+        leftAnimation.start();
+    }
+
+    public static void startScaleHide(Plane plane) {
+        ScaleAnimation leftAnimation = new ScaleAnimation(plane, Animation.DURATION_LONG, Animation.DURATION_LONG);
+        leftAnimation.setFrom(1);
+        leftAnimation.setTo(0);
+        leftAnimation.setHideAfter(true);
+        leftAnimation.start();
+    }
 }

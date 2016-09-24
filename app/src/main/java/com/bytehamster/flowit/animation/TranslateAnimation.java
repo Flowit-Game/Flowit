@@ -14,6 +14,7 @@ public class TranslateAnimation extends Animation {
     public TranslateAnimation(Drawable mesh, int duration, int startIn) {
         super(mesh, duration / STEP_DELAY, startIn);
         steps = duration / STEP_DELAY;
+        setFrom(mesh.getX(), mesh.getY());
     }
 
     public void setFrom(float x, float y) {

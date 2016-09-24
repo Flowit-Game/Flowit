@@ -9,7 +9,7 @@ import com.bytehamster.flowit.model.Modifier;
 
 import javax.microedition.khronos.opengles.GL10;
 
-public class LevelDrawer implements Drawable{
+public class LevelDrawer extends Drawable {
     @SuppressLint("StaticFieldLeak")
     private static LevelDrawer instance;
 
@@ -18,11 +18,7 @@ public class LevelDrawer implements Drawable{
     private Plane[] modifiers;
     private float boxSize = 50f;
     private float screenWidth = 0;
-
     private float screenHeight = 0;
-    private float x = 0;
-    private float y = 0;
-    private boolean visible = true;
 
     public static LevelDrawer getInstance() {
         if (instance == null) {
@@ -64,7 +60,7 @@ public class LevelDrawer implements Drawable{
 
     @Override
     public void draw(GL10 gl) {
-        if (level == null || !visible) {
+        if (level == null || !isVisible()) {
             return;
         }
 
@@ -73,13 +69,13 @@ public class LevelDrawer implements Drawable{
                 Field field = level.fieldAt(col, row);
 
                 Plane color = getColorPlane(field.getColor());
-                color.setX(x + (col + 0.5f)*boxSize);
-                color.setY(y - row*boxSize);
+                color.setX(getX() + (col + 0.5f)*boxSize);
+                color.setY(getY() - row*boxSize);
                 color.draw(gl);
 
                 Plane modifier = getModifierPlane(field.getModifier());
-                modifier.setX(x + (col + 0.5f)*boxSize);
-                modifier.setY(y - row*boxSize);
+                modifier.setX(getX() + (col + 0.5f)*boxSize);
+                modifier.setY(getY() - row*boxSize);
                 modifier.draw(gl);
             }
         }
@@ -159,25 +155,5 @@ public class LevelDrawer implements Drawable{
 
     public float getBoxSize() {
         return boxSize;
-    }
-
-    @Override
-    public void setX(float x) {
-        this.x = x;
-    }
-
-    @Override
-    public void setY(float y) {
-        this.y = y;
-    }
-
-    @Override
-    public void setScale(float scale) {
-
-    }
-
-    @Override
-    public void setVisible(boolean visible) {
-        this.visible = visible;
     }
 }

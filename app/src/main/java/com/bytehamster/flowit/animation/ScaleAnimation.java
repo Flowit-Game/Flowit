@@ -12,6 +12,7 @@ public class ScaleAnimation extends Animation {
     public ScaleAnimation(Drawable mesh, int duration, int startIn) {
         super(mesh, duration / STEP_DELAY, startIn);
         steps = duration / STEP_DELAY;
+        setFrom(mesh.getScale());
     }
 
     public void setFrom(float from) {
