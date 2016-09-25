@@ -79,7 +79,7 @@ public class MainMenuState extends State {
         logoAnimation.setTo(0, getScreenHeight());
         logoAnimation.start();
 
-        if (nextState == LevelPackSelectState.getInstance()) {
+        if (nextState == LevelPackSelectState.getInstance() || nextState == TutorialState.getInstance()) {
             AnimationFactory.startMenuAnimationOutPressed(startButton);
         } else {
             AnimationFactory.startMenuAnimationOut(startButton);
