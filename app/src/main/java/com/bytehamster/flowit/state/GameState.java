@@ -9,6 +9,7 @@ import com.bytehamster.flowit.GLRenderer;
 import com.bytehamster.flowit.R;
 import com.bytehamster.flowit.animation.Animation;
 import com.bytehamster.flowit.animation.AnimationFactory;
+import com.bytehamster.flowit.animation.AnimationRepeated;
 import com.bytehamster.flowit.animation.ScaleAnimation;
 import com.bytehamster.flowit.animation.TranslateAnimation;
 import com.bytehamster.flowit.filler.BombFiller;
@@ -36,6 +37,7 @@ public class GameState extends State {
     private Plane left;
     private Plane right;
     private Plane restart;
+    private AnimationRepeated rightButtonGlow;
     private boolean isFilling = false;
     private boolean won = false;
 
@@ -87,6 +89,11 @@ public class GameState extends State {
         lockedMessage = new Plane(0, glRenderer.getHeight(), glRenderer.getWidth(), glRenderer.getWidth() / 3, coordinatesLocked);
         lockedMessage.setVisible(false);
         glRenderer.addDrawable(lockedMessage);
+
+        ScaleAnimation leftAnimation = new ScaleAnimation(right, Animation.DURATION_SHORT, 0);
+        leftAnimation.setFrom(1);
+        leftAnimation.setTo(1.2f);
+        rightButtonGlow = new AnimationRepeated(leftAnimation);
     }
 
     @Override
@@ -107,6 +114,7 @@ public class GameState extends State {
     }
 
     private void reloadLevel() {
+        rightButtonGlow.stop();
         won = false;
         isFilling = false;
         levelData = new Level(level, getActivity());
@@ -131,6 +139,8 @@ public class GameState extends State {
 
     @Override
     public void exit() {
+        rightButtonGlow.stop();
+
         TranslateAnimation logoAnimation = new TranslateAnimation(levelDrawer, Animation.DURATION_LONG, Animation.DURATION_LONG);
         logoAnimation.setFrom(0, getScreenHeight() - boardStartY);
         logoAnimation.setTo(0, -levelDrawer.getBoxSize());
@@ -309,6 +319,8 @@ public class GameState extends State {
             outAnimation.setTo(0, -getScreenWidth() * 0.5f);
             outAnimation.setHideAfter(true);
             outAnimation.start();
+
+            rightButtonGlow.start();
         }
     }
 }

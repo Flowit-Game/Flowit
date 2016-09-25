@@ -2,7 +2,7 @@ package com.bytehamster.flowit.animation;
 
 import com.bytehamster.flowit.object.Drawable;
 
-public class ScaleAnimation extends Animation {
+public class ScaleAnimation extends AnimationSingle {
     private final int steps;
 
     private float from;
@@ -41,5 +41,13 @@ public class ScaleAnimation extends Animation {
         if (hideAfter) {
             getSubject().setVisible(false);
         }
+    }
+
+    @Override
+    ScaleAnimation reverse() {
+        ScaleAnimation reversed = new ScaleAnimation(getSubject(), getSteps()*STEP_DELAY, getStartIn());
+        reversed.setFrom(to);
+        reversed.setTo(from);
+        return reversed;
     }
 }

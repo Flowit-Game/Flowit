@@ -2,7 +2,7 @@ package com.bytehamster.flowit.animation;
 
 import com.bytehamster.flowit.object.Drawable;
 
-public class TranslateAnimation extends Animation {
+public class TranslateAnimation extends AnimationSingle {
     private final int steps;
 
     private float fromX;
@@ -48,5 +48,13 @@ public class TranslateAnimation extends Animation {
         if (hideAfter) {
             getSubject().setVisible(false);
         }
+    }
+
+    @Override
+    TranslateAnimation reverse() {
+        TranslateAnimation reversed = new TranslateAnimation(getSubject(), getSteps()*STEP_DELAY, getStartIn());
+        reversed.setFrom(toX, toY);
+        reversed.setTo(fromX, fromY);
+        return reversed;
     }
 }
