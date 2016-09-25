@@ -15,6 +15,7 @@ import com.bytehamster.flowit.state.LevelSelectState;
 import com.bytehamster.flowit.state.MainMenuState;
 import com.bytehamster.flowit.state.SettingsState;
 import com.bytehamster.flowit.state.State;
+import com.bytehamster.flowit.state.TutorialState;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
@@ -59,7 +60,8 @@ public class Main extends Activity {
                         SettingsState.getInstance(),
                         LevelPackSelectState.getInstance(),
                         LevelSelectState.getInstance(),
-                        GameState.getInstance()
+                        GameState.getInstance(),
+                        TutorialState.getInstance()
                 };
 
                 int adHeight = AdSize.SMART_BANNER.getHeightInPixels(Main.this);

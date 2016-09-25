@@ -115,8 +115,13 @@ public class MainMenuState extends State {
     public void onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             if (startButton.collides(event, getScreenHeight())) {
-                nextState = LevelPackSelectState.getInstance();
                 playSound(R.raw.click);
+                if(getPreferences().getBoolean("tutorialDisplayed", false)) {
+                    nextState = LevelPackSelectState.getInstance();
+                } else {
+                    nextState = TutorialState.getInstance();
+                    getPreferences().edit().putBoolean("tutorialDisplayed", true).commit();
+                }
             } else if (settingsButton.collides(event, getScreenHeight())) {
                 nextState = SettingsState.getInstance();
                 playSound(R.raw.click);
