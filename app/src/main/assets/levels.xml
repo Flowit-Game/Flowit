@@ -16,18 +16,18 @@
 -->
 <levels>
     <level number="0"
-        color="rrrrr
-               rrrrr
-               rrrrr
-               rrrrr
-               rrrrr
+        color="b0ooo
+               b0000
+               b0r0g
+               b0r0g
+               b0r0g
                00000"
         modifier="
-               00000
-               00000
-               00F00
-               00000
-               00000
+               0X00L
+               0XXXX
+               0XDX0
+               0X0X0
+               UX0XU
                XXXXX" />
 
     <level number="1"
