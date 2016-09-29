@@ -949,4 +949,34 @@
                0w000
                F0000" />
 
+    <level number="62"
+        color="rbrbr
+               rbbbr
+               rbrbr
+               rrrrr
+               rrrrr
+               bbbbb"
+        modifier="
+               00000
+               x0B0a
+               0R000
+               00000
+               B0U0F
+               0F00L" />
+
+    <level number="63"
+        color="rbbbr
+               gbrbr
+               gbbbb
+               bbrrg
+               gbrrb
+               grrg0"
+        modifier="
+               s000F
+               00000
+               00s0F
+               B000L
+               0F00L
+               U0FUX" />
+
 </levels>
