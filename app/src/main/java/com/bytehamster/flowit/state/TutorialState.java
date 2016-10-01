@@ -50,7 +50,7 @@ public class TutorialState extends State {
         screen1.setVisible(false);
         glRenderer.addDrawable(screen1);
 
-        TextureCoordinates coordinatesScreen2 = TextureCoordinates.getFromBlocks(6, 10, 11, 14);
+        TextureCoordinates coordinatesScreen2 = TextureCoordinates.getFromBlocks(11, 4, 16, 8);
         screen2 = new Plane(tutScreenX, tutScreenY, tutScreenWidth, tutScreenHeight, coordinatesScreen2);
         screen2.setVisible(false);
         glRenderer.addDrawable(screen2);
