@@ -70,7 +70,7 @@ public class TutorialState extends State {
         if(screenNumber == 1) {
             AnimationFactory.startScaleShow(screen1);
         } else {
-            AnimationFactory.startScaleShow(screen2);
+            AnimationFactory.startScaleShow(screen2, 0);
         }
     }
 
@@ -85,7 +85,7 @@ public class TutorialState extends State {
         }
 
         if(screenNumber == 1) {
-            AnimationFactory.startScaleHide(screen1);
+            AnimationFactory.startScaleHide(screen1, 0);
         } else {
             AnimationFactory.startScaleHide(screen2);
             screenNumber = 1;

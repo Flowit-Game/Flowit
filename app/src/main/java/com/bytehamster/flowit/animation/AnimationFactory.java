@@ -29,16 +29,24 @@ public class AnimationFactory {
     }
 
     public static void startScaleShow(Plane plane) {
+        startScaleShow(plane, Animation.DURATION_LONG);
+    }
+
+    public static void startScaleShow(Plane plane, int delay) {
         plane.setScale(0);
         plane.setVisible(true);
-        ScaleAnimation leftAnimation = new ScaleAnimation(plane, Animation.DURATION_LONG, Animation.DURATION_LONG);
+        ScaleAnimation leftAnimation = new ScaleAnimation(plane, Animation.DURATION_LONG, delay);
         leftAnimation.setFrom(0);
         leftAnimation.setTo(1);
         leftAnimation.start();
     }
 
     public static void startScaleHide(Plane plane) {
-        ScaleAnimation leftAnimation = new ScaleAnimation(plane, Animation.DURATION_LONG, Animation.DURATION_LONG);
+        startScaleHide(plane, Animation.DURATION_LONG);
+    }
+
+    public static void startScaleHide(Plane plane, int delay) {
+        ScaleAnimation leftAnimation = new ScaleAnimation(plane, Animation.DURATION_LONG, delay);
         leftAnimation.setFrom(1);
         leftAnimation.setTo(0);
         leftAnimation.setHideAfter(true);
