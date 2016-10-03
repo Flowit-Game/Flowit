@@ -6,7 +6,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.bytehamster.flowit"
+        applicationId "com.bytehamster.flowitgame"
         minSdkVersion 9
         targetSdkVersion 24
     }
