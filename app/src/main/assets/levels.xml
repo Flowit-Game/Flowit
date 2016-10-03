@@ -979,4 +979,34 @@
                0F00L
                U0FUX" />
 
+    <level number="64"
+        color="bbrbr
+               rbrbr
+               rgbgr
+               rgrgb
+               ggggr
+               grrr0"
+        modifier="
+               F0000
+               00000
+               F0w0a
+               B0B0L
+               0U00L
+               FUUUX" />
+
+    <level number="65"
+        color="gggrr
+               rrrrr
+               rrggr
+               rrrrr
+               rrggr
+               rrgrr"
+        modifier="
+               F000B
+               R0000
+               B0000
+               0000a
+               F0000
+               BU0U0" />
+
 </levels>
