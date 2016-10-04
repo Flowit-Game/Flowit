@@ -92,6 +92,7 @@ public class LevelSelectState extends State {
         TranslateAnimation logoAnimation = new TranslateAnimation(selectLevelText, Animation.DURATION_SHORT, 0);
         logoAnimation.setFrom(0, getScreenHeight() - selectLevelText.getHeight());
         logoAnimation.setTo(0, getScreenHeight());
+        logoAnimation.setHideAfter(true);
         logoAnimation.start();
 
         for (int row = 0; row < 5; row++) {
