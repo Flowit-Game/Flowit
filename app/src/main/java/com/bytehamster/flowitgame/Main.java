@@ -34,7 +34,7 @@ public class Main extends Activity {
         setContentView(R.layout.main);
         glSurfaceView = (MyGLSurfaceView) findViewById(R.id.gl_surface_view);
 
-        MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544~3347511713");
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-8233037560237995~7887041460");
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
