@@ -104,7 +104,8 @@ public class GLRenderer implements Renderer {
 
     private void setupViewport(GL10 gl) {
         gl.glEnable(GL10.GL_ALPHA_TEST);        // Enable Alpha
-        gl.glAlphaFunc(GL10.GL_GREATER, 0.9f);  //
+        gl.glEnable (GL10.GL_BLEND);
+        gl.glBlendFunc(GL10.GL_ONE, GL10.GL_ONE_MINUS_SRC_ALPHA);
 
         gl.glFrontFace(GL10.GL_CCW);
         gl.glEnable(GL10.GL_CULL_FACE);

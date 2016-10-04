@@ -15,8 +15,9 @@ public class TextureCoordinates {
 
     public static TextureCoordinates getFromBlocks(int fromX, int fromY, int toX, int toY) {
         float blockPercentage = 128f / 2048f;
-        return new TextureCoordinates((float)fromX * blockPercentage, (float)fromY * blockPercentage,
-                (float)toX * blockPercentage - 1f/2048f, (float)toY * blockPercentage - 1f/2048f);
+        float padding = 1f / 2048f;
+        return new TextureCoordinates((float)fromX * blockPercentage + padding, (float)fromY * blockPercentage + padding,
+                (float)toX * blockPercentage - padding, (float)toY * blockPercentage - padding);
     }
 
     public float getToY() {
