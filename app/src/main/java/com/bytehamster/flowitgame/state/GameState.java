@@ -31,6 +31,7 @@ public class GameState extends State {
     private int level = 0;
     private Level levelData = null;
     private float boardStartY = 0;
+    private int stepsUsed = 0;
     private final LevelDrawer levelDrawer = LevelDrawer.getInstance();
     private Plane winMessage;
     private Plane lockedMessage;
@@ -116,6 +117,7 @@ public class GameState extends State {
     private void reloadLevel() {
         rightButtonGlow.stop();
         won = false;
+        stepsUsed = 0;
         isFilling = false;
         levelData = new Level(level, getActivity());
         levelDrawer.setLevel(levelData);
@@ -214,6 +216,7 @@ public class GameState extends State {
     }
 
     private void triggerField(int col, int row) {
+        stepsUsed++; // Subtracting one in default case (=> no action was done)
         switch (levelData.fieldAt(col, row).getModifier()) {
             case FLOOD:
                 playSound(R.raw.click);
@@ -266,7 +269,8 @@ public class GameState extends State {
                 levelData.fieldAt(col, row).setModifier(Modifier.ROTATE_LEFT);
                 break;
             default:
-                //Ignore
+                // No action was done
+                stepsUsed--;
                 break;
         }
     }
@@ -306,6 +310,7 @@ public class GameState extends State {
         if (won) {
             playSound(R.raw.won);
             makePlayed(level);
+            saveSteps(level, stepsUsed);
 
             float availableSpace = getScreenHeight() - getAdHeight();
             winMessage.setY(-getScreenWidth() * 0.5f);

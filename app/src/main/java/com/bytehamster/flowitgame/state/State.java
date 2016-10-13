@@ -46,6 +46,12 @@ abstract public class State {
         playedPrefs.edit().putBoolean("l"+level, true).commit();
     }
 
+    void saveSteps(int level, int steps) {
+        if (playedPrefs.getInt("s"+level, 999999) > steps) {
+            playedPrefs.edit().putInt("s"+level, steps).commit();
+        }
+    }
+
     boolean isPlayed(int level) {
         return playedPrefs.getBoolean("l"+level, false);
     }
