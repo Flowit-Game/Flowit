@@ -166,19 +166,19 @@
                XXXXX" />
 
     <level number="10"
-        color="rrgoo
-               rrgoo
-               rrbbb
+        color="rrrbb
+               bbrrb
                rrrrr
+               rrrrg
                rrrrr
-               00000"
+               ggbrg"
         modifier="
-               00D0F
+               0000L
+               g000L
                00000
                0000L
                00000
-               0000F
-               XXXXX" />
+               gUUFF" />
 
     <level number="11"
         color="rbooo
