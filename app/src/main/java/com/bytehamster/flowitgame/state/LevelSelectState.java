@@ -36,6 +36,7 @@ public class LevelSelectState extends State {
     protected void initialize(GLRenderer glRenderer) {
         TextureCoordinates coordinatesLogo = TextureCoordinates.getFromBlocks(0, 11, 6, 13);
         selectLevelText = new Plane(0, glRenderer.getHeight(), glRenderer.getWidth(), glRenderer.getWidth() / 3, coordinatesLogo);
+        selectLevelText.setVisible(false);
         glRenderer.addDrawable(selectLevelText);
 
 
@@ -58,8 +59,9 @@ public class LevelSelectState extends State {
     public void entry() {
         nextState = this;
 
+        selectLevelText.setY(getScreenHeight());
+        selectLevelText.setVisible(true);
         TranslateAnimation logoAnimation = new TranslateAnimation(selectLevelText, Animation.DURATION_LONG, Animation.DURATION_SHORT);
-        logoAnimation.setFrom(0, getScreenHeight());
         logoAnimation.setTo(0, getScreenHeight() - selectLevelText.getHeight());
         logoAnimation.start();
 
