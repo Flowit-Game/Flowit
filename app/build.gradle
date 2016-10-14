@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 24
@@ -35,5 +34,7 @@ android {
 }
 
 dependencies {
-    compile 'com.google.firebase:firebase-ads:9.6.1'
+    compile 'com.google.android.gms:play-services-ads-lite:9.6.1'
 }
+
+apply plugin: 'com.google.gms.google-services'
