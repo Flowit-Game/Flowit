@@ -5,7 +5,7 @@ import android.opengl.GLSurfaceView;
 import android.util.AttributeSet;
 
 public class MyGLSurfaceView extends GLSurfaceView {
-    GLRenderer glRenderer;
+    private final GLRenderer glRenderer;
 
     public MyGLSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);

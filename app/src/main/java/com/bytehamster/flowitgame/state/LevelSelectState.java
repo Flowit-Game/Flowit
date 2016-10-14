@@ -19,7 +19,7 @@ public class LevelSelectState extends State {
 
     private int pack = 0;
     private Plane selectLevelText;
-    private Plane[] levelIcons = new Plane[25];
+    private final Plane[] levelIcons = new Plane[25];
 
     private LevelSelectState() {
 

@@ -3,7 +3,7 @@ package com.bytehamster.flowitgame.animation;
 import com.bytehamster.flowitgame.object.Drawable;
 
 abstract class AnimationSingle extends Animation {
-    final int steps;
+    private final int steps;
 
     AnimationSingle(Drawable subject, int steps, int startIn) {
         super(subject, startIn);

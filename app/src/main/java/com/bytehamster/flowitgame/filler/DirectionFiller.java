@@ -11,11 +11,11 @@ public class DirectionFiller {
     private boolean somethingWasFilled = false;
     private Modifier fillFrom = Modifier.EMPTY;
     private Modifier fillTo = Modifier.BLUE;
-    private Runnable execAfter;
-    private Level levelData;
-    private State state;
-    private int dx;
-    private int dy;
+    private final Runnable execAfter;
+    private final Level levelData;
+    private final State state;
+    private final int dx;
+    private final int dy;
 
     public DirectionFiller(Level levelData, State state, Runnable execAfter, int dx, int dy) {
         this.levelData = levelData;

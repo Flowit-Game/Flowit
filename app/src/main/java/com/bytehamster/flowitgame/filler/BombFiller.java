@@ -9,9 +9,9 @@ import com.bytehamster.flowitgame.state.State;
 
 public class BombFiller {
     private Modifier fillTo = Modifier.BLUE;
-    private Runnable execAfter;
-    private Level levelData;
-    private State state;
+    private final Runnable execAfter;
+    private final Level levelData;
+    private final State state;
 
     public BombFiller(Level levelData, State state, Runnable execAfter) {
         this.levelData = levelData;

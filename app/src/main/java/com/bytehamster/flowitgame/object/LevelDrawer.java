@@ -18,7 +18,6 @@ public class LevelDrawer extends Drawable {
     private Plane[] modifiers;
     private float boxSize = 50f;
     private float screenWidth = 0;
-    private float screenHeight = 0;
 
     public static LevelDrawer getInstance() {
         if (instance == null) {
@@ -137,20 +136,12 @@ public class LevelDrawer extends Drawable {
         }
     }
 
-    public Level getLevel() {
-        return level;
-    }
-
     public void setLevel(Level level) {
         this.level = level;
     }
 
     public void setScreenWidth(float screenWidth) {
         this.screenWidth = screenWidth;
-    }
-
-    public void setScreenHeight(float screenHeight) {
-        this.screenHeight = screenHeight;
     }
 
     public float getBoxSize() {

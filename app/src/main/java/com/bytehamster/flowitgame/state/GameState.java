@@ -75,7 +75,6 @@ public class GameState extends State {
         glRenderer.addDrawable(restart);
 
         levelDrawer.setVisible(false);
-        levelDrawer.setScreenHeight(getScreenHeight());
         levelDrawer.setScreenWidth(getScreenWidth());
         levelDrawer.initialize();
         glRenderer.addDrawable(levelDrawer);

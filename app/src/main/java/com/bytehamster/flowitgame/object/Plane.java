@@ -3,8 +3,8 @@ package com.bytehamster.flowitgame.object;
 import android.view.MotionEvent;
 
 public class Plane extends Mesh {
-    private float width;
-    private float height;
+    private final float width;
+    private final float height;
 
     public Plane(float x, float y, float width, float height, TextureCoordinates coordinates) {
         this.width = width;

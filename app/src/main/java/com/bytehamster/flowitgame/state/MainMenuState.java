@@ -120,7 +120,7 @@ public class MainMenuState extends State {
                     nextState = LevelPackSelectState.getInstance();
                 } else {
                     nextState = TutorialState.getInstance();
-                    getPreferences().edit().putBoolean("tutorialDisplayed", true).commit();
+                    getPreferences().edit().putBoolean("tutorialDisplayed", true).apply();
                 }
             } else if (settingsButton.collides(event, getScreenHeight())) {
                 nextState = SettingsState.getInstance();

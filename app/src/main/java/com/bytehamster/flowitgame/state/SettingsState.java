@@ -88,7 +88,7 @@ public class SettingsState extends State {
             if (volumeOn.collides(event, getScreenHeight())) {
                 playSound(R.raw.click);
                 boolean newVolume = ! getPreferences().getBoolean("volumeOn", true);
-                getPreferences().edit().putBoolean("volumeOn", newVolume).commit();
+                getPreferences().edit().putBoolean("volumeOn", newVolume).apply();
                 volumeOff.setVisible(!newVolume);
                 volumeOn.setVisible(newVolume);
             }

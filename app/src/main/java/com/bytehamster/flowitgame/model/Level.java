@@ -12,7 +12,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 public class Level {
-    private Field[][] map = new Field[5][6];
+    private final Field[][] map = new Field[5][6];
 
     public Level(int number, Context context) {
         try {

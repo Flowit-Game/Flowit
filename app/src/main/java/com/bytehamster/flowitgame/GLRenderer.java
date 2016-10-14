@@ -20,10 +20,10 @@ public class GLRenderer implements Renderer {
     private Context myContext = null;
     private int width = 0;
     private int height = 0;
-    private int[] textures = new int[2];
+    private final int[] textures = new int[2];
     private Runnable onReady = null;
     private int loadProgress = 0;
-    private ArrayList<Drawable> objects = new ArrayList<>();
+    private final ArrayList<Drawable> objects = new ArrayList<>();
 
     public GLRenderer(Context c) {
         myContext = c;

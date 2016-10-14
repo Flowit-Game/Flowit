@@ -15,9 +15,9 @@ public class FloodFiller {
     private boolean somethingWasFilled = false;
     private Modifier fillFrom = Modifier.EMPTY;
     private Modifier fillTo = Modifier.BLUE;
-    private Runnable execAfter;
-    private Level levelData;
-    private State state;
+    private final Runnable execAfter;
+    private final Level levelData;
+    private final State state;
 
     public FloodFiller(Level levelData, State state, Runnable execAfter) {
         this.levelData = levelData;
@@ -48,12 +48,13 @@ public class FloodFiller {
     }
 
     private class BfsNode {
-        int col, row, distance;
+        final int col, row, distance;
         BfsNode(int col, int row, int distance) {
             this.col = col;
             this.row = row;
             this.distance = distance;
         }
+
         Field getField() {
             return levelData.fieldAt(col, row);
         }
