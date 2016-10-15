@@ -166,18 +166,18 @@
                XXXXX" />
 
     <level number="10"
-        color="boggr
-               bgggg
-               bgggg
-               bgggg
-               bgggg
+        color="odgbb
+               oogbb
+               robbb
+               oorrr
+               ooooo
                00000"
         modifier="
-               FD00F
+               0DD0F
                00000
-               00F00
-               00000
-               r000b
+               R0000
+               0000L
+               F0000
                XXXXX" />
 
     <level number="11"
@@ -271,18 +271,18 @@
                XXXXX" />
 
     <level number="17"
-        color="odgbb
-               oogbb
-               robbb
-               oorrr
-               ooooo
+        color="boggr
+               bgggg
+               bgggg
+               bgggg
+               bgggg
                00000"
         modifier="
-               0DD0F
+               FD00F
                00000
-               R0000
-               0000L
-               F0000
+               00F00
+               00000
+               r000b
                XXXXX" />
 
     <level number="18"
