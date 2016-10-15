@@ -17,7 +17,7 @@ public class LevelSelectState extends State {
     private static LevelSelectState instance;
     private State nextState = this;
 
-    private int pack = 0;
+    private int pack = 1;
     private Plane selectLevelText;
     private final Plane[] levelIcons = new Plane[25];
 
