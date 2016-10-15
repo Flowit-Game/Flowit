@@ -91,18 +91,18 @@
                XXXXX" />
 
     <level number="5"
-        color="bbbrr
-               bbbrr
-               bbbrr
-               bbbrr
-               bborr
+        color="rgbgg
+               rgbgg
+               rgooo
+               rgrrr
+               rgrrr
                00000"
         modifier="
+               00D0F
                00000
+               00R00
                00000
-               F000F
-               00000
-               00U00
+               UUF00
                XXXXX" />
 
     <level number="6"
@@ -136,6 +136,21 @@
                XXXXX" />
 
     <level number="8"
+        color="bbbrr
+               bbbrr
+               bbbrr
+               bbbrr
+               bborr
+               00000"
+        modifier="
+               00000
+               00000
+               F000F
+               00000
+               00U00
+               XXXXX" />
+
+    <level number="9"
         color="ddddd
                ooood
                rrrdd
@@ -148,21 +163,6 @@
                R0000
                00000
                000UF
-               XXXXX" />
-
-    <level number="9"
-        color="rrrrr
-               oorrr
-               gggrr
-               rrbrd
-               rrbrd
-               00000"
-        modifier="
-               00000
-               R0000
-               R0000
-               00000
-               F0UFU
                XXXXX" />
 
     <level number="10"
@@ -196,19 +196,19 @@
                XXXXX" />
 
     <level number="12"
-        color="rrrbb
-               bbrrb
-               rrrrr
-               rrrrg
-               rrrrr
-               ggbrg"
+        color="boggr
+               bgggg
+               bgggg
+               bgggg
+               bgggg
+               00000"
         modifier="
-               0000L
-               g000L
+               FD00F
                00000
-               0000L
+               00F00
                00000
-               gUUFF" />
+               r000b
+               XXXXX" />
 
     <level number="13"
         color="rbooo
@@ -226,33 +226,33 @@
                XXXXX" />
 
     <level number="14"
-        color="brrro
-               bbrro
-               rbbro
-               rrrrr
-               ggggr
-               00000"
+        color="0g000
+               0rrrr
+               brbbb
+               grggg
+               0rrrr
+               0b00r"
         modifier="
-               F000L
+               XDXXX
+               X0000
                0000L
                0000L
-               00000
-               UUUUF
-               XXXXX" />
+               X0000
+               XUXXF" />
 
     <level number="15"
-        color="rgbgg
-               rgbgg
-               rgooo
-               rgrrr
-               rgrrr
+        color="rrrrr
+               oorrr
+               gggrr
+               rrbrd
+               rrbrd
                00000"
         modifier="
-               00D0F
                00000
-               00R0g
+               R0000
+               R0000
                00000
-               UUF00
+               F0UFU
                XXXXX" />
 
     <level number="16"
@@ -271,19 +271,19 @@
                XXXXX" />
 
     <level number="17"
-        color="boggr
-               bgggg
-               bgggg
-               bgggg
-               bgggg
-               00000"
+        color="rrrbb
+               bbrrb
+               rrrrr
+               rrrrg
+               rrrrr
+               ggbrg"
         modifier="
-               FD00F
+               0000L
+               g000L
                00000
-               00F00
+               0000L
                00000
-               r000b
-               XXXXX" />
+               gUUFF" />
 
     <level number="18"
         color="rgooo
@@ -316,19 +316,19 @@
                XXXXX" />
 
     <level number="20"
-        color="0g000
-               0rrrr
-               brbbb
-               grggg
-               0rrrr
-               0b00r"
+        color="brrro
+               bbrro
+               rbbro
+               rrrrr
+               ggggr
+               00000"
         modifier="
-               XDXXX
-               X0000
+               F000L
                0000L
                0000L
-               X0000
-               XUXXF" />
+               00000
+               UUUUF
+               XXXXX" />
 
     <level number="21"
         color="rrg00
