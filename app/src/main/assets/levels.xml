@@ -935,19 +935,19 @@
                XUFUX" />
 
     <level number="61"
-        color="rrooo
-               rrbbo
-               rrrbo
-               rgrbo
-               rggbo
-               rrooo"
+        color="rbrbr
+               rrrrr
+               rrbrr
+               rrbrr
+               brrrb
+               rbbbr"
         modifier="
-               0000F
-               B00s0
-               00000
-               00000
+               F00FL
                0w000
-               F0000" />
+               00000
+               00B00
+               R0R00
+               00UU0" />
 
     <level number="62"
         color="rbrbr
@@ -1025,19 +1025,19 @@
                0FUoF" />
 
     <level number="67"
-        color="grgbr
-               rrgbr
-               bbgbr
-               bbggr
-               gbbgg
-               gbbbg"
+        color="rrooo
+               rrbbo
+               rrrbo
+               rgrbo
+               rggbo
+               rrooo"
         modifier="
-               0F0B0
-               00L00
-               BU0F0
-               0R00w
-               00U00
-               U00UF" />
+               0000F
+               B00s0
+               00000
+               00000
+               0w000
+               F0000" />
 
     <level number="68"
         color="rbbbg
@@ -1098,4 +1098,34 @@
                R00B0
                R0F00
                XUFo0" />
+
+    <level number="72"
+        color="bbbbb
+               bbrrb
+               bbrrg
+               rrbbg
+               brrrg
+               grbrg"
+        modifier="
+               0D00a
+               B0B00
+               R0000
+               F0000
+               R0000
+               F0F00" />
+
+    <level number="73"
+        color="grgbr
+               rrgbr
+               bbgbr
+               bbggr
+               gbbgg
+               gbbbg"
+        modifier="
+               0F0B0
+               00L00
+               BU0F0
+               0R00w
+               00U00
+               U00UF" />
 </levels>
