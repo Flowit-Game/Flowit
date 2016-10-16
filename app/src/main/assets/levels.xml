@@ -1128,4 +1128,19 @@
                0R00w
                00U00
                U00UF" />
+
+    <level number="74"
+        color="rgbrb
+               bgbrb
+               ggrbb
+               ggrbb
+               gbrbb
+               grrrr"
+        modifier="
+               00D00
+               0000L
+               0000F
+               B000B
+               0UFUL
+               FUB0F" />
 </levels>
