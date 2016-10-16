@@ -52,7 +52,7 @@ abstract public class State {
         }
     }
 
-    boolean isPlayed(int level) {
+    boolean isSolved (int level) {
         return playedPrefs.getBoolean("l"+level, false);
     }
 
@@ -69,13 +69,13 @@ abstract public class State {
                 int pack = level / 25;
                 // Loop over previous pack
                 for (int i = (pack-1)*25; i < pack*25; i++) {
-                    if(!isPlayed(i)) {
+                    if(!isSolved(i)) {
                         return false;
                     }
                 }
             }
         }
-        return isPlayed(level - 1) || isPlayed(level - 2) || isPlayed(level - 3);
+        return isSolved(level - 1) || isSolved(level - 2) || isSolved(level - 3);
     }
 
     float getScreenWidth() {

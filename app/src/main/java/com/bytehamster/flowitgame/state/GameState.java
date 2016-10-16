@@ -38,9 +38,16 @@ public class GameState extends State {
     private Plane left;
     private Plane right;
     private Plane restart;
+    private Plane solved;
     private AnimationRepeated rightButtonGlow;
     private boolean isFilling = false;
     private boolean won = false;
+    private float topButtonSize;
+    private LastLevelState lastLevelState = LastLevelState.NO_LEVEL;
+
+    private enum LastLevelState {
+        SOLVED, NO_LEVEL, NOT_SOLVED
+    }
 
     private GameState() {
 
@@ -55,7 +62,7 @@ public class GameState extends State {
 
     @Override
     protected void initialize(GLRenderer glRenderer) {
-        float topButtonSize = glRenderer.getWidth() / 8f;
+        topButtonSize = glRenderer.getWidth() / 7.5f;
         left = ObjectFactory.createSingleBox(0, 10, topButtonSize);
         left.setX(topButtonSize * 0.5f);
         left.setY(glRenderer.getHeight() - topButtonSize * 1.5f);
@@ -63,16 +70,23 @@ public class GameState extends State {
         glRenderer.addDrawable(left);
 
         right = ObjectFactory.createSingleBox(1, 10, topButtonSize);
-        right.setX(glRenderer.getWidth() - topButtonSize * 1.5f);
+        right.setX(topButtonSize * 6f);
         right.setY(glRenderer.getHeight() - topButtonSize * 1.5f);
         right.setVisible(false);
         glRenderer.addDrawable(right);
 
         restart = ObjectFactory.createSingleBox(2, 10, topButtonSize);
-        restart.setX((glRenderer.getWidth() - topButtonSize) / 2);
+        restart.setX(topButtonSize * 4.5f);
         restart.setY(glRenderer.getHeight() - topButtonSize * 1.5f);
         restart.setVisible(false);
         glRenderer.addDrawable(restart);
+
+        TextureCoordinates coordinatesSolved = TextureCoordinates.getFromBlocks(3, 10, 5, 11);
+        solved = new Plane(0, 0, 2*topButtonSize, topButtonSize, coordinatesSolved);
+        solved.setX(topButtonSize * 2f);
+        solved.setY(glRenderer.getHeight() - topButtonSize * 1.5f);
+        solved.setVisible(false);
+        glRenderer.addDrawable(solved);
 
         levelDrawer.setVisible(false);
         levelDrawer.setScreenWidth(getScreenWidth());
@@ -90,15 +104,16 @@ public class GameState extends State {
         lockedMessage.setVisible(false);
         glRenderer.addDrawable(lockedMessage);
 
-        ScaleAnimation leftAnimation = new ScaleAnimation(right, Animation.DURATION_SHORT, 0);
-        leftAnimation.setFrom(1);
-        leftAnimation.setTo(1.2f);
-        rightButtonGlow = new AnimationRepeated(leftAnimation);
+        ScaleAnimation rightAnimation = new ScaleAnimation(right, Animation.DURATION_SHORT, 0);
+        rightAnimation.setFrom(1);
+        rightAnimation.setTo(1.2f);
+        rightButtonGlow = new AnimationRepeated(rightAnimation);
     }
 
     @Override
     public void entry() {
         nextState = this;
+        lastLevelState = LastLevelState.NO_LEVEL;
         reloadLevel();
 
         levelDrawer.setVisible(true);
@@ -126,7 +141,12 @@ public class GameState extends State {
                 float availableSpace = getScreenHeight() - getAdHeight();
                 lockedMessage.setY(-getScreenWidth() * 0.5f);
                 lockedMessage.setVisible(true);
-                TranslateAnimation inAnimation = new TranslateAnimation(lockedMessage, Animation.DURATION_SHORT, Animation.DURATION_SHORT);
+                TranslateAnimation inAnimation;
+                if (lastLevelState == LastLevelState.NO_LEVEL) {
+                    inAnimation = new TranslateAnimation(lockedMessage, Animation.DURATION_LONG, Animation.DURATION_LONG);
+                } else {
+                    inAnimation = new TranslateAnimation(lockedMessage, Animation.DURATION_SHORT, 0);
+                }
                 inAnimation.setTo(0, (availableSpace-lockedMessage.getHeight())/2 + getAdHeight());
                 inAnimation.start();
             }
@@ -135,6 +155,26 @@ public class GameState extends State {
             outAnimation.setTo(0, -getScreenWidth() * 0.5f);
             outAnimation.setHideAfter(true);
             outAnimation.start();
+        }
+
+        if (isSolved(level)) {
+            if (lastLevelState == LastLevelState.NO_LEVEL) {
+                solved.setScale(1);
+                solved.setVisible(true);
+                restart.setX(topButtonSize * 4.5f);
+                AnimationFactory.startScaleShow(solved);
+            } else if (lastLevelState == LastLevelState.NOT_SOLVED) {
+                showSolved(Animation.DURATION_SHORT/2);
+            }
+            lastLevelState = LastLevelState.SOLVED;
+        } else {
+            if (!isSolved(level) && lastLevelState == LastLevelState.NO_LEVEL) {
+                solved.setVisible(false);
+                restart.setX(topButtonSize * 3.25f);
+            } else if (!isSolved(level) && lastLevelState == LastLevelState.SOLVED) {
+                hideSolved();
+            }
+            lastLevelState = LastLevelState.NOT_SOLVED;
         }
     }
 
@@ -151,6 +191,7 @@ public class GameState extends State {
         AnimationFactory.startScaleHide(left);
         AnimationFactory.startScaleHide(right);
         AnimationFactory.startScaleHide(restart);
+        AnimationFactory.startScaleHide(solved);
 
         TranslateAnimation outAnimation = new TranslateAnimation(lockedMessage, Animation.DURATION_SHORT, 0);
         outAnimation.setTo(0, -getScreenWidth() * 0.5f);
@@ -310,6 +351,7 @@ public class GameState extends State {
             playSound(R.raw.won);
             makePlayed(level);
             saveSteps(level, stepsUsed);
+            lastLevelState = LastLevelState.SOLVED;
 
             float availableSpace = getScreenHeight() - getAdHeight();
             winMessage.setY(-getScreenWidth() * 0.5f);
@@ -324,7 +366,38 @@ public class GameState extends State {
             outAnimation.setHideAfter(true);
             outAnimation.start();
 
+            if (!solved.isVisible()) {
+                showSolved(Animation.DURATION_LONG);
+            }
+
             rightButtonGlow.start();
         }
+    }
+
+    private void showSolved(int speed) {
+        solved.setScale(0);
+        solved.setVisible(true);
+        ScaleAnimation leftAnimation = new ScaleAnimation(solved, speed, 0);
+        leftAnimation.setFrom(0);
+        leftAnimation.setTo(1);
+        leftAnimation.start();
+
+        TranslateAnimation rightAnimation = new TranslateAnimation(restart, speed, 0);
+        rightAnimation.setTo(4.5f * topButtonSize, getScreenHeight() - 1.5f * topButtonSize);
+        rightAnimation.setHideAfter(false);
+        rightAnimation.start();
+    }
+
+    private void hideSolved() {
+        ScaleAnimation leftAnimation = new ScaleAnimation(solved, Animation.DURATION_SHORT/2, 0);
+        leftAnimation.setFrom(1);
+        leftAnimation.setTo(0);
+        leftAnimation.setHideAfter(true);
+        leftAnimation.start();
+
+        TranslateAnimation rightAnimation = new TranslateAnimation(restart, Animation.DURATION_SHORT/2, 0);
+        rightAnimation.setTo(3.25f * topButtonSize, getScreenHeight() - 1.5f * topButtonSize);
+        rightAnimation.setHideAfter(false);
+        rightAnimation.start();
     }
 }

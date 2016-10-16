@@ -71,7 +71,7 @@ public class LevelSelectState extends State {
         for (int row = 0; row < 5; row++) {
             for (int col = 0; col < 5; col++) {
                 int levelID = (pack - 1) * 25 + row * 5 + col;
-                if (isPlayed(levelID)) {
+                if (isSolved(levelID)) {
                     levelIcons[row * 5 + col].updateTextureCoordinates(coordinatesLevelDone);
                 } else if (!isPlayable(levelID)) {
                     levelIcons[row * 5 + col].updateTextureCoordinates(coordinatesLevelLocked);
