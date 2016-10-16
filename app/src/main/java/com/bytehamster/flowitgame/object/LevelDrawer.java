@@ -35,7 +35,7 @@ public class LevelDrawer extends Drawable {
         colors[2] = ObjectFactory.createSingleBox(12, 0, boxSize);
         colors[3] = ObjectFactory.createSingleBox(14, 0, boxSize);
         colors[4] = ObjectFactory.createSingleBox(8, 1, boxSize);
-        colors[5] = ObjectFactory.createSingleBox(11, 1, boxSize);
+        colors[5] = ObjectFactory.createSingleBox(15, 15, boxSize);
 
         modifiers = new Plane[17];
         modifiers[0] = ObjectFactory.createSingleBox(9, 0, boxSize);
@@ -45,7 +45,7 @@ public class LevelDrawer extends Drawable {
         modifiers[4] = ObjectFactory.createSingleBox(9, 1, boxSize);
         modifiers[5] = ObjectFactory.createSingleBox(8, 2, boxSize);
         modifiers[6] = ObjectFactory.createSingleBox(10, 1, boxSize);
-        modifiers[7] = ObjectFactory.createSingleBox(11, 1, boxSize);
+        modifiers[7] = ObjectFactory.createSingleBox(15, 15, boxSize);
         modifiers[8] = ObjectFactory.createSingleBox(10, 2, boxSize);
         modifiers[9] = ObjectFactory.createSingleBox(9, 2, boxSize);
         modifiers[10] = ObjectFactory.createSingleBox(11, 2, boxSize);
@@ -114,7 +114,7 @@ public class LevelDrawer extends Drawable {
                 return modifiers[16];
             case BOMB:
                 return modifiers[12];
-            default:
+            default: // empty
                 return modifiers[7];
         }
     }
