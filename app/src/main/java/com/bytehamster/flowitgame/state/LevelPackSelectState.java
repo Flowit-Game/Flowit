@@ -119,6 +119,10 @@ public class LevelPackSelectState extends State {
                 nextState = LevelSelectState.getInstance();
                 LevelSelectState.getInstance().setPack(3);
                 playSound(R.raw.click);
+            } else if (pack4.collides(event, getScreenHeight())) {
+                nextState = LevelSelectState.getInstance();
+                LevelSelectState.getInstance().setPack(4);
+                playSound(R.raw.click);
             }
         }
     }

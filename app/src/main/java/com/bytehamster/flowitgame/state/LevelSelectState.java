@@ -42,7 +42,7 @@ public class LevelSelectState extends State {
 
         float boxSize = getScreenWidth() / (5 + 2 + 2);
         float availableSpace = getScreenHeight() - getAdHeight() - selectLevelText.getHeight();
-        float boxStart = getScreenHeight() - selectLevelText.getHeight() - (availableSpace-boxSize*6.5f)/2;
+        float boxStart = getScreenHeight() - selectLevelText.getHeight() - (availableSpace - boxSize * 6.5f) / 2;
         TextureCoordinates coordinatesLevel = TextureCoordinates.getFromBlocks(6, 0, 7, 1);
         for (int row = 0; row < 5; row++) {
             for (int col = 0; col < 5; col++) {
@@ -66,9 +66,19 @@ public class LevelSelectState extends State {
         logoAnimation.setTo(0, getScreenHeight() - selectLevelText.getHeight());
         logoAnimation.start();
 
-        TextureCoordinates coordinatesLevel = TextureCoordinates.getFromBlocks(6, pack - 1, 7, pack);
-        TextureCoordinates coordinatesLevelDone = TextureCoordinates.getFromBlocks(7, pack - 1, 8, pack);
-        TextureCoordinates coordinatesLevelLocked = TextureCoordinates.getFromBlocks(5 + pack, 3, 6 + pack, 4);
+        TextureCoordinates coordinatesLevel;
+        TextureCoordinates coordinatesLevelDone;
+        TextureCoordinates coordinatesLevelLocked;
+        if (pack == 4) {
+            coordinatesLevel = TextureCoordinates.getFromBlocks(11, 1, 12, 2);
+            coordinatesLevelDone = TextureCoordinates.getFromBlocks(12, 1, 13, 2);
+            coordinatesLevelLocked = TextureCoordinates.getFromBlocks(13, 1, 14, 2);
+        } else {
+            coordinatesLevel = TextureCoordinates.getFromBlocks(6, pack - 1, 7, pack);
+            coordinatesLevelDone = TextureCoordinates.getFromBlocks(7, pack - 1, 8, pack);
+            coordinatesLevelLocked = TextureCoordinates.getFromBlocks(5 + pack, 3, 6 + pack, 4);
+        }
+
         for (int row = 0; row < 5; row++) {
             for (int col = 0; col < 5; col++) {
                 int levelID = (pack - 1) * 25 + row * 5 + col;
