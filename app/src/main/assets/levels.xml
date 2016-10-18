@@ -1143,4 +1143,26 @@
                B000B
                0UFUL
                FUB0F" />
+
+    <!-- =========== LEVEL PACK 4 ============ -->
+
+    <level number="75"
+        color="rrrrrr
+               rrrrrr
+               rrrrrr
+               rrrrrr
+               rrrrrr
+               rrrrrr
+               rrrrrr
+               rrrrrr"
+        modifier="
+               000000
+               000000
+               000000
+               000000
+               000000
+               000000
+               000000
+               000000" />
+
 </levels>

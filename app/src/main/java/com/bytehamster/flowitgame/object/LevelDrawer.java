@@ -62,15 +62,15 @@ public class LevelDrawer extends Drawable {
     }
 
     @Override
-    public void draw(GL10 gl) {
+    public synchronized void draw(GL10 gl) {
         if (level == null || !isVisible()) {
             return;
         }
 
         processAnimations();
 
-        for(int col = 0; col < level.getWidth(); col++) {
-            for(int row = 0; row < level.getHeight(); row++) {
+        for (int col = 0; col < level.getWidth(); col++) {
+            for (int row = 0; row < level.getHeight(); row++) {
                 Field field = level.fieldAt(col, row);
 
                 Plane color = getColorPlane(field.getColor());
@@ -142,7 +142,7 @@ public class LevelDrawer extends Drawable {
         }
     }
 
-    public void setLevel(Level level) {
+    public synchronized void setLevel(Level level) {
         if (this.level == null || level.getWidth() != this.level.getWidth()) {
             this.level = level;
             initialize();

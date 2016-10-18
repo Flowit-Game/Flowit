@@ -12,7 +12,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 public class Level {
-    private final Field[][] map = new Field[5][6];
+    private Field[][] map;
 
     public Level(int number, Context context) {
         try {
@@ -28,28 +28,40 @@ public class Level {
                 }
                 Element level = (Element) levelList.item(i);
                 if (level.getAttribute("number").equals("" + number)) {
-                    String color = level.getAttribute("color");
-                    color = color.replaceAll("\\s", "");
-                    String modifier = level.getAttribute("modifier");
-                    modifier = modifier.replaceAll("\\s", "");
-
-                    for(int col = 0; col < 5; col++) {
-                        for(int row = 0; row < 6; row++) {
-                            int index = col + row*5;
-                            map[col][row] = new Field(color.charAt(index), modifier.charAt(index));
-                        }
-                    }
+                    loadLevel(level.getAttribute("color"), level.getAttribute("modifier"));
                     return;
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Error loading level:\n\n" + e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
+        //Empty level
+        map = new Field[5][6];
         for(int col = 0; col < 5; col++) {
             for(int row = 0; row < 6; row++) {
                 map[col][row] = new Field('0', 'X');
+            }
+        }
+    }
+
+    private void loadLevel(String color, String modifier) {
+        color = color.replaceAll("\\s", "");
+        modifier = modifier.replaceAll("\\s", "");
+        int width = 5;
+        int height = 6;
+
+        if (color.length() == 6*8 && modifier.length() == 6*8) {
+            width = 6;
+            height = 8;
+        }
+
+        map = new Field[width][height];
+        for(int col = 0; col < width; col++) {
+            for(int row = 0; row < height; row++) {
+                int index = col + row * width;
+                map[col][row] = new Field(color.charAt(index), modifier.charAt(index));
             }
         }
     }
