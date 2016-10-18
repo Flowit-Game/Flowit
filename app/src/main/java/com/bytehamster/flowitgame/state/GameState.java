@@ -104,7 +104,7 @@ public class GameState extends State {
         lockedMessage.setVisible(false);
         glRenderer.addDrawable(lockedMessage);
 
-        ScaleAnimation rightAnimation = new ScaleAnimation(right, Animation.DURATION_SHORT, 0);
+        ScaleAnimation rightAnimation = new ScaleAnimation(right, Animation.DURATION_LONG, 0);
         rightAnimation.setFrom(1);
         rightAnimation.setTo(1.2f);
         rightButtonGlow = new AnimationRepeated(rightAnimation);
