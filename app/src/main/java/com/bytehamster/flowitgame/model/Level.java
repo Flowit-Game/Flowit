@@ -59,10 +59,18 @@ public class Level {
     }
 
     public void unvisitAll() {
-        for(int col = 0; col < 5; col++) {
-            for(int row = 0; row < 6; row++) {
+        for(int col = 0; col < getWidth(); col++) {
+            for(int row = 0; row < getHeight(); row++) {
                 map[col][row].setVisited(false);
             }
         }
+    }
+
+    public int getWidth() {
+        return map.length;
+    }
+
+    public int getHeight() {
+        return map[0].length;
     }
 }

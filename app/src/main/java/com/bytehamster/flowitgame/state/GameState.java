@@ -94,10 +94,8 @@ public class GameState extends State {
 
         levelDrawer.setVisible(false);
         levelDrawer.setScreenWidth(getScreenWidth());
-        levelDrawer.initialize();
         levelDrawer.setX(0);
         glRenderer.addDrawable(levelDrawer);
-        boardStartY = 2 * topButtonSize + (getScreenHeight() - getAdHeight() - levelDrawer.getHeight())/2;
 
         TextureCoordinates coordinatesWin = TextureCoordinates.getFromBlocks(0, 8, 6, 10);
         winMessage = new Plane(0, glRenderer.getHeight(), glRenderer.getWidth(), glRenderer.getWidth() / 3, coordinatesWin);
@@ -142,6 +140,7 @@ public class GameState extends State {
         isFilling = false;
         levelData = new Level(level, getActivity());
         levelDrawer.setLevel(levelData);
+        boardStartY = 2 * topButtonSize + (getScreenHeight() - getAdHeight() - levelDrawer.getHeight())/2;
 
         if (!isPlayable(level)) {
             float availableSpace = getScreenHeight() - getAdHeight();
@@ -250,8 +249,8 @@ public class GameState extends State {
                 return;
             }
 
-            for (int row = 0; row < 6; row++) {
-                for (int col = 0; col < 5; col++) {
+            for (int row = 0; row < levelData.getHeight(); row++) {
+                for (int col = 0; col < levelData.getWidth(); col++) {
                     if (event.getY() > boardStartY + (row - 1) * levelDrawer.getBoxSize()
                             && event.getY() < boardStartY + row * levelDrawer.getBoxSize()
                             && event.getX() > (col + 0.5) * levelDrawer.getBoxSize()

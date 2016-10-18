@@ -26,8 +26,12 @@ public class LevelDrawer extends Drawable {
         return instance;
     }
 
-    public void initialize() {
-        this.boxSize = this.screenWidth / 6f;
+    private void initialize() {
+        if (level == null) {
+            this.boxSize = this.screenWidth / 6f;
+        } else {
+            this.boxSize = this.screenWidth / (float) (level.getWidth() + 1);
+        }
 
         colors = new Plane[6];
         colors[0] = ObjectFactory.createSingleBox(8, 0, boxSize);
@@ -65,8 +69,8 @@ public class LevelDrawer extends Drawable {
 
         processAnimations();
 
-        for(int col = 0; col < 5; col++) {
-            for(int row = 0; row < 6; row++) {
+        for(int col = 0; col < level.getWidth(); col++) {
+            for(int row = 0; row < level.getHeight(); row++) {
                 Field field = level.fieldAt(col, row);
 
                 Plane color = getColorPlane(field.getColor());
@@ -139,7 +143,12 @@ public class LevelDrawer extends Drawable {
     }
 
     public void setLevel(Level level) {
-        this.level = level;
+        if (this.level == null || level.getWidth() != this.level.getWidth()) {
+            this.level = level;
+            initialize();
+        } else {
+            this.level = level;
+        }
     }
 
     public void setScreenWidth(float screenWidth) {
@@ -151,6 +160,6 @@ public class LevelDrawer extends Drawable {
     }
 
     public float getHeight() {
-        return 6*getBoxSize();
+        return level.getHeight()*getBoxSize();
     }
 }
