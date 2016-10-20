@@ -60,18 +60,30 @@ abstract public class State {
         return prefs;
     }
 
+    private int getPlayedInPack(int pack) {
+        int num = 0;
+        for (int i = (pack-1)*25; i < pack*25; i++) {
+            if(isSolved(i)) {
+                num++;
+            }
+        }
+        return num;
+    }
+
     boolean isPlayable(int level) {
         if (level%25 < 3) {
             // One of the first three levels in pack
-            if(level < 3) {
+            if (level < 3) {
                 return true;
             } else {
-                int pack = level / 25;
-                // Loop over previous pack
-                for (int i = (pack-1)*25; i < pack*25; i++) {
-                    if(!isSolved(i)) {
-                        return false;
-                    }
+                int pack = level / 25 + 1;
+
+                if (pack == 4 && getPlayedInPack(1) >= 23) {
+                    return true;
+                } else if (pack == 2 && (getPlayedInPack(4) >= 23 || getPlayedInPack(1) >= 23)) {
+                    return true;
+                } else if (pack == 3 && getPlayedInPack(2) >= 23) {
+                    return true;
                 }
             }
         }
