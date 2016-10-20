@@ -1,5 +1,6 @@
 package com.bytehamster.flowitgame;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.app.Activity;
 import android.os.Handler;
@@ -41,6 +42,9 @@ public class Main extends Activity {
                 .addTestDevice("BD77EB0FBCAB78BD7BD95E32C84D1F73")
                 .build();
         mAdView.loadAd(adRequest);
+
+        getSharedPreferences("preferences", Context.MODE_PRIVATE).edit()
+                .putInt("lastAppVersion", BuildConfig.VERSION_CODE).apply();
 
         createViews();
     }
