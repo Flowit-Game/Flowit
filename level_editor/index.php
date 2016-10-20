@@ -61,9 +61,9 @@ if (@$_GET["action"] == "restart") {
 }
 
 
-if (!isset($_SESSION["level_data"])) {
-    $_SESSION["rows"] = 6;
-    $_SESSION["cols"] = 5;
+if (!isset($_SESSION["level_data"]) && isset($_GET["cols"]) && isset($_GET["rows"])) {
+    $_SESSION["rows"] = $_GET["rows"];
+    $_SESSION["cols"] = $_GET["cols"];
 
     $_SESSION["level_data"] = array();
     for ($i = 0; $i < $_SESSION["rows"]; $i++) {
@@ -124,8 +124,12 @@ if (!isset($_SESSION["level_data"])) {
             else
                 return "false";
         }
-
-        if (@$_GET["action"] == "source") {
+        
+        
+        if (!isset($_SESSION["level_data"])) {
+            echo "<br /><br /><a href=\"?cols=5&rows=6\">5*6 Feld erstellen</a><br />";
+            echo "<a href=\"?cols=6&rows=8\">6*8 Feld erstellen</a>";
+        } else if (@$_GET["action"] == "source") {
             echo "<strong>Der fertige Quellcode für dieses Level:</strong><br /><br />";
             echo "<textarea style=\"width:300px;font-family:monospace;height:500px;font-size:16px;border:2px solid #fff;padding:10px;text-align:left;\">";
 
