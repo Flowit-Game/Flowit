@@ -1148,21 +1148,21 @@
 
     <level number="75"
         color="rrbgrr
-               brggrb
-               brrgrb
-               brggrb
-               brgrrb
-               brggrb
-               rrrrrr
-               rbbbbr"
+               rgggrb
+               rgrrrb
+               rggrgb
+               rrgggb
+               rggrgb
+               rrrrgg
+               bbbbbg"
         modifier="
-               F0FF00
-               R0000L
-               R0000L
-               R0000L
-               R0000L
-               R0000L
+               F0FF0F
+               00000L
+               00000L
+               00000L
+               00000L
+               00000L
                000000
-               0UUUU0" />
+               UUUUU0" />
 
 </levels>
