@@ -79,6 +79,7 @@ public class LevelSelectState extends State {
                     levelIcons[row * 5 + col].updateTextureCoordinates(coordinatesLevel);
                 }
                 levelIcons[row * 5 + col].setVisible(true);
+                levelIcons[row * 5 + col].setScale(0);
 
                 ScaleAnimation scaleAnimation = new ScaleAnimation(levelIcons[row * 5 + col],
                         Animation.DURATION_SHORT, (int) (Animation.DURATION_SHORT * 0.3f * (col + row) + Animation.DURATION_LONG));
