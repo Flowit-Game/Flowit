@@ -1147,22 +1147,22 @@
     <!-- =========== LEVEL PACK 4 ============ -->
 
     <level number="75"
-        color="brrbrr
+        color="rrbgrr
+               brggrb
+               brrgrb
+               brggrb
+               brgrrb
+               brggrb
                rrrrrr
-               rrrrrb
-               brrrrr
-               rrrrrr
-               brrrrr
-               rrrrrr
-               rrrrbr"
+               rbbbbr"
         modifier="
-               F00D00
+               F0FF00
+               R0000L
+               R0000L
+               R0000L
+               R0000L
+               R0000L
                000000
-               00000L
-               R00000
-               000000
-               B00000
-               000000
-               0000U0" />
+               0UUUU0" />
 
 </levels>
