@@ -46,9 +46,11 @@ public class DirectionFiller {
     }
 
     private void doFill(int col, int row) {
-        int x = col+dx;
-        int y = row+dy;
-        while (y>=0 && x >= 0 && y < 6 && x < 5 && levelData.fieldAt(x, y).getModifier() == fillFrom) {
+        int x = col + dx;
+        int y = row + dy;
+
+        while (y >= 0 && x >= 0 && y < levelData.getHeight() && x < levelData.getWidth()
+                && levelData.fieldAt(x, y).getModifier() == fillFrom) {
             Field f = levelData.fieldAt(x, y);
             somethingWasFilled = true;
             f.setModifier(fillTo);

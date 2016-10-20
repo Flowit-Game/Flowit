@@ -55,7 +55,7 @@ public class BombFiller {
     }
 
     private void doFill(int col, int row) {
-        if (row >= 0 && col >= 0 && row < 6 && col < 5) {
+        if (row >= 0 && col >= 0 && row < levelData.getHeight() && col < levelData.getWidth()) {
             Field f = levelData.fieldAt(col, row);
             if(f.getModifier() != Modifier.TRANSPARENT) {
                 f.setModifier(fillTo);

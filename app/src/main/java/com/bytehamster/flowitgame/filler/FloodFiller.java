@@ -94,13 +94,13 @@ public class FloodFiller {
         if (node.col > 0) {
             neighbors.add(new BfsNode(node.col - 1, node.row, node.distance+1));
         }
-        if (node.col < 4) {
+        if (node.col < levelData.getWidth() - 1) {
             neighbors.add(new BfsNode(node.col + 1, node.row, node.distance+1));
         }
         if (node.row > 0) {
             neighbors.add(new BfsNode(node.col, node.row - 1, node.distance+1));
         }
-        if (node.row < 5) {
+        if (node.row < levelData.getHeight() - 1) {
             neighbors.add(new BfsNode(node.col, node.row + 1, node.distance+1));
         }
         return neighbors;
