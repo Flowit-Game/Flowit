@@ -104,11 +104,9 @@ public class MainMenuState extends State {
     }
 
     @Override
-    public void onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            nextState = ExitState.getInstance();
-            playSound(R.raw.click);
-        }
+    public void onBackPressed() {
+        nextState = ExitState.getInstance();
+        playSound(R.raw.click);
     }
 
     @Override

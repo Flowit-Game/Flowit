@@ -49,7 +49,7 @@ public class ExitState extends State {
     }
 
     @Override
-    public void onKeyDown(int keyCode, KeyEvent event) {
+    public void onBackPressed() {
 
     }
 

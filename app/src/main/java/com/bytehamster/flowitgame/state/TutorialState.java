@@ -97,8 +97,9 @@ public class TutorialState extends State {
     }
 
     @Override
-    public void onKeyDown(int keyCode, KeyEvent event) {
-
+    public void onBackPressed() {
+        nextState = MainMenuState.getInstance();
+        getPreferences().edit().putBoolean("tutorialDisplayed", false).apply();
     }
 
     @Override

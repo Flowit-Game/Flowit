@@ -205,11 +205,9 @@ public class GameState extends State {
     }
 
     @Override
-    public void onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            nextState = LevelSelectState.getInstance();
-            playSound(R.raw.click);
-        }
+    public void onBackPressed() {
+        nextState = LevelSelectState.getInstance();
+        playSound(R.raw.click);
     }
 
     @Override

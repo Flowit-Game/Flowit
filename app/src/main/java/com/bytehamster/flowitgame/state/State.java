@@ -24,7 +24,7 @@ abstract public class State {
 
     abstract public State next();
 
-    abstract public void onKeyDown(int keyCode, KeyEvent event);
+    abstract public void onBackPressed();
 
     abstract public void onTouchEvent(MotionEvent event);
 

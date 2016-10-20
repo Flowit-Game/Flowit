@@ -58,7 +58,7 @@ public class Main extends Activity {
                 soundPool.loadSound(R.raw.fill);
                 soundPool.loadSound(R.raw.won);
 
-                State[] states = new State[] {
+                State[] states = new State[]{
                         MainMenuState.getInstance(),
                         ExitState.getInstance(),
                         SettingsState.getInstance(),
@@ -81,15 +81,19 @@ public class Main extends Activity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(currentState != null && glSurfaceView.getRenderer().isReady()) {
-            currentState.onKeyDown(keyCode, event);
-            switchState();
+        if (currentState != null && glSurfaceView.getRenderer().isReady()) {
+            if (keyCode == KeyEvent.KEYCODE_BACK
+                    && event.getAction() == KeyEvent.ACTION_DOWN
+                    && event.getRepeatCount() == 0) {
+                currentState.onBackPressed();
+                switchState();
+            }
         }
         return false;
     }
 
     public boolean onTouchEvent(MotionEvent event) {
-        if(currentState != null && glSurfaceView.getRenderer().isReady()) {
+        if (currentState != null && glSurfaceView.getRenderer().isReady()) {
             currentState.onTouchEvent(event);
             switchState();
         }
