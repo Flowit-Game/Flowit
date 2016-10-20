@@ -43,26 +43,27 @@ public class LevelPackSelectState extends State {
         pack1 = new Plane(-menuEntriesWidth, menuEntriesStartY, menuEntriesWidth, menuEntriesHeight, coordinatesPack1);
         glRenderer.addDrawable(pack1);
 
+        TextureCoordinates coordinatesPack4 = TextureCoordinates.getFromBlocks(6, 10, 12, 11);
+        pack4 = new Plane(-menuEntriesWidth, pack1.getY() - 2 * menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesPack4);
+        glRenderer.addDrawable(pack4);
+
         TextureCoordinates coordinatesPack2 = TextureCoordinates.getFromBlocks(0, 6, 6, 7);
-        pack2 = new Plane(-menuEntriesWidth, pack1.getY() - 2 * menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesPack2);
+        pack2 = new Plane(-menuEntriesWidth, pack4.getY() - 2 * menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesPack2);
         glRenderer.addDrawable(pack2);
 
         TextureCoordinates coordinatesPack3 = TextureCoordinates.getFromBlocks(0, 7, 6, 8);
         pack3 = new Plane(-menuEntriesWidth, pack2.getY() - 2 * menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesPack3);
         glRenderer.addDrawable(pack3);
 
-        TextureCoordinates coordinatesPack4 = TextureCoordinates.getFromBlocks(6, 10, 12, 11);
-        pack4 = new Plane(-menuEntriesWidth, pack3.getY() - 2 * menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesPack4);
-        glRenderer.addDrawable(pack4);
     }
 
     @Override
     public void entry() {
         nextState = this;
-        AnimationFactory.startMenuAnimationEnter(pack1, 3 * Animation.DURATION_SHORT);
-        AnimationFactory.startMenuAnimationEnter(pack2, 4 * Animation.DURATION_SHORT);
-        AnimationFactory.startMenuAnimationEnter(pack3, 5 * Animation.DURATION_SHORT);
-        AnimationFactory.startMenuAnimationEnter(pack4, 6 * Animation.DURATION_SHORT);
+        AnimationFactory.startMenuAnimationEnter(pack1, (int) (3.0f * Animation.DURATION_SHORT));
+        AnimationFactory.startMenuAnimationEnter(pack4, (int) (3.5f * Animation.DURATION_SHORT));
+        AnimationFactory.startMenuAnimationEnter(pack2, (int) (4.0f * Animation.DURATION_SHORT));
+        AnimationFactory.startMenuAnimationEnter(pack3, (int) (4.5f * Animation.DURATION_SHORT));
     }
 
     @Override
