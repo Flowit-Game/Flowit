@@ -70,6 +70,10 @@ abstract public class State {
         return num;
     }
 
+    boolean enoughUnlockedInPack(int pack) {
+        return getPlayedInPack(pack) >= 23;
+    }
+
     boolean isPlayable(int level) {
         if (level%25 < 3) {
             // One of the first three levels in pack
@@ -78,11 +82,11 @@ abstract public class State {
             } else {
                 int pack = level / 25 + 1;
 
-                if (pack == 4 && getPlayedInPack(1) >= 23) {
+                if (pack == 4 && enoughUnlockedInPack(1)) {
                     return true;
-                } else if (pack == 2 && (getPlayedInPack(4) >= 23 || getPlayedInPack(1) >= 23)) {
+                } else if (pack == 2 && enoughUnlockedInPack(1)) {
                     return true;
-                } else if (pack == 3 && getPlayedInPack(2) >= 23) {
+                } else if (pack == 3 && enoughUnlockedInPack(2)) {
                     return true;
                 }
             }
