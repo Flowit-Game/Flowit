@@ -1223,6 +1223,25 @@
                F0U0UF" />
 
     <level number="79"
+        color="rooooo
+               rbbbbo
+               rbggbo
+               rbggbo
+               rbggbo
+               rbgrbo
+               rboboo
+               oooooo"
+        modifier="
+               F0000F
+               0R0000
+               0DF000
+               000000
+               000000
+               000LU0
+               000L00
+               00000L" />
+
+    <level number="80"
         color="0rgogr
                0rbbbr
                orbbbr
