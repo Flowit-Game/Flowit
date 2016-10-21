@@ -7,25 +7,26 @@ import com.bytehamster.flowitgame.model.Level;
 import com.bytehamster.flowitgame.model.Modifier;
 import com.bytehamster.flowitgame.state.State;
 
-public class DirectionFiller {
+public class DirectionFiller extends Filler {
     private boolean somethingWasFilled = false;
     private Modifier fillFrom = Modifier.EMPTY;
     private Modifier fillTo = Modifier.BLUE;
-    private final Runnable execAfter;
     private final Level levelData;
     private final State state;
     private final int dx;
     private final int dy;
+    private final int col, row;
 
-    public DirectionFiller(Level levelData, State state, Runnable execAfter, int dx, int dy) {
+    DirectionFiller(Level levelData, int col, int row, int dx, int dy, State state) {
         this.levelData = levelData;
         this.state = state;
-        this.execAfter = execAfter;
+        this.col = col;
+        this.row = row;
         this.dx = dx;
         this.dy = dy;
     }
 
-    public void fill(final int col, final int row) {
+    public void fill() {
         new Thread() {
             public void run() {
                 somethingWasFilled = false;
@@ -40,7 +41,7 @@ public class DirectionFiller {
                     doFill(col, row);
                 }
 
-                execAfter.run();
+                runOnFinished();
             }
         }.start();
     }

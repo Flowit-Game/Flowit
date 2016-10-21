@@ -11,21 +11,22 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Queue;
 
-public class FloodFiller {
+public class FloodFiller extends Filler {
     private boolean somethingWasFilled = false;
     private Modifier fillFrom = Modifier.EMPTY;
     private Modifier fillTo = Modifier.BLUE;
-    private final Runnable execAfter;
     private final Level levelData;
     private final State state;
+    private final int col, row;
 
-    public FloodFiller(Level levelData, State state, Runnable execAfter) {
+    FloodFiller(Level levelData, int col, int row, State state) {
         this.levelData = levelData;
         this.state = state;
-        this.execAfter = execAfter;
+        this.col = col;
+        this.row = row;
     }
 
-    public void fill(final int col, final int row) {
+    public void fill() {
         new Thread() {
             public void run() {
                 try {
@@ -42,7 +43,7 @@ public class FloodFiller {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                execAfter.run();
+                runOnFinished();
             }
         }.start();
     }

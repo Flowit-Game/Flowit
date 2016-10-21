@@ -14,6 +14,7 @@ import com.bytehamster.flowitgame.animation.ScaleAnimation;
 import com.bytehamster.flowitgame.animation.TranslateAnimation;
 import com.bytehamster.flowitgame.filler.BombFiller;
 import com.bytehamster.flowitgame.filler.DirectionFiller;
+import com.bytehamster.flowitgame.filler.Filler;
 import com.bytehamster.flowitgame.filler.FloodFiller;
 import com.bytehamster.flowitgame.model.Field;
 import com.bytehamster.flowitgame.model.Level;
@@ -85,7 +86,7 @@ public class GameState extends State {
         glRenderer.addDrawable(restart);
 
         TextureCoordinates coordinatesSolved = TextureCoordinates.getFromBlocks(3, 10, 5, 11);
-        solved = new Plane(0, 0, 2*topButtonSize, topButtonSize, coordinatesSolved);
+        solved = new Plane(0, 0, 2 * topButtonSize, topButtonSize, coordinatesSolved);
         solved.setX(topButtonSize * 2f);
         solved.setY(glRenderer.getHeight() - topButtonSize * 1.5f);
         solved.setVisible(false);
@@ -140,7 +141,7 @@ public class GameState extends State {
         isFilling = false;
         levelData = new Level(level, getActivity());
         levelDrawer.setLevel(levelData);
-        boardStartY = 2 * topButtonSize + (getScreenHeight() - getAdHeight() - levelDrawer.getHeight())/2;
+        boardStartY = 2 * topButtonSize + (getScreenHeight() - getAdHeight() - levelDrawer.getHeight()) / 2;
 
         if (!isPlayable(level)) {
             float availableSpace = getScreenHeight() - getAdHeight();
@@ -166,7 +167,7 @@ public class GameState extends State {
                 restart.setX(topButtonSize * 4.5f);
                 AnimationFactory.startScaleShow(solved);
             } else if (lastLevelState == LastLevelState.NOT_SOLVED) {
-                showSolved(Animation.DURATION_SHORT/2);
+                showSolved(Animation.DURATION_SHORT / 2);
             }
             lastLevelState = LastLevelState.SOLVED;
         } else {
@@ -263,76 +264,25 @@ public class GameState extends State {
         }
     }
 
-    private void triggerField(int col, int row) {
-        stepsUsed++; // Subtracting one in default case (=> no action was done)
-        switch (levelData.fieldAt(col, row).getModifier()) {
-            case FLOOD:
-                playSound(R.raw.click);
-                isFilling = true;
-                new FloodFiller(levelData, this, new Runnable() {
-                    @Override
-                    public void run() {
-                        isFilling = false;
-                        checkWon();
-                    }
-                }).fill(col, row);
-                break;
-            case BOMB:
-                playSound(R.raw.click);
-                isFilling = true;
-                new BombFiller(levelData, this, new Runnable() {
-                    @Override
-                    public void run() {
-                        isFilling = false;
-                        checkWon();
-                    }
-                }).fill(col, row);
-                break;
-            case UP:
-                doFill(col, row, 0, -1);
-                break;
-            case RIGHT:
-                doFill(col, row, 1, 0);
-                break;
-            case LEFT:
-                doFill(col, row, -1, 0);
-                break;
-            case DOWN:
-                doFill(col, row, 0, 1);
-                break;
-            case ROTATE_UP:
-                doFill(col, row, 0, -1);
-                levelData.fieldAt(col, row).setModifier(Modifier.ROTATE_RIGHT);
-                break;
-            case ROTATE_RIGHT:
-                doFill(col, row, 1, 0);
-                levelData.fieldAt(col, row).setModifier(Modifier.ROTATE_DOWN);
-                break;
-            case ROTATE_LEFT:
-                doFill(col, row, -1, 0);
-                levelData.fieldAt(col, row).setModifier(Modifier.ROTATE_UP);
-                break;
-            case ROTATE_DOWN:
-                doFill(col, row, 0, 1);
-                levelData.fieldAt(col, row).setModifier(Modifier.ROTATE_LEFT);
-                break;
-            default:
-                // No action was done
-                stepsUsed--;
-                break;
-        }
-    }
-
-    private void doFill(int col, int row, int dx, int dy) {
-        playSound(R.raw.click);
-        isFilling = true;
-        new DirectionFiller(levelData, this, new Runnable() {
-            @Override
-            public void run() {
-                isFilling = false;
-                checkWon();
+    private void triggerField(final int col, final int row) {
+        Filler filler = Filler.get(levelData, col, row, this);
+        if (filler != null) {
+            stepsUsed++;
+            playSound(R.raw.click);
+            isFilling = true;
+            if (levelData.fieldAt(col, row).getModifier().isRotating()) {
+                Modifier rotated = levelData.fieldAt(col, row).getModifier().rotate();
+                levelData.fieldAt(col, row).setModifier(rotated);
             }
-        }, dx, dy).fill(col, row);
+            filler.setOnFinished(new Runnable() {
+                @Override
+                public void run() {
+                    isFilling = false;
+                    checkWon();
+                }
+            });
+            filler.fill();
+        }
     }
 
     public int getLevel() {
@@ -365,7 +315,7 @@ public class GameState extends State {
             winMessage.setY(-getScreenWidth() * 0.5f);
             winMessage.setVisible(true);
             TranslateAnimation inAnimation = new TranslateAnimation(winMessage, Animation.DURATION_SHORT, 0);
-            inAnimation.setTo(0, (availableSpace-winMessage.getHeight())/2 + getAdHeight());
+            inAnimation.setTo(0, (availableSpace - winMessage.getHeight()) / 2 + getAdHeight());
             inAnimation.start();
 
             TranslateAnimation outAnimation = new TranslateAnimation(winMessage, Animation.DURATION_SHORT, 5 * Animation.DURATION_SHORT);
@@ -397,13 +347,13 @@ public class GameState extends State {
     }
 
     private void hideSolved() {
-        ScaleAnimation leftAnimation = new ScaleAnimation(solved, Animation.DURATION_SHORT/2, 0);
+        ScaleAnimation leftAnimation = new ScaleAnimation(solved, Animation.DURATION_SHORT / 2, 0);
         leftAnimation.setTo(0);
         leftAnimation.setHideAfter(true);
         leftAnimation.start();
 
         restart.cancelAnimations();
-        TranslateAnimation rightAnimation = new TranslateAnimation(restart, Animation.DURATION_SHORT/2, 0);
+        TranslateAnimation rightAnimation = new TranslateAnimation(restart, Animation.DURATION_SHORT / 2, 0);
         rightAnimation.setTo(3.25f * topButtonSize, getScreenHeight() - 1.5f * topButtonSize);
         rightAnimation.setHideAfter(false);
         rightAnimation.start();
