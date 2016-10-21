@@ -1184,4 +1184,61 @@
                000000
                FUUUUF" />
 
+    <level number="77"
+        color="00bbb0
+               0ggggb
+               bdddg0
+               0dgdg0
+               0dgggb
+               bdddd0
+               0bbb00
+               000000"
+        modifier="
+               XXFDDX
+               XF000L
+               R0000X
+               X0000X
+               X0000L
+               R000FX
+               XUUFXX
+               XXXXXX" />
+
+    <level number="78"
+        color="rgdgdb
+               rrrbbb
+               rrgggg
+               ggbbbb
+               orbbbb
+               boooob
+               oododb
+               oododd"
+        modifier="
+               FFDgDF
+               000000
+               00000L
+               00000L
+               or0000
+               R00000
+               000000
+               F0U0UF" />
+
+    <level number="79"
+        color="0rgogr
+               0rbbbr
+               orbbbr
+               grobor
+               grobor
+               0robor
+               0robor
+               0bobob"
+        modifier="
+               XFDFDF
+               X00000
+               R00000
+               R00000
+               F00000
+               X00000
+               X00000
+               XF0F0F" />
+
 </levels>
