@@ -345,8 +345,8 @@ public class GameState extends State {
 
     private void checkWon() {
         won = true;
-        for (int r = 0; r < 6; r++) {
-            for (int c = 0; c < 5; c++) {
+        for (int r = 0; r < levelData.getHeight(); r++) {
+            for (int c = 0; c < levelData.getWidth(); c++) {
                 Field f = levelData.fieldAt(c, r);
                 if (Converter.convertColor(f.getModifier()) != null // Is not a color
                         && f.getColor() != Converter.convertColor(f.getModifier())) {
