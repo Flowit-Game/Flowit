@@ -1166,25 +1166,6 @@
                FUFFUF" />
 
     <level number="78"
-        color="bobobo
-               obobob
-               bobobo
-               obobob
-               bobobo
-               oddddb
-               ddbodd
-               obbbbd"
-        modifier="
-               R0000L
-               R0000L
-               R0000L
-               R0000L
-               R0000L
-               R0000L
-               000000
-               FUUUUF" />
-
-    <level number="81"
         color="00bbb0
                0ggggb
                bdddg0
@@ -1202,6 +1183,25 @@
                R000FX
                XUUFXX
                XXXXXX" />
+
+    <level number="81"
+        color="bobobo
+               obobob
+               bobobo
+               obobob
+               bobobo
+               oddddb
+               ddbodd
+               obbbbd"
+        modifier="
+               R0000L
+               R0000L
+               R0000L
+               R0000L
+               R0000L
+               R0000L
+               000000
+               FUUUUF" />
 
     <level number="84"
         color="rooooo
