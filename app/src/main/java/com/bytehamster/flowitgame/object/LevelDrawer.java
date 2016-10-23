@@ -63,6 +63,8 @@ public class LevelDrawer extends Drawable {
             return;
         }
 
+        processAnimations();
+
         for(int col = 0; col < 5; col++) {
             for(int row = 0; row < 6; row++) {
                 Field field = level.fieldAt(col, row);

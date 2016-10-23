@@ -17,6 +17,7 @@ public abstract class Mesh extends Drawable {
         if(!isVisible()) {
             return;
         }
+        processAnimations();
 
         gl.glPushMatrix();
         gl.glTranslatef(getX(), getY(), 0);

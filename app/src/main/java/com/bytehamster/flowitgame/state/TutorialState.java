@@ -46,11 +46,13 @@ public class TutorialState extends State {
         float tutScreenY = glRenderer.getHeight() - logoHeight - (glRenderer.getHeight() - getAdHeight() + tutScreenHeight - logoHeight)/2;
         TextureCoordinates coordinatesScreen1 = TextureCoordinates.getFromBlocks(6, 6, 11, 10);
         screen1 = new Plane(tutScreenX, tutScreenY, tutScreenWidth, tutScreenHeight, coordinatesScreen1);
+        screen1.setScale(0);
         screen1.setVisible(false);
         glRenderer.addDrawable(screen1);
 
         TextureCoordinates coordinatesScreen2 = TextureCoordinates.getFromBlocks(11, 4, 16, 8);
         screen2 = new Plane(tutScreenX, tutScreenY, tutScreenWidth, tutScreenHeight, coordinatesScreen2);
+        screen2.setScale(0);
         screen2.setVisible(false);
         glRenderer.addDrawable(screen2);
     }
@@ -60,8 +62,8 @@ public class TutorialState extends State {
         nextState = this;
 
         if(screenNumber == 1) {
+            logo.setY(getScreenHeight());
             TranslateAnimation logoAnimation = new TranslateAnimation(logo, Animation.DURATION_LONG, Animation.DURATION_SHORT);
-            logoAnimation.setFrom(0, getScreenHeight());
             logoAnimation.setTo(0, getScreenHeight() - logo.getHeight());
             logoAnimation.start();
         }
@@ -78,7 +80,6 @@ public class TutorialState extends State {
         if(screenNumber == 3) {
             screenNumber = 2;
             TranslateAnimation logoAnimation = new TranslateAnimation(logo, Animation.DURATION_SHORT, 0);
-            logoAnimation.setFrom(0, getScreenHeight() - logo.getHeight());
             logoAnimation.setTo(0, getScreenHeight());
             logoAnimation.start();
         }

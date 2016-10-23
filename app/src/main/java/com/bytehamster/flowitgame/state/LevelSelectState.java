@@ -59,6 +59,7 @@ public class LevelSelectState extends State {
     public void entry() {
         nextState = this;
 
+        selectLevelText.cancelAnimations();
         selectLevelText.setY(getScreenHeight());
         selectLevelText.setVisible(true);
         TranslateAnimation logoAnimation = new TranslateAnimation(selectLevelText, Animation.DURATION_LONG, Animation.DURATION_SHORT);
@@ -80,10 +81,10 @@ public class LevelSelectState extends State {
                 }
                 levelIcons[row * 5 + col].setVisible(true);
                 levelIcons[row * 5 + col].setScale(0);
+                levelIcons[row * 5 + col].cancelAnimations();
 
                 ScaleAnimation scaleAnimation = new ScaleAnimation(levelIcons[row * 5 + col],
                         Animation.DURATION_SHORT, (int) (Animation.DURATION_SHORT * 0.3f * (col + row) + Animation.DURATION_LONG));
-                scaleAnimation.setFrom(0);
                 scaleAnimation.setTo(1);
                 scaleAnimation.start();
             }
@@ -93,7 +94,6 @@ public class LevelSelectState extends State {
     @Override
     public void exit() {
         TranslateAnimation logoAnimation = new TranslateAnimation(selectLevelText, Animation.DURATION_SHORT, 0);
-        logoAnimation.setFrom(0, getScreenHeight() - selectLevelText.getHeight());
         logoAnimation.setTo(0, getScreenHeight());
         logoAnimation.setHideAfter(true);
         logoAnimation.start();
@@ -104,7 +104,6 @@ public class LevelSelectState extends State {
 
                 ScaleAnimation scaleAnimation = new ScaleAnimation(levelIcons[row * 5 + col],
                         Animation.DURATION_SHORT, (int) (Animation.DURATION_SHORT * 0.3f * (col + row)));
-                scaleAnimation.setFrom(1);
                 scaleAnimation.setTo(0);
                 scaleAnimation.setHideAfter(true);
                 scaleAnimation.start();

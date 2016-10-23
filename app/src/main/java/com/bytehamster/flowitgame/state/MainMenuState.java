@@ -62,20 +62,19 @@ public class MainMenuState extends State {
     public void entry() {
         nextState = this;
 
+        logo.setY(getScreenHeight());
         TranslateAnimation logoAnimation = new TranslateAnimation(logo, Animation.DURATION_LONG, Animation.DURATION_SHORT);
-        logoAnimation.setFrom(0, getScreenHeight());
         logoAnimation.setTo(0, getScreenHeight() - logo.getHeight());
         logoAnimation.start();
 
-        AnimationFactory.startMenuAnimationEnter(startButton, 2 * Animation.DURATION_SHORT);
-        AnimationFactory.startMenuAnimationEnter(settingsButton, 3 * Animation.DURATION_SHORT);
-        AnimationFactory.startMenuAnimationEnter(exitButton, 4 * Animation.DURATION_SHORT);
+        AnimationFactory.startMenuAnimationEnter(startButton, (int) (2.0f * Animation.DURATION_SHORT));
+        AnimationFactory.startMenuAnimationEnter(settingsButton, (int) (2.5f * Animation.DURATION_SHORT));
+        AnimationFactory.startMenuAnimationEnter(exitButton, (int) (3.0f * Animation.DURATION_SHORT));
     }
 
     @Override
     public void exit() {
         TranslateAnimation logoAnimation = new TranslateAnimation(logo, Animation.DURATION_SHORT, 0);
-        logoAnimation.setFrom(0, getScreenHeight() - logo.getHeight());
         logoAnimation.setTo(0, getScreenHeight());
         logoAnimation.start();
 

@@ -3,8 +3,6 @@ package com.bytehamster.flowitgame.animation;
 import com.bytehamster.flowitgame.object.Drawable;
 
 public class TranslateAnimation extends AnimationSingle {
-    private final int steps;
-
     private float fromX;
     private float fromY;
     private float toX;
@@ -12,14 +10,7 @@ public class TranslateAnimation extends AnimationSingle {
     private boolean hideAfter = false;
 
     public TranslateAnimation(Drawable mesh, int duration, int startIn) {
-        super(mesh, duration / STEP_DELAY, startIn);
-        steps = duration / STEP_DELAY;
-        setFrom(mesh.getX(), mesh.getY());
-    }
-
-    public void setFrom(float x, float y) {
-        this.fromX = x;
-        this.fromY = y;
+        super(mesh, duration, startIn);
     }
 
     public void setTo(float x, float y) {
@@ -32,16 +23,19 @@ public class TranslateAnimation extends AnimationSingle {
     }
 
     @Override
-    void doStep(int step) {
-        float stepX = (toX - fromX) / (float) steps;
-        float stepY = (toY - fromY) / (float) steps;
-
-        getSubject().setX(fromX + stepX * (float) step);
-        getSubject().setY(fromY + stepY * (float) step);
+    void tick(double percentage) {
+        getSubject().setX((float) (fromX + (toX - fromX) * percentage));
+        getSubject().setY((float) (fromY + (toY - fromY) * percentage));
     }
 
     @Override
-    void finalStep() {
+    void firstTick() {
+        this.fromX = getSubject().getX();
+        this.fromY = getSubject().getY();
+    }
+
+    @Override
+    void finalTick() {
         getSubject().setX(toX);
         getSubject().setY(toY);
 
@@ -52,8 +46,7 @@ public class TranslateAnimation extends AnimationSingle {
 
     @Override
     TranslateAnimation reverse() {
-        TranslateAnimation reversed = new TranslateAnimation(getSubject(), getSteps()*STEP_DELAY, getStartIn());
-        reversed.setFrom(toX, toY);
+        TranslateAnimation reversed = new TranslateAnimation(getSubject(), getDuration(), getDelay());
         reversed.setTo(fromX, fromY);
         return reversed;
     }

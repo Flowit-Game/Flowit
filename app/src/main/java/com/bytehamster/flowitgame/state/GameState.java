@@ -67,18 +67,21 @@ public class GameState extends State {
         left.setX(topButtonSize * 0.5f);
         left.setY(glRenderer.getHeight() - topButtonSize * 1.5f);
         left.setVisible(false);
+        left.setScale(0);
         glRenderer.addDrawable(left);
 
         right = ObjectFactory.createSingleBox(1, 10, topButtonSize);
         right.setX(topButtonSize * 6f);
         right.setY(glRenderer.getHeight() - topButtonSize * 1.5f);
         right.setVisible(false);
+        right.setScale(0);
         glRenderer.addDrawable(right);
 
         restart = ObjectFactory.createSingleBox(2, 10, topButtonSize);
         restart.setX(topButtonSize * 4.5f);
         restart.setY(glRenderer.getHeight() - topButtonSize * 1.5f);
         restart.setVisible(false);
+        restart.setScale(0);
         glRenderer.addDrawable(restart);
 
         TextureCoordinates coordinatesSolved = TextureCoordinates.getFromBlocks(3, 10, 5, 11);
@@ -86,11 +89,13 @@ public class GameState extends State {
         solved.setX(topButtonSize * 2f);
         solved.setY(glRenderer.getHeight() - topButtonSize * 1.5f);
         solved.setVisible(false);
+        solved.setScale(0);
         glRenderer.addDrawable(solved);
 
         levelDrawer.setVisible(false);
         levelDrawer.setScreenWidth(getScreenWidth());
         levelDrawer.initialize();
+        levelDrawer.setX(0);
         glRenderer.addDrawable(levelDrawer);
         boardStartY = 2 * topButtonSize + (getScreenHeight() - getAdHeight() - levelDrawer.getHeight())/2;
 
@@ -104,10 +109,11 @@ public class GameState extends State {
         lockedMessage.setVisible(false);
         glRenderer.addDrawable(lockedMessage);
 
+        right.setScale(1); // To generate correctly repeated animation at this point
         ScaleAnimation rightAnimation = new ScaleAnimation(right, Animation.DURATION_LONG, 0);
-        rightAnimation.setFrom(1);
         rightAnimation.setTo(1.2f);
         rightButtonGlow = new AnimationRepeated(rightAnimation);
+        right.setScale(0);
     }
 
     @Override
@@ -116,12 +122,12 @@ public class GameState extends State {
         lastLevelState = LastLevelState.NO_LEVEL;
         reloadLevel();
 
+        levelDrawer.cancelAnimations();
         levelDrawer.setVisible(true);
         levelDrawer.setY(-levelDrawer.getBoxSize());
-        TranslateAnimation logoAnimation = new TranslateAnimation(levelDrawer, Animation.DURATION_LONG, Animation.DURATION_LONG);
-        logoAnimation.setFrom(0, -levelDrawer.getBoxSize());
-        logoAnimation.setTo(0, getScreenHeight() - boardStartY);
-        logoAnimation.start();
+        TranslateAnimation drawerAnimation = new TranslateAnimation(levelDrawer, Animation.DURATION_LONG, Animation.DURATION_LONG);
+        drawerAnimation.setTo(0, getScreenHeight() - boardStartY);
+        drawerAnimation.start();
 
         AnimationFactory.startScaleShow(left);
         AnimationFactory.startScaleShow(right);
@@ -129,7 +135,7 @@ public class GameState extends State {
     }
 
     private void reloadLevel() {
-        rightButtonGlow.stop();
+        rightButtonGlow.stopWhenFinished();
         won = false;
         stepsUsed = 0;
         isFilling = false;
@@ -159,7 +165,7 @@ public class GameState extends State {
 
         if (isSolved(level)) {
             if (lastLevelState == LastLevelState.NO_LEVEL) {
-                solved.setScale(1);
+                // solved.setScale(1); // Destroys in animation
                 solved.setVisible(true);
                 restart.setX(topButtonSize * 4.5f);
                 AnimationFactory.startScaleShow(solved);
@@ -180,10 +186,10 @@ public class GameState extends State {
 
     @Override
     public void exit() {
-        rightButtonGlow.stop();
+        rightButtonGlow.pause();
 
+        levelDrawer.cancelAnimations();
         TranslateAnimation logoAnimation = new TranslateAnimation(levelDrawer, Animation.DURATION_LONG, Animation.DURATION_LONG);
-        logoAnimation.setFrom(0, getScreenHeight() - boardStartY);
         logoAnimation.setTo(0, -levelDrawer.getBoxSize());
         logoAnimation.setHideAfter(true);
         logoAnimation.start();
@@ -359,7 +365,6 @@ public class GameState extends State {
             inAnimation.start();
 
             TranslateAnimation outAnimation = new TranslateAnimation(winMessage, Animation.DURATION_SHORT, 5 * Animation.DURATION_SHORT);
-            outAnimation.setFrom(0, (availableSpace-winMessage.getHeight())/2 + getAdHeight());
             outAnimation.setTo(0, -getScreenWidth() * 0.5f);
             outAnimation.setHideAfter(true);
             outAnimation.start();
@@ -368,6 +373,7 @@ public class GameState extends State {
                 showSolved(Animation.DURATION_LONG);
             }
 
+            right.addAnimation(rightButtonGlow);
             rightButtonGlow.start();
         }
     }
@@ -376,7 +382,6 @@ public class GameState extends State {
         solved.setScale(0);
         solved.setVisible(true);
         ScaleAnimation leftAnimation = new ScaleAnimation(solved, speed, 0);
-        leftAnimation.setFrom(0);
         leftAnimation.setTo(1);
         leftAnimation.start();
 
@@ -388,11 +393,11 @@ public class GameState extends State {
 
     private void hideSolved() {
         ScaleAnimation leftAnimation = new ScaleAnimation(solved, Animation.DURATION_SHORT/2, 0);
-        leftAnimation.setFrom(1);
         leftAnimation.setTo(0);
         leftAnimation.setHideAfter(true);
         leftAnimation.start();
 
+        restart.cancelAnimations();
         TranslateAnimation rightAnimation = new TranslateAnimation(restart, Animation.DURATION_SHORT/2, 0);
         rightAnimation.setTo(3.25f * topButtonSize, getScreenHeight() - 1.5f * topButtonSize);
         rightAnimation.setHideAfter(false);

@@ -53,7 +53,6 @@ public class SettingsState extends State {
         objShown.setScale(0);
         ScaleAnimation scaleAnimation = new ScaleAnimation(objShown,
                 Animation.DURATION_LONG, Animation.DURATION_LONG);
-        scaleAnimation.setFrom(0);
         scaleAnimation.setTo(1);
         scaleAnimation.start();
     }
@@ -63,7 +62,6 @@ public class SettingsState extends State {
         Plane objShown = getPreferences().getBoolean("volumeOn", true) ? volumeOn : volumeOff;
         ScaleAnimation scaleAnimation = new ScaleAnimation(objShown,
                 Animation.DURATION_LONG, 0);
-        scaleAnimation.setFrom(1);
         scaleAnimation.setTo(0);
         scaleAnimation.setHideAfter(true);
         scaleAnimation.start();

@@ -3,41 +3,53 @@ package com.bytehamster.flowitgame.animation;
 public class AnimationRepeated extends Animation {
     private final AnimationSingle animationForward;
     private final AnimationSingle animationBackward;
-    private boolean isRunning = true;
+    private boolean isRunningForward = true;
+    private boolean shouldBeStopped = false;
 
     public AnimationRepeated(AnimationSingle animation) {
-        super(null, 0);
+        super(animation.getSubject(), 0);
+        animation.destroy(); // Removes from subject array. Managed using this wrapper now.
+        animation.firstTick(); // To initialize "from"
         this.animationForward = animation;
         this.animationBackward = animation.reverse();
     }
 
-    public final void start() {
-        isRunning = true;
-        new Thread() {
-            public void run() {
-                try {
-                    while (isRunning) {
-                        for (int i = 0; i < animationForward.getSteps(); i++) {
-                            animationForward.doStep(i);
-                            Thread.sleep(STEP_DELAY);
-                        }
-                        animationForward.finalStep();
-
-                        for (int i = 0; i < animationBackward.getSteps(); i++) {
-                            animationBackward.doStep(i);
-                            Thread.sleep(STEP_DELAY);
-                        }
-                        animationBackward.finalStep();
-                    }
-                } catch (InterruptedException e) {
-                    animationBackward.finalStep();
-                }
+    @Override
+    void tick(long durationRunning) {
+        if (durationRunning > animationForward.getDuration()) {
+            if (shouldBeStopped && !isRunningForward) {
+                this.destroy();
+                return;
             }
-        }.start();
+
+            isRunningForward = !isRunningForward;
+            animationForward.restart();
+            animationBackward.restart();
+            super.restart();
+        }
+
+        if (isRunningForward) {
+            animationForward.tick();
+        } else {
+            animationBackward.tick();
+        }
     }
 
-    public final void stop() {
-        isRunning = false;
+    @Override
+    public void start() {
+        super.start();
+        animationForward.restart();
+        isRunningForward = true;
+        shouldBeStopped = false;
     }
 
+    @Override
+    void restart() {
+        animationForward.restart();
+        isRunningForward = true;
+    }
+
+    public void stopWhenFinished () {
+        shouldBeStopped = true;
+    }
 }
