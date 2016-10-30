@@ -180,6 +180,14 @@ public class GameState extends State {
             }
             lastLevelState = LastLevelState.NOT_SOLVED;
         }
+
+        if (winMessage.isVisible()) {
+            winMessage.cancelAnimations();
+            TranslateAnimation outAnimation = new TranslateAnimation(winMessage, Animation.DURATION_SHORT, 0);
+            outAnimation.setTo(0, -getScreenWidth() * 0.5f);
+            outAnimation.setHideAfter(true);
+            outAnimation.start();
+        }
     }
 
     @Override
