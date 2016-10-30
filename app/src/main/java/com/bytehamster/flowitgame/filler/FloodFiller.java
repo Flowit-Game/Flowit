@@ -78,7 +78,7 @@ public class FloodFiller extends Filler {
                     if(neighbor.getField().getModifier() == fillFrom) {
                         if (lastDistance != neighbor.distance) {
                             lastDistance = neighbor.distance;
-                            Thread.sleep(80);
+                            Thread.sleep(60);
                             state.playSound(R.raw.fill);
                         }
                         neighbor.getField().setModifier(fillTo);
