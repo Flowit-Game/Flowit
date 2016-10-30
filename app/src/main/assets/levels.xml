@@ -1241,6 +1241,25 @@
                R00000
                F000UF" />
 
+    <level number="80"
+        color="rrrrrr
+               boooor
+               bgrrrr
+               bggrrr
+               bgggrr
+               bggggr
+               bggggg
+               gggrgr"
+        modifier="
+               000000
+               0000L0
+               0F0000
+               0R000D
+               0R0000
+               0R0000
+               UR0000
+               000UUF" />
+
     <level number="81"
         color="bobobo
                obobob
