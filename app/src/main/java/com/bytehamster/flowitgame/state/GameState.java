@@ -107,6 +107,7 @@ public class GameState extends State {
         TextureCoordinates coordinatesLocked = TextureCoordinates.getFromBlocks(0, 13, 6, 15);
         lockedMessage = new Plane(0, glRenderer.getHeight(), glRenderer.getWidth(), glRenderer.getWidth() / 3, coordinatesLocked);
         lockedMessage.setVisible(false);
+        lockedMessage.setY(-getScreenWidth() * 0.5f);
         glRenderer.addDrawable(lockedMessage);
 
         right.setScale(1); // To generate correctly repeated animation at this point
@@ -143,19 +144,17 @@ public class GameState extends State {
         levelDrawer.setLevel(levelData);
 
         if (!isPlayable(level)) {
-            if (!lockedMessage.isVisible()) {
-                float availableSpace = getScreenHeight() - getAdHeight();
-                lockedMessage.setY(-getScreenWidth() * 0.5f);
-                lockedMessage.setVisible(true);
-                TranslateAnimation inAnimation;
-                if (lastLevelState == LastLevelState.NO_LEVEL) {
-                    inAnimation = new TranslateAnimation(lockedMessage, Animation.DURATION_LONG, Animation.DURATION_LONG);
-                } else {
-                    inAnimation = new TranslateAnimation(lockedMessage, Animation.DURATION_SHORT, 0);
-                }
-                inAnimation.setTo(0, (availableSpace-lockedMessage.getHeight())/2 + getAdHeight());
-                inAnimation.start();
+            float availableSpace = getScreenHeight() - getAdHeight();
+            lockedMessage.cancelAnimations();
+            lockedMessage.setVisible(true);
+            TranslateAnimation inAnimation;
+            if (lastLevelState == LastLevelState.NO_LEVEL) {
+                inAnimation = new TranslateAnimation(lockedMessage, Animation.DURATION_LONG, Animation.DURATION_LONG);
+            } else {
+                inAnimation = new TranslateAnimation(lockedMessage, Animation.DURATION_SHORT, 0);
             }
+            inAnimation.setTo(0, (availableSpace-lockedMessage.getHeight())/2 + getAdHeight());
+            inAnimation.start();
         } else {
             TranslateAnimation outAnimation = new TranslateAnimation(lockedMessage, Animation.DURATION_SHORT, 0);
             outAnimation.setTo(0, -getScreenWidth() * 0.5f);
