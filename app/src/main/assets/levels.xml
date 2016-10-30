@@ -1336,4 +1336,23 @@
                X00000
                XF0F0F" />
 
+    <level number="96"
+        color="0oobbb
+               bbbbo0
+               0rrrrr
+               rrooo0
+               0rdddd
+               rrrrg0
+               0rrrrg
+               ogggb0"
+        modifier="
+               XFDF00
+               0000LX
+               X0000F
+               0000LX
+               X0000L
+               0000FX
+               X0000L
+               R000FX" />
+
 </levels>
