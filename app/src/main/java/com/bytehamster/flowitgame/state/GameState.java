@@ -165,8 +165,6 @@ public class GameState extends State {
 
         if (isSolved(level)) {
             if (lastLevelState == LastLevelState.NO_LEVEL) {
-                // solved.setScale(1); // Destroys in animation
-                solved.setVisible(true);
                 restart.setX(topButtonSize * 4.5f);
                 AnimationFactory.startScaleShow(solved);
             } else if (lastLevelState == LastLevelState.NOT_SOLVED) {
@@ -379,6 +377,7 @@ public class GameState extends State {
     }
 
     private void showSolved(int speed) {
+        solved.cancelAnimations();
         solved.setScale(0);
         solved.setVisible(true);
         ScaleAnimation leftAnimation = new ScaleAnimation(solved, speed, 0);
