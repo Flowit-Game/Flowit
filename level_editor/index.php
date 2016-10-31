@@ -391,8 +391,8 @@ if (!isset($_SESSION["level_data"]) && isset($_GET["cols"]) && isset($_GET["rows
                         global $wasFilled, $TYPE_EMPTY;
                         if($x >= 0 && $x < $_SESSION["rows"]
                             &&  $y >= 0 && $y < $_SESSION["cols"]
-                            && ($_SESSION["play_data"][$x][$y]["type"] == $TYPE_EMPTY || $isFirst)
-                            && $_SESSION["play_data"][$x][$y]["color"] == $from) {
+                            && (($_SESSION["play_data"][$x][$y]["type"] == $TYPE_EMPTY
+                                    && $_SESSION["play_data"][$x][$y]["color"] == $from) || $isFirst)) {
                             
                             $wasFilled = !$isFirst;
                             $_SESSION["play_data"][$x][$y]["color"] = $to;
