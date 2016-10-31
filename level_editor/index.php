@@ -10,6 +10,9 @@ function contains($haystack, $needle) {
     return strpos($haystack, $needle) !== false;
 }
 
+define("ROTATING", true);
+define("BOMBS", true);
+
 $size = 70;
 $sizepx = $size . "px";
 
@@ -89,6 +92,7 @@ if (!isset($_SESSION["level_data"]) && isset($_GET["cols"]) && isset($_GET["rows
     <head>
         <title>FlowIt-LevelEditor</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script src="jquery-3.1.1.min.js"></script>
         <style>
             *{
                 margin:0px;
@@ -203,6 +207,75 @@ if (!isset($_SESSION["level_data"]) && isset($_GET["cols"]) && isset($_GET["rows
                 }
 
             }
+            function createCookie(name,value,days) {
+                if (days) {
+                    var date = new Date();
+                    date.setTime(date.getTime()+(days*24*60*60*1000));
+                    var expires = "; expires="+date.toGMTString();
+                }
+                else {var expires = ""; }
+                document.cookie = name+"="+value+expires+"; path=/";
+            }
+
+            function readCookie(name) {
+                var nameEQ = name + "=";
+                var ca = document.cookie.split(';');
+                for(var i=0;i < ca.length;i++) {
+                    var c = ca[i];
+                    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+                }
+                return null;
+            }
+            
+            function getQueryVariable(variable) {
+                var query = window.location.search.substring(1);
+                var vars = query.split("&");
+                for (var i=0;i<vars.length;i++) {
+                  var pair = vars[i].split("=");
+                  if (pair[0] == variable) {
+                    return pair[1];
+                  }
+                }
+              }
+
+            function clickRandom(cssClass) {
+                var links = $("a."+cssClass);
+                if(links.length == 0) {
+                    autostart();
+                    return;
+                }
+                var randomNumber = Math.floor(Math.random()*links.length)  
+                links.get(randomNumber).click();
+            }
+            function startRandom() {
+                createCookie("randClicks", 60, 1);
+                clickRandom();
+            }
+            function autostart() {
+                if(readCookie("randClicks") > 0) {
+                    createCookie("randClicks", readCookie("randClicks") - 1, 1);
+                    var click = "field";
+                    if(getQueryVariable("action") == "edit" ||
+                            getQueryVariable("action") == "save_type" ||
+                            getQueryVariable("action") == "save_color" ||
+                            getQueryVariable("action") == "save_preset") {
+                        if(readCookie("randClicks")%3==0) {
+                            click = "field";
+                        } else if(readCookie("randClicks")%3==1) {
+                            click = "action";
+                        } else if(readCookie("randClicks")%3==2) {
+                            click = "action0";
+                        }
+                    } else {
+                        click = "fieldFull";
+                    }
+                    setTimeout("clickRandom('"+ click +"')", 100);
+                }
+            }
+            $(document).ready(function() {
+                autostart();
+            });
         </script>
     </head>
     <body>
@@ -211,6 +284,7 @@ if (!isset($_SESSION["level_data"]) && isset($_GET["cols"]) && isset($_GET["rows
             <a href="./?action=restart" class="button">Neustart</a> &nbsp;
             &nbsp; <a href="./?action=edit&r=0&c=0" class="button <?php echo @$_GET["action"] == "edit"?"active":""; ?>">Bearbeitungsmodus</a> &nbsp;
             &nbsp; <a href="./?action=play&play=restart"  class="button <?php echo @$_GET["action"] == "play"?"active":""; ?>">Level spielen</a> &nbsp;
+            &nbsp; <a href="javascript:startRandom();"  class="button">Random!</a> &nbsp;
             &nbsp; <a href="./?action=source"  class="button <?php echo @$_GET["action"] == "source"?"active":""; ?>">Quellcode anzeigen</a>
         </div><br />
         <?php
@@ -396,29 +470,31 @@ if (!isset($_SESSION["level_data"]) && isset($_GET["cols"]) && isset($_GET["rows
                 echo "<div id=\"editor\"><b>Bearbeiten:</b><br /><br /><table>";
                 echo "<tr>";
                 echo "<td width=\"$size\" height=\"$size\">";
-                echo "<a href=\"./?action=save_type&c=" . $_GET["c"] . "&r=" . $_GET["r"] . "&type=0\" style=\"height:$sizepx;\">";
+                echo "<a class=\"action0\" href=\"./?action=save_type&c=" . $_GET["c"] . "&r=" . $_GET["r"] . "&type=0\" style=\"height:$sizepx;\">";
                 echo "<img src=\"./drawable/level_box_hole.png\" style=\"width:$sizepx;\" />";
                 echo "</a>";
                 echo "</td>";
 
                 echo "<td width=\"$size\" height=\"$size\">";
-                echo "<a href=\"./?action=save_type&c=" . $_GET["c"] . "&r=" . $_GET["r"] . "&type=1\" style=\"height:$sizepx;\">";
+                echo "<a class=\"action0\" href=\"./?action=save_type&c=" . $_GET["c"] . "&r=" . $_GET["r"] . "&type=1\" style=\"height:$sizepx;\">";
                 echo "<img src=\"./drawable/level_box_hole.png\" style=\"width:$sizepx;\" />";
                 echo "<img src=\"./drawable/level_box_color_black.png\" style=\"width:$sizepx;position:relative;top:-$sizepx;\" />";
                 echo "<img src=\"./drawable/level_box_type_flow.png\" style=\"width:$sizepx;position:relative;top:-".(2*$size)."px;\" />";
                 echo "</a>";
                 echo "</td>";
                 
-                echo "<td width=\"$size\" height=\"$size\">";
-                echo "<a href=\"./?action=save_type&c=" . $_GET["c"] . "&r=" . $_GET["r"] . "&type=4\" style=\"height:$sizepx;\">";
-                echo "<img src=\"./drawable/level_box_hole.png\" style=\"width:$sizepx;\" />";
-                echo "<img src=\"./drawable/level_box_color_black.png\" style=\"width:$sizepx;position:relative;top:-$sizepx;\" />";
-                echo "<img src=\"./drawable/level_box_type_bomb.png\" style=\"width:$sizepx;position:relative;top:-".(2*$size)."px;\" />";
-                echo "</a>";
-                echo "</td>";
+                if(BOMBS) {
+                    echo "<td width=\"$size\" height=\"$size\">";
+                    echo "<a class=\"action0\" href=\"./?action=save_type&c=" . $_GET["c"] . "&r=" . $_GET["r"] . "&type=4\" style=\"height:$sizepx;\">";
+                    echo "<img src=\"./drawable/level_box_hole.png\" style=\"width:$sizepx;\" />";
+                    echo "<img src=\"./drawable/level_box_color_black.png\" style=\"width:$sizepx;position:relative;top:-$sizepx;\" />";
+                    echo "<img src=\"./drawable/level_box_type_bomb.png\" style=\"width:$sizepx;position:relative;top:-".(2*$size)."px;\" />";
+                    echo "</a>";
+                    echo "</td>";
+                }
 
                 echo "<td width=\"$size\" height=\"$size\">";
-                echo "<a href=\"./?action=save_type&c=" . $_GET["c"] . "&r=" . $_GET["r"] . "&type=2\" style=\"height:$sizepx;\">";
+                echo "<a class=\"action0\" href=\"./?action=save_type&c=" . $_GET["c"] . "&r=" . $_GET["r"] . "&type=2\" style=\"height:$sizepx;\">";
                 echo "<img src=\"./drawable/level_box_hole.png\" style=\"width:$sizepx;\" />";
                 echo "<img src=\"./drawable/level_box_color_black.png\" style=\"width:$sizepx;position:relative;top:-$sizepx;\" />";
                 echo "<img src=\"./drawable/level_box_type_limit_up.png\" style=\"width:$sizepx;position:relative;top:-".(2*$size)."px;\" />";
@@ -426,7 +502,7 @@ if (!isset($_SESSION["level_data"]) && isset($_GET["cols"]) && isset($_GET["rows
                 echo "</td>";
 
                 echo "<td width=\"$size\" height=\"$size\">";
-                echo "<a href=\"./?action=save_type&c=" . $_GET["c"] . "&r=" . $_GET["r"] . "&type=3\" style=\"height:$sizepx;\">";
+                echo "<a class=\"action0\" href=\"./?action=save_type&c=" . $_GET["c"] . "&r=" . $_GET["r"] . "&type=3\" style=\"height:$sizepx;\">";
                 echo "<img src=\"./drawable/level_nothing.png\" style=\"width:$sizepx;\" />";
                 echo "</a>";
                 echo "</td>";
@@ -460,7 +536,7 @@ if (!isset($_SESSION["level_data"]) && isset($_GET["cols"]) && isset($_GET["rows
                     echo "<tr>";
                     foreach ($COLOR_MAPPING as $a => $b) {
                         echo "<td width=\"$size\" height=\"$size\">";
-                        echo "<a href=\"./?action=save_preset&c=" . $_GET["c"] . "&r=" . $_GET["r"] . "&color=$a\" style=\"height:$sizepx;\">";
+                        echo "<a class=\"action\" href=\"./?action=save_preset&c=" . $_GET["c"] . "&r=" . $_GET["r"] . "&color=$a\" style=\"height:$sizepx;\">";
                         echo "<img src=\"./drawable/level_box_hole.png\" style=\"width:$sizepx;\" />";
                         if ($b != "")
                             echo "<img src=\"./drawable/level_box_stone_" . $b . ".png\" style=\"width:$sizepx;position:relative;top:-$sizepx;\" />";
@@ -476,7 +552,7 @@ if (!isset($_SESSION["level_data"]) && isset($_GET["cols"]) && isset($_GET["rows
                     foreach ($COLOR_MAPPING as $a => $b) {
                         if ($b != "") {
                             echo "<td width=\"$size\" height=\"$size\">";
-                            echo "<a href=\"./?action=save_color&c=" . $_GET["c"] . "&r=" . $_GET["r"] . "&color=$a\" style=\"height:$sizepx;\">";
+                            echo "<a class=\"action\" href=\"./?action=save_color&c=" . $_GET["c"] . "&r=" . $_GET["r"] . "&color=$a\" style=\"height:$sizepx;\">";
                             echo "<img src=\"./drawable/level_box_hole.png\" style=\"width:$sizepx;\" />";
                             echo "<img src=\"./drawable/level_box_color_$b.png\" style=\"width:$sizepx;position:relative;top:-$sizepx;\" />";
                             echo "<img src=\"./drawable/level_box_type_flow.png\" style=\"width:$sizepx;position:relative;top:-".(2*$size)."px;\" />";
@@ -493,7 +569,7 @@ if (!isset($_SESSION["level_data"]) && isset($_GET["cols"]) && isset($_GET["rows
                     foreach ($COLOR_MAPPING as $a => $b) {
                         if ($b != "") {
                             echo "<td width=\"$size\" height=\"$size\">";
-                            echo "<a href=\"./?action=save_color&c=" . $_GET["c"] . "&r=" . $_GET["r"] . "&color=$a\" style=\"height:$sizepx;\">";
+                            echo "<a class=\"action\" href=\"./?action=save_color&c=" . $_GET["c"] . "&r=" . $_GET["r"] . "&color=$a\" style=\"height:$sizepx;\">";
                             echo "<img src=\"./drawable/level_box_hole.png\" style=\"width:$sizepx;\" />";
                             echo "<img src=\"./drawable/level_box_color_$b.png\" style=\"width:$sizepx;position:relative;top:-$sizepx;\" />";
                             echo "<img src=\"./drawable/level_box_type_bomb.png\" style=\"width:$sizepx;position:relative;top:-".(2*$size)."px;\" />";
@@ -509,7 +585,7 @@ if (!isset($_SESSION["level_data"]) && isset($_GET["cols"]) && isset($_GET["rows
                     foreach ($COLOR_MAPPING as $a => $b) {
                         if ($b != "") {
                             echo "<td width=\"$size\" height=\"$size\">";
-                            echo "<a href=\"./?action=save_color&c=" . $_GET["c"] . "&r=" . $_GET["r"] . "&color=$a\" style=\"height:$sizepx;\">";
+                            echo "<a class=\"action\" href=\"./?action=save_color&c=" . $_GET["c"] . "&r=" . $_GET["r"] . "&color=$a\" style=\"height:$sizepx;\">";
                             echo "<img src=\"./drawable/level_box_hole.png\" style=\"width:$sizepx;\" />";
                             echo "<img src=\"./drawable/level_box_color_$b.png\" style=\"width:$sizepx;position:relative;top:-$sizepx;\" />";
                             echo "<img src=\"./drawable/level_box_type_limit_up.png\" style=\"width:$sizepx;position:relative;top:-".(2*$size)."px;\" />";
@@ -528,7 +604,7 @@ if (!isset($_SESSION["level_data"]) && isset($_GET["cols"]) && isset($_GET["rows
                     function direction($d) {
                         global $size, $sizepx;
                         echo "<td width=\"$size\" height=\"$size\">";
-                        echo "<a href=\"./?action=save_$d&c=" . $_GET["c"] . "&r=" . $_GET["r"] . "\" style=\"height:$sizepx;\">";
+                        echo "<a class=\"action\" href=\"./?action=save_$d&c=" . $_GET["c"] . "&r=" . $_GET["r"] . "\" style=\"height:$sizepx;\">";
                         echo "<img src=\"./drawable/level_box_hole.png\" style=\"width:$sizepx;\" />";
                         echo "<img src=\"./drawable/level_box_color_black.png\" style=\"width:$sizepx;position:relative;top:-$sizepx;\" />";
                         echo "<img src=\"./drawable/level_box_type_limit_$d.png\" style=\"width:$sizepx;position:relative;top:-".(2*$size)."px;\" />";
@@ -541,10 +617,12 @@ if (!isset($_SESSION["level_data"]) && isset($_GET["cols"]) && isset($_GET["rows
                     direction("left");
                     direction("right");
                     echo "</tr><tr>";
-                    direction("rotate_up");
-                    direction("rotate_down");
-                    direction("rotate_left");
-                    direction("rotate_right");
+                    if(ROTATING) {
+                        direction("rotate_up");
+                        direction("rotate_down");
+                        direction("rotate_left");
+                        direction("rotate_right");
+                    }
 
                     echo "</tr>";
                     echo "</table>";

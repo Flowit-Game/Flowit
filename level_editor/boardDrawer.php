@@ -9,7 +9,11 @@ function drawBoard($LEVEL_DATA, $action, $highlight_col, $highlight_row, $highli
         echo "<tr>";
         for ($y = 0; $y < $_SESSION["cols"]; $y++) {
             echo "<td width=\"$size\" height=\"$size\">";
-            echo "<a href=\"./?action=$action&r=$i&c=$y\" style=\"height:$sizepx;\">";
+            if($LEVEL_DATA[$i][$y]["type"] == $TYPE_EMPTY || $LEVEL_DATA[$i][$y]["type"] == $TYPE_DISABLED) {
+                echo "<a class=\"field\" href=\"./?action=$action&r=$i&c=$y\" style=\"height:$sizepx;\">";
+            } else {
+                echo "<a class=\"field fieldFull\" href=\"./?action=$action&r=$i&c=$y\" style=\"height:$sizepx;\">";
+            }
             echo "<img src=\"./drawable/level_box_hole.png\" style=\"width:$sizepx;\" />";
 
             if ($LEVEL_DATA[$i][$y]["type"] == $TYPE_EMPTY) {
