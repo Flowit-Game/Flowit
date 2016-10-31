@@ -1,6 +1,7 @@
 <?php
 header('Content-Type: text/html; charset=UTF-8');
 session_start();
+include("boardDrawer.php");
 
 function begins_with($haystack, $needle) {
     return strpos($haystack, $needle) === 0;
@@ -65,6 +66,8 @@ if (@$_GET["action"] == "restart") {
     if(isset($_SESSION["level_data"][$_GET["r"]][$_GET["c"]]["action"]))
         $_SESSION["level_data"][$_GET["r"]][$_GET["c"]]["action"] = str_replace("save_", "", $_GET["action"]);
     $_GET["action"] = "edit";
+} else if (@$_GET["action"] == "play" && @$_GET["play"] == "restart") {
+    $_SESSION["play_data"] = $_SESSION["level_data"];
 }
 
 
@@ -139,7 +142,10 @@ if (!isset($_SESSION["level_data"]) && isset($_GET["cols"]) && isset($_GET["rows
                 display: inline-block;
             }
             a.button:hover {
-                background: #bbb;
+                background: #aaa;
+            }
+            a.active {
+                background: #aaa;
             }
             #board {
                 width: 55%;
@@ -203,18 +209,11 @@ if (!isset($_SESSION["level_data"]) && isset($_GET["cols"]) && isset($_GET["rows
         <h1>FlowIt! Level editor</h1>
         <div>
             <a href="./?action=restart" class="button">Neustart</a> &nbsp;
-            &nbsp; <a href="./?action=source"  class="button">Quellcode anzeigen</a> &nbsp;
-            &nbsp; <a href="./?action=edit&r=0&c=0" class="button">Bearbeitungsmodus</a>
+            &nbsp; <a href="./?action=edit&r=0&c=0" class="button <?php echo @$_GET["action"] == "edit"?"active":""; ?>">Bearbeitungsmodus</a> &nbsp;
+            &nbsp; <a href="./?action=play&play=restart"  class="button <?php echo @$_GET["action"] == "play"?"active":""; ?>">Level spielen</a> &nbsp;
+            &nbsp; <a href="./?action=source"  class="button <?php echo @$_GET["action"] == "source"?"active":""; ?>">Quellcode anzeigen</a>
         </div><br />
         <?php
-
-        function b($b) {
-            if ($b)
-                return "true";
-            else
-                return "false";
-        }
-        
         
         if (!isset($_SESSION["level_data"])) {
             echo "<br /><br /><a href=\"?cols=5&rows=6&r=0&c=0&action=edit\" class=\"button\">5*6 Feld erstellen</a><br /><br />";
@@ -279,68 +278,119 @@ if (!isset($_SESSION["level_data"]) && isset($_GET["cols"]) && isset($_GET["rows
             echo "\" />";
 
             echo "</textarea>";
-        } else {
-            echo "<div id=\"board\"><table>";
-            for ($i = 0; $i < $_SESSION["rows"]; $i++) {
-                echo "<tr>";
-                for ($y = 0; $y < $_SESSION["cols"]; $y++) {
-                    echo "<td width=\"$size\" height=\"$size\">";
-                    echo "<a href=\"./?action=edit&r=$i&c=$y\" style=\"height:$sizepx;\">";
-                    echo "<img src=\"./drawable/level_box_hole.png\" style=\"width:$sizepx;\" />";
-
-                    if ($_SESSION["level_data"][$i][$y]["type"] == $TYPE_EMPTY) {
-                        echo "<img src=\"./drawable/level_box_dest_color_" . $COLOR_MAPPING[$_SESSION["level_data"][$i][$y]["dest_color"]] . ".png\" style=\"width:$sizepx;position:relative;top:-$sizepx;\" />";
-
-                        if ($_SESSION["level_data"][$i][$y]["color"] != -1) {
-                            echo "<img src=\"./drawable/level_box_stone_" . $COLOR_MAPPING[$_SESSION["level_data"][$i][$y]["color"]] . ".png\" style=\"width:$sizepx;position:relative;top:-".(2*$size)."px;\" />";
-                            if ($i == @(Integer) $_GET["r"] && $y == @(Integer) $_GET["c"] && @$_GET["action"] == "edit")
-                                echo "<img src=\"./highlight.png\" style=\"width:$sizepx;position:relative;top:-".(3*$size)."px;\" />";
-                        }
-                        else if ($i == @(Integer) $_GET["r"] && $y == @(Integer) $_GET["c"] && @$_GET["action"] == "edit")
-                            echo "<img src=\"./highlight.png\" style=\"width:$sizepx;position:relative;top:-".(2*$size)."px;\" />";
-                    }
-                    else if ($_SESSION["level_data"][$i][$y]["type"] == $TYPE_FLOW) {
-                        echo "<img src=\"./drawable/level_box_color_" . $COLOR_MAPPING[$_SESSION["level_data"][$i][$y]["dest_color"]] . ".png\" style=\"width:$sizepx;position:relative;top:-$sizepx;\" />";
-                        echo "<img src=\"./drawable/level_box_type_flow.png\" style=\"width:$sizepx;position:relative;top:-".(2*$size)."px;\" />";
-
-                        if ($i == @(Integer) $_GET["r"] && $y == @(Integer) $_GET["c"] && @$_GET["action"] == "edit")
-                            echo "<img src=\"./highlight.png\" style=\"width:$sizepx;position:relative;top:-".(3*$size)."px;\" />";
-                    }
-                    else if ($_SESSION["level_data"][$i][$y]["type"] == $TYPE_BOMB) {
-                        echo "<img src=\"./drawable/level_box_color_" . $COLOR_MAPPING[$_SESSION["level_data"][$i][$y]["dest_color"]] . ".png\" style=\"width:$sizepx;position:relative;top:-$sizepx;\" />";
-                        echo "<img src=\"./drawable/level_box_type_bomb.png\" style=\"width:$sizepx;position:relative;top:-".(2*$size)."px;\" />";
-
-                        if ($i == @(Integer) $_GET["r"] && $y == @(Integer) $_GET["c"] && @$_GET["action"] == "edit")
-                            echo "<img src=\"./highlight.png\" style=\"width:$sizepx;position:relative;top:-".(3*$size)."px;\" />";
-                    }
-                    else if ($_SESSION["level_data"][$i][$y]["type"] == $TYPE_LIMIT) {
-                        echo "<img src=\"./drawable/level_box_color_" . $COLOR_MAPPING[$_SESSION["level_data"][$i][$y]["dest_color"]] . ".png\" style=\"width:$sizepx;position:relative;top:-$sizepx;\" />";
-                        $delta = -2*$size;
-
-                        if(isset($_SESSION["level_data"][$i][$y]["action"])) {
-                            echo "<img src=\"./drawable/level_box_type_limit_".$_SESSION["level_data"][$i][$y]["action"].".png\" style=\"width:$sizepx;position:relative;top:$delta" . "px;\" />";
-                            $delta -= $size;
-                        }
-
-                        if ($i == @(Integer) $_GET["r"] && $y == @(Integer) $_GET["c"] && @$_GET["action"] == "edit")
-                            echo "<img src=\"./highlight.png\" style=\"width:$sizepx;position:relative;top:$delta" . "px;\" />";
-
-                        //echo "<img src=\"./drawable/level_box_type_flow.png\" style=\"width:$sizepx;position:relative;top:-".(2*$size)."px;\" />";
-                    }
-                    if ($_SESSION["level_data"][$i][$y]["type"] == $TYPE_DISABLED) {
-                        echo "<img src=\"./drawable/level_nothing.png\" style=\"width:$sizepx;position:relative;top:-$sizepx;\" />";
-
-                        
-                        if ($i == @(Integer) $_GET["r"] && $y == @(Integer) $_GET["c"] && @$_GET["action"] == "edit")
-                            echo "<img src=\"./highlight.png\" style=\"width:$sizepx;position:relative;top:-".(2*$size)."px;\" />";
-                    }
-                    echo "</a>";
-                    echo "</td>";
-                    //$_SESSION["level_data"][$i][$y] = array("type" => $TYPE_EMPTY,"color" => $COLOR_EMPTY, "dest_color" => $COLOR_RED);
+        } else if(@$_GET["action"] == "play") {
+            
+            function setFieldColor($x, $y, $color) {
+                global $TYPE_DISABLED;
+                if($x >= 0 && $x < $_SESSION["rows"]
+                      &&  $y >= 0 && $y < $_SESSION["cols"]
+                        && $_SESSION["play_data"][$x][$y]["type"] != $TYPE_DISABLED) {
+                    $_SESSION["play_data"][$x][$y]["color"] = $color;
                 }
-                echo "</tr>";
             }
-            echo "</table></div>";
+            function setFieldType($x, $y, $type) {
+                global $TYPE_DISABLED;
+                if($x >= 0 && $x < $_SESSION["rows"]
+                      &&  $y >= 0 && $y < $_SESSION["cols"]
+                        && $_SESSION["play_data"][$x][$y]["type"] != $TYPE_DISABLED) {
+                    $_SESSION["play_data"][$x][$y]["type"] = $type;
+                }
+            }
+            
+            if(isset($_GET["c"])) {
+                $c = $_GET["c"];
+                $r = $_GET["r"];
+                if($_SESSION["play_data"][$r][$c]["type"] == $TYPE_BOMB) {
+                    $color = $_SESSION["play_data"][$r][$c]["dest_color"];
+                    setFieldColor($r-1, $c-1, $color);setFieldType($r-1, $c-1, $TYPE_EMPTY);
+                    setFieldColor($r-1, $c, $color);setFieldType($r-1, $c, $TYPE_EMPTY);
+                    setFieldColor($r-1, $c+1, $color);setFieldType($r-1, $c+1, $TYPE_EMPTY);
+                    setFieldColor($r, $c-1, $color);setFieldType($r, $c-1, $TYPE_EMPTY);
+                    setFieldColor($r, $c, $color);setFieldType($r, $c, $TYPE_EMPTY);
+                    setFieldColor($r, $c+1, $color);setFieldType($r, $c+1, $TYPE_EMPTY);
+                    setFieldColor($r+1, $c-1, $color);setFieldType($r+1, $c-1, $TYPE_EMPTY);
+                    setFieldColor($r+1, $c, $color);setFieldType($r+1, $c, $TYPE_EMPTY);
+                    setFieldColor($r+1, $c+1, $color);setFieldType($r+1, $c+1, $TYPE_EMPTY);
+                } else if($_SESSION["play_data"][$r][$c]["type"] == $TYPE_FLOW) {
+                    $wasFilled = false;
+                    function recFill($x, $y, $from, $to, $isFirst = false) {
+                        global $wasFilled, $TYPE_EMPTY;
+                        if($x >= 0 && $x < $_SESSION["rows"]
+                            &&  $y >= 0 && $y < $_SESSION["cols"]
+                            && ($_SESSION["play_data"][$x][$y]["type"] == $TYPE_EMPTY || $isFirst)
+                            && $_SESSION["play_data"][$x][$y]["color"] == $from) {
+                            
+                            $wasFilled = !$isFirst;
+                            $_SESSION["play_data"][$x][$y]["color"] = $to;
+                            
+                            recFill($x-1, $y, $from, $to);
+                            recFill($x+1, $y, $from, $to);
+                            recFill($x, $y-1, $from, $to);
+                            recFill($x, $y+1, $from, $to);
+                        }
+                    }
+                    $color = $_SESSION["play_data"][$r][$c]["dest_color"];
+                    recFill($r, $c, $COLOR_EMPTY, $color, true);
+                    if (!$wasFilled) {
+                        recFill($r, $c, $color, $COLOR_EMPTY, true);
+                    }
+                } else if($_SESSION["play_data"][$r][$c]["type"] == $TYPE_LIMIT) {
+                    $wasFilled = false;
+                    
+                    function fill($x, $y, $dx, $dy, $from, $to) {
+                        global $wasFilled, $TYPE_EMPTY;
+                        while(true) {
+                            $x += $dx;
+                            $y += $dy;
+                            if($x >= 0 && $x < $_SESSION["rows"]
+                                &&  $y >= 0 && $y < $_SESSION["cols"]
+                                && $_SESSION["play_data"][$x][$y]["type"] == $TYPE_EMPTY
+                                && $_SESSION["play_data"][$x][$y]["color"] == $from) {
+                                
+                                $wasFilled = true;
+                                $_SESSION["play_data"][$x][$y]["color"] = $to;
+                            } else {
+                                return;
+                            }
+                        }
+                    }
+                    function twofill($x, $y, $dx, $dy, $color) {
+                        global $COLOR_EMPTY, $wasFilled;
+                        fill($x, $y, $dx, $dy, $COLOR_EMPTY, $color);
+                        if (!$wasFilled) {
+                            fill($x, $y, $dx, $dy, $color, $COLOR_EMPTY);
+                        }
+                    }
+                    
+                    $col = $_SESSION["play_data"][$r][$c];
+                    $color = $_SESSION["play_data"][$r][$c]["dest_color"];
+                    if ($col["action"] == "left") {
+                        twofill($r, $c, 0, -1, $color);
+                    } else if ($col["action"] == "right") {
+                        twofill($r, $c, 0, +1, $color);
+                    } else if ($col["action"] == "up") {
+                        twofill($r, $c, -1, 0, $color);
+                    } else if ($col["action"] == "down") {
+                        twofill($r, $c, +1, 0, $color);
+                    } else if ($col["action"] == "rotate_left") {
+                        twofill($r, $c, 0, -1, $color);
+                        $_SESSION["play_data"][$r][$c]["action"] = "rotate_up";
+                    } else if ($col["action"] == "rotate_right") {
+                        twofill($r, $c, 0, +1, $color);
+                        $_SESSION["play_data"][$r][$c]["action"] = "rotate_down";
+                    } else if ($col["action"] == "rotate_up") {
+                        twofill($r, $c, -1, 0, $color);
+                        $_SESSION["play_data"][$r][$c]["action"] = "rotate_right";
+                    } else if ($col["action"] == "rotate_down") {
+                        twofill($r, $c, +1, 0, $color);
+                        $_SESSION["play_data"][$r][$c]["action"] = "rotate_left";
+                    }
+                }
+            }
+            
+            drawBoard($_SESSION["play_data"], "play", 0, 0, false, "float:none;");
+        } else {
+            drawBoard($_SESSION["level_data"], "edit", $_GET["c"], $_GET["r"], @$_GET["action"] == "edit");
 
             if (@$_GET["action"] == "edit") {
                 echo "<div id=\"editor\"><b>Bearbeiten:</b><br /><br /><table>";
