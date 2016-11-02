@@ -1412,6 +1412,25 @@
                X0000L
                R000FX" />
 
+    <level number="97"
+        color="bgbgbb
+               bbbbbb
+               goooob
+               ooooob
+               boooob
+               bbbobb
+               gbbobb
+               bbbbbb"
+        modifier="
+               0FFDD0
+               000000
+               R00000
+               F00000
+               R00000
+               000000
+               F00000
+               R00000" />
+
     <level number="99"
         color="rrrrrr
                rrrrgr
