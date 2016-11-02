@@ -1279,6 +1279,44 @@
                000000
                FUUUUF" />
 
+    <level number="82"
+        color="0obgo0
+               bgbooo
+               ogbooo
+               bgoooo
+               bgbooo
+               ggbogg
+               ggbogg
+               0gbog0"
+        modifier="
+               XDDD0X
+               F00000
+               F00000
+               R00000
+               R00000
+               000000
+               000000
+               XF000X" />
+
+    <level number="83"
+        color="roooro
+               rrorrr
+               orrrdr
+               oorrrr
+               orrrrr
+               rrrorr
+               rrooor
+               oooooo"
+        modifier="
+               F0F00F
+               00000L
+               0R00Fr
+               F0000L
+               00UU0L
+               00000L
+               FU000r
+               F00U00" />
+
     <level number="84"
         color="rooooo
                rbbbbo
