@@ -1469,6 +1469,25 @@
                F00000
                R00000" />
 
+    <level number="98"
+        color="rrobor
+               rrbrrr
+               brbrrr
+               orbrbr
+               rrbrbr
+               grrbbo
+               brbbrr
+               rrbbrr"
+        modifier="
+               00FDDF
+               00D000
+               F00000
+               R00000
+               F00000
+               R0000L
+               F00000
+               00000F" />
+
     <level number="99"
         color="rrrrrr
                rrrrgr
