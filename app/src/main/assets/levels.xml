@@ -1355,6 +1355,25 @@
                R0000L
                XUUUUX" />
 
+    <level number="86"
+        color="gbgrb0
+               bbbrrg
+               brbbrr
+               brbgrg
+               rrggrg
+               brrggg
+               0grbgb
+               000000"
+        modifier="
+               00DFDX
+               00000L
+               000R00
+               00FF00
+               00L000
+               R00000
+               XUFU00
+               XXXXXX" />
+
     <level number="87"
         color="rrbgrr
                rgggrb
