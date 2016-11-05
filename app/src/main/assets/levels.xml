@@ -1412,6 +1412,25 @@
                R00000
                F000U0" />
 
+    <level number="89"
+        color="dddggo
+               ddrggo
+               dbrggo
+               dbrogo
+               ddrooo
+               ddroog
+               rrrrro
+               0rbgo0"
+        modifier="
+               FdDoob
+               dddbdd
+               dbdbrr
+               dbddLr
+               dgdggg
+               dgdbrU
+               R0000L
+               XFFFFX" />
+
     <level number="90"
         color="rgdgdb
                rrrbbb
@@ -1430,6 +1449,25 @@
                R00000
                000000
                F0U0UF" />
+
+    <level number="92"
+        color="rrrrbb
+               rrbrbg
+               brrrrg
+               rrbgbr
+               rrbbbb
+               rrbobr
+               boooor
+               ooborr"
+        modifier="
+               F0D00F
+               00000F
+               R0000L
+               000000
+               R00000
+               000000
+               R00000
+               F000U0" />
 
     <level number="93"
         color="0rgogr
