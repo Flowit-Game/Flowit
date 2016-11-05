@@ -171,6 +171,12 @@ if (!isset($_SESSION["level_data"]) && isset($_GET["cols"]) && isset($_GET["rows
             }
         </style>
         <script>
+            function removeOnclick() {
+                    document.onkeydown = function(e) {
+                        e.preventDefault();
+                    };
+            }
+
             function findGetParameter(parameterName) {
                 var result = null,
                     tmp = [];
@@ -181,6 +187,7 @@ if (!isset($_SESSION["level_data"]) && isset($_GET["cols"]) && isset($_GET["rows
                 }
                 return result;
             }
+
             function param(paramName, offset) {
                 return Number(findGetParameter(paramName)) + offset;
             }
@@ -191,18 +198,22 @@ if (!isset($_SESSION["level_data"]) && isset($_GET["cols"]) && isset($_GET["rows
                 if (e.keyCode == '38') {
                     // up arrow
                     window.location.href="./?action=edit&c="+param("c",  0)+"&r="+param("r", -1);
+                    removeOnclick();
                     e.preventDefault();
                 } else if (e.keyCode == '40') {
                     // down arrow
                     window.location.href="./?action=edit&c="+param("c",  0)+"&r="+param("r", +1);
+                    removeOnclick();
                     e.preventDefault();
                 } else if (e.keyCode == '37') {
                    // left arrow
                     window.location.href="./?action=edit&c="+param("c", -1)+"&r="+param("r",  0);
+                    removeOnclick();
                     e.preventDefault();
                 } else if (e.keyCode == '39') {
                    // right arrow
                     window.location.href="./?action=edit&c="+param("c", +1)+"&r="+param("r",  0);
+                    removeOnclick();
                     e.preventDefault();
                 }
 
@@ -275,6 +286,9 @@ if (!isset($_SESSION["level_data"]) && isset($_GET["cols"]) && isset($_GET["rows
             }
             $(document).ready(function() {
                 autostart();
+                $("a").click(function() {
+                    removeOnclick();
+                });
             });
         </script>
     </head>
