@@ -69,18 +69,19 @@ public class LevelDrawer extends Drawable {
 
         processAnimations();
 
+        float startY = getY() - boxSize;
         for (int col = 0; col < level.getWidth(); col++) {
             for (int row = 0; row < level.getHeight(); row++) {
                 Field field = level.fieldAt(col, row);
 
                 Plane color = getColorPlane(field.getColor());
-                color.setX(getX() + (col + 0.5f)*boxSize);
-                color.setY(getY() - row*boxSize);
+                color.setX(getX() + (col + 0.5f) * boxSize);
+                color.setY(startY - row * boxSize);
                 color.draw(gl);
 
                 Plane modifier = getModifierPlane(field.getModifier());
-                modifier.setX(getX() + (col + 0.5f)*boxSize);
-                modifier.setY(getY() - row*boxSize);
+                modifier.setX(getX() + (col + 0.5f) * boxSize);
+                modifier.setY(startY - row * boxSize);
                 modifier.draw(gl);
             }
         }
@@ -126,7 +127,7 @@ public class LevelDrawer extends Drawable {
     }
 
     private Plane getColorPlane(Color color) {
-        switch(color) {
+        switch (color) {
             case DARK:
                 return colors[0];
             case GREEN:
@@ -153,6 +154,7 @@ public class LevelDrawer extends Drawable {
 
     public void setScreenWidth(float screenWidth) {
         this.screenWidth = screenWidth;
+        initialize();
     }
 
     public float getBoxSize() {
@@ -160,6 +162,6 @@ public class LevelDrawer extends Drawable {
     }
 
     public float getHeight() {
-        return level.getHeight()*getBoxSize();
+        return level.getHeight() * getBoxSize();
     }
 }

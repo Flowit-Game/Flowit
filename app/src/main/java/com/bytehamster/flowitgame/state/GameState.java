@@ -1,6 +1,7 @@
 package com.bytehamster.flowitgame.state;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 
@@ -126,7 +127,7 @@ public class GameState extends State {
         levelDrawer.setVisible(true);
         levelDrawer.setY(-levelDrawer.getBoxSize());
         TranslateAnimation drawerAnimation = new TranslateAnimation(levelDrawer, Animation.DURATION_LONG, Animation.DURATION_LONG);
-        drawerAnimation.setTo(0, getScreenHeight() - boardStartY);
+        drawerAnimation.setTo(levelDrawer.getX(), getScreenHeight() - boardStartY);
         drawerAnimation.start();
 
         AnimationFactory.startScaleShow(left);
@@ -141,7 +142,22 @@ public class GameState extends State {
         isFilling = false;
         levelData = new Level(level, getActivity());
         levelDrawer.setLevel(levelData);
-        boardStartY = 2 * topButtonSize + (getScreenHeight() - getAdHeight() - levelDrawer.getHeight()) / 2;
+
+        if (lastLevelState == LastLevelState.NO_LEVEL) {
+            levelDrawer.setScreenWidth(getScreenWidth());
+            // Re-initialize board position every time you go back
+        }
+
+        float remainingSpace = getScreenHeight() - getAdHeight() - 2 * topButtonSize - levelDrawer.getHeight();
+        final float horizontalPaddingDelta = levelDrawer.getBoxSize() / 2;
+        float horizontalPadding = horizontalPaddingDelta;
+        while (remainingSpace < 0) {
+            levelDrawer.setScreenWidth(getScreenWidth() - 2 * horizontalPadding);
+            levelDrawer.setX(horizontalPadding);
+            remainingSpace = getScreenHeight() - getAdHeight() - 2 * topButtonSize - levelDrawer.getHeight();
+            horizontalPadding += horizontalPaddingDelta;
+        }
+        boardStartY = 2 * topButtonSize + remainingSpace / 2;
 
         if (!isPlayable(level)) {
             float availableSpace = getScreenHeight() - getAdHeight();
@@ -195,7 +211,7 @@ public class GameState extends State {
 
         levelDrawer.cancelAnimations();
         TranslateAnimation logoAnimation = new TranslateAnimation(levelDrawer, Animation.DURATION_LONG, Animation.DURATION_LONG);
-        logoAnimation.setTo(0, -levelDrawer.getBoxSize());
+        logoAnimation.setTo(levelDrawer.getX(), -levelDrawer.getBoxSize());
         logoAnimation.setHideAfter(true);
         logoAnimation.start();
 
@@ -252,10 +268,10 @@ public class GameState extends State {
 
             for (int row = 0; row < levelData.getHeight(); row++) {
                 for (int col = 0; col < levelData.getWidth(); col++) {
-                    if (event.getY() > boardStartY + (row - 1) * levelDrawer.getBoxSize()
-                            && event.getY() < boardStartY + row * levelDrawer.getBoxSize()
-                            && event.getX() > (col + 0.5) * levelDrawer.getBoxSize()
-                            && event.getX() < (col + 1.5) * levelDrawer.getBoxSize()) {
+                    if (event.getY() > boardStartY + row * levelDrawer.getBoxSize()
+                            && event.getY() < boardStartY + (row + 1) * levelDrawer.getBoxSize()
+                            && event.getX() > levelDrawer.getX() + (col + 0.5) * levelDrawer.getBoxSize()
+                            && event.getX() < levelDrawer.getX() + (col + 1.5) * levelDrawer.getBoxSize()) {
 
                         triggerField(col, row);
                     }
