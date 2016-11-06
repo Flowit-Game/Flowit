@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bytehamster.flowitgame"
     android:versionCode="9"
-    android:versionName="2.1">
+    android:versionName="2.0">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <application
