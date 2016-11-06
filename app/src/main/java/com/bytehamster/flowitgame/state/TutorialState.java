@@ -43,7 +43,7 @@ public class TutorialState extends State {
         float tutScreenWidth = glRenderer.getWidth() * (5f / 6f);
         float tutScreenHeight = tutScreenWidth * (4f / 5f);
         float tutScreenX = glRenderer.getWidth() * (1f / 12f);
-        float tutScreenY = glRenderer.getHeight() - logoHeight - (glRenderer.getHeight() - getAdHeight() + tutScreenHeight - logoHeight)/2;
+        float tutScreenY = glRenderer.getHeight() - logoHeight - (glRenderer.getHeight() - getAdHeight() + tutScreenHeight - logoHeight) / 2;
         TextureCoordinates coordinatesScreen1 = TextureCoordinates.getFromBlocks(6, 6, 11, 10);
         screen1 = new Plane(tutScreenX, tutScreenY, tutScreenWidth, tutScreenHeight, coordinatesScreen1);
         screen1.setScale(0);
@@ -61,14 +61,14 @@ public class TutorialState extends State {
     public void entry() {
         nextState = this;
 
-        if(screenNumber == 1) {
+        if (screenNumber == 1) {
             logo.setY(getScreenHeight());
             TranslateAnimation logoAnimation = new TranslateAnimation(logo, Animation.DURATION_LONG, Animation.DURATION_SHORT);
             logoAnimation.setTo(0, getScreenHeight() - logo.getHeight());
             logoAnimation.start();
         }
 
-        if(screenNumber == 1) {
+        if (screenNumber == 1) {
             AnimationFactory.startScaleShow(screen1);
         } else {
             AnimationFactory.startScaleShow(screen2, 0);
@@ -77,18 +77,25 @@ public class TutorialState extends State {
 
     @Override
     public void exit() {
-        if(screenNumber == 3) {
+        if (screenNumber == 3) {
             screenNumber = 2;
             TranslateAnimation logoAnimation = new TranslateAnimation(logo, Animation.DURATION_SHORT, 0);
             logoAnimation.setTo(0, getScreenHeight());
             logoAnimation.start();
         }
 
-        if(screenNumber == 1) {
+        if (screenNumber == 1) {
             AnimationFactory.startScaleHide(screen1, 0);
         } else {
             AnimationFactory.startScaleHide(screen2);
             screenNumber = 1;
+        }
+
+        if (nextState == MainMenuState.getInstance()) {
+            screenNumber = 1;
+            TranslateAnimation logoAnimation = new TranslateAnimation(logo, Animation.DURATION_SHORT, 0);
+            logoAnimation.setTo(0, getScreenHeight());
+            logoAnimation.start();
         }
     }
 
