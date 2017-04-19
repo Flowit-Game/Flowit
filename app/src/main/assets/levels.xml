@@ -1620,5 +1620,45 @@
                oodogb
                000000
                FFFUFF" />
+    
+    <!-- =========== LEVEL PACK 5 ============ -->
+    
+    <level number="100"
+        color="oggrrr
+               bggrrr
+               bbrrrr
+               oorrgg
+               oorgoo
+               ddrgoo
+               ddrgoo
+               ddrgoo"
+        modifier="
+               00B000
+               0000B0
+               B00000
+               0000B0
+               B0B000
+               0000B0
+               B00000
+               00FU0F" />
+    
+    <level number="101"
+        color="oooggr
+               gggbrr
+               gggbrr
+               gggbrr
+               dddddr
+               ooddgg
+               rooogg
+               oorrgg"
+        modifier="
+               00000F
+               000000
+               0B0B0B
+               000000
+               F0000L
+               000000
+               R00000
+               F0UU0F" />
 
 </levels>
