@@ -50,4 +50,12 @@ public class AnimationFactory {
         leftAnimation.setHideAfter(true);
         leftAnimation.start();
     }
+
+    public static void startMoveYTo(Plane plane, float toY) {
+        plane.cancelAnimations();
+        plane.setVisible(true);
+        TranslateAnimation leftAnimation = new TranslateAnimation(plane, Animation.DURATION_LONG, Animation.DURATION_LONG);
+        leftAnimation.setTo(plane.getX(), toY);
+        leftAnimation.start();
+    }
 }
