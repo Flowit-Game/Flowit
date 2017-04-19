@@ -3,7 +3,6 @@ package com.bytehamster.flowitgame.state;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 
 import com.bytehamster.flowitgame.GLRenderer;
@@ -59,6 +58,10 @@ abstract public class State {
         }
     }
 
+    int loadSteps(int level) {
+        return playedPrefs.getInt("s"+level, 99);
+    }
+
     boolean isSolved (int level) {
         return playedPrefs.getBoolean("l"+level, false);
     }
@@ -77,7 +80,7 @@ abstract public class State {
         return num;
     }
 
-    boolean enoughUnlockedInPack(int pack) {
+    private boolean enoughUnlockedInPack(int pack) {
         return getPlayedInPack(pack) >= 23;
     }
 

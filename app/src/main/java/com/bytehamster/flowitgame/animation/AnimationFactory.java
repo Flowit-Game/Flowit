@@ -1,5 +1,6 @@
 package com.bytehamster.flowitgame.animation;
 
+import com.bytehamster.flowitgame.object.Drawable;
 import com.bytehamster.flowitgame.object.Plane;
 
 public class AnimationFactory {
@@ -51,7 +52,7 @@ public class AnimationFactory {
         leftAnimation.start();
     }
 
-    public static void startMoveYTo(Plane plane, float toY) {
+    public static void startMoveYTo(Drawable plane, float toY) {
         plane.cancelAnimations();
         plane.setVisible(true);
         TranslateAnimation leftAnimation = new TranslateAnimation(plane, Animation.DURATION_LONG, Animation.DURATION_LONG);
