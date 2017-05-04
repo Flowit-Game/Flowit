@@ -1,6 +1,10 @@
 package com.bytehamster.flowitgame;
 
+import android.app.ActivityManager;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
 import android.os.Handler;
@@ -47,6 +51,13 @@ public class Main extends Activity {
                 .putInt("lastAppVersion", BuildConfig.VERSION_CODE).apply();
 
         createViews();
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+            ActivityManager.TaskDescription taskDesc = new ActivityManager.TaskDescription(
+                    getString(R.string.app_name), bm, 0xff206dbc);
+            setTaskDescription(taskDesc);
+        }
     }
 
     private void createViews() {
