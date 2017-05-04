@@ -387,7 +387,7 @@ public class GameState extends State {
             right.addAnimation(rightButtonGlow);
             rightButtonGlow.start();
 
-            if (stepsUsed.getValue() < stepsBest.getValue() && stepsBest.getValue() < 99) {
+            if (stepsUsed.getValue() < stepsBest.getValue() && stepsBest.getValue() < 999) {
                 AnimationFactory.startScaleShow(stepsImproved, 0);
             }
         }

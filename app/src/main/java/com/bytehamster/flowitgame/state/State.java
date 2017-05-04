@@ -59,7 +59,7 @@ abstract public class State {
     }
 
     int loadSteps(int level) {
-        return playedPrefs.getInt("s"+level, 99);
+        return playedPrefs.getInt("s"+level, 999);
     }
 
     boolean isSolved (int level) {
