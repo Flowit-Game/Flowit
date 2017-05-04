@@ -294,7 +294,8 @@ public class GameState extends State {
                     level--;
                     reloadLevel();
                 }
-            } else if (right.collides(event, getScreenHeight())) {
+            } else if (right.collides(event, getScreenHeight())
+                    || winMessage.collides(event, getScreenHeight())) {
                 playSound(R.raw.click);
                 level++;
                 if (level % 25 == 0) {
