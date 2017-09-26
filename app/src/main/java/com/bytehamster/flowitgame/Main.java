@@ -37,10 +37,10 @@ public class Main extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.main);
-        glSurfaceView = (MyGLSurfaceView) findViewById(R.id.gl_surface_view);
+        glSurfaceView = findViewById(R.id.gl_surface_view);
 
         MobileAds.initialize(getApplicationContext(), "ca-app-pub-8233037560237995~7887041460");
-        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .addTestDevice("4BE63CCF02F5F8C39DA7FE4AB2C306B3")

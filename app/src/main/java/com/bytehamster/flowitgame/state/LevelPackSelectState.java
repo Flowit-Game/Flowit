@@ -1,7 +1,6 @@
 package com.bytehamster.flowitgame.state;
 
 import android.annotation.SuppressLint;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 
 import com.bytehamster.flowitgame.GLRenderer;
