@@ -2,9 +2,6 @@
 *.iml
 .idea
 .gradle
-gradle
 local.properties
-gradlew
-gradlew.bat
 app/src/main/assets/levels_compressed.xml
 

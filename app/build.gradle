@@ -10,15 +10,22 @@ android {
         targetSdkVersion 26
     }
 
+    signingConfigs {
+        release {
+            if (project.hasProperty("SIGNING1")) {
+                storeFile file(SIGNING1_STORE_FILE)
+                storePassword SIGNING1_STORE_PASSWORD
+                keyAlias SIGNING1_KEY_ALIAS
+                keyPassword SIGNING1_KEY_PASSWORD
+            }
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-project.txt'
-            applicationVariants.all { variant ->
-                variant.outputs.each { output ->
-                    output.outputFile = new File(output.outputFile.parent, "FlowIt.apk")
-                }
-            }
         }
     }
 
