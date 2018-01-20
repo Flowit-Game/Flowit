@@ -178,7 +178,11 @@ public class GameState extends State {
         rightButtonGlow.stopWhenFinished();
         won = false;
         stepsUsed.setValue(0);
-        stepsBest.setValue(loadSteps(level));
+        if (loadSteps(level) == STEPS_NOT_SOLVED) {
+            stepsBest.setValue(Number.VALUE_NAN);
+        } else {
+            stepsBest.setValue(loadSteps(level));
+        }
         AnimationFactory.startScaleHide(stepsImproved, 0);
         isFilling = false;
         levelData = new Level(level, getActivity());
@@ -388,7 +392,7 @@ public class GameState extends State {
             right.addAnimation(rightButtonGlow);
             rightButtonGlow.start();
 
-            if (stepsUsed.getValue() < stepsBest.getValue() && stepsBest.getValue() < 999) {
+            if (stepsUsed.getValue() < stepsBest.getValue() && stepsBest.getValue() < STEPS_NOT_SOLVED) {
                 AnimationFactory.startScaleShow(stepsImproved, 0);
             }
         }

@@ -9,6 +9,8 @@ import com.bytehamster.flowitgame.GLRenderer;
 import com.bytehamster.flowitgame.SoundPool;
 
 abstract public class State {
+    static final int STEPS_NOT_SOLVED = 999;
+
     private float screenWidth;
     private float screenHeight;
     private float adHeight;
@@ -53,13 +55,13 @@ abstract public class State {
     }
 
     void saveSteps(int level, int steps) {
-        if (playedPrefs.getInt("s"+level, 999999) > steps) {
+        if (playedPrefs.getInt("s"+level, STEPS_NOT_SOLVED) > steps) {
             playedPrefs.edit().putInt("s"+level, steps).apply();
         }
     }
 
     int loadSteps(int level) {
-        return playedPrefs.getInt("s"+level, 999);
+        return playedPrefs.getInt("s"+level, STEPS_NOT_SOLVED);
     }
 
     boolean isSolved (int level) {

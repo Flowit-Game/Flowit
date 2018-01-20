@@ -3,7 +3,10 @@ package com.bytehamster.flowitgame.object;
 import javax.microedition.khronos.opengles.GL10;
 
 public class Number extends Drawable {
+    public static final int VALUE_NAN = -42424242;
+
     private static final float LETTER_SIZE = 100;
+    private static final int LETTER_INDEX_NAN = 10;
     private static final Plane[] LETTERS = {
             ObjectFactory.createSingleBox(11, 8, LETTER_SIZE),
             ObjectFactory.createSingleBox(12, 8, LETTER_SIZE),
@@ -15,6 +18,7 @@ public class Number extends Drawable {
             ObjectFactory.createSingleBox(13, 9, LETTER_SIZE),
             ObjectFactory.createSingleBox(14, 9, LETTER_SIZE),
             ObjectFactory.createSingleBox(15, 9, LETTER_SIZE),
+            ObjectFactory.createSingleBox(15, 10, LETTER_SIZE),
     };
 
     private int value = 0;
@@ -33,10 +37,14 @@ public class Number extends Drawable {
                 getScale() * fontSize * 1.5f / LETTER_SIZE,
                 getScale() * fontSize * 1.5f / LETTER_SIZE);
 
-        String valueString = String.valueOf(value);
-        for (int i = 0; i < valueString.length(); i++) {
-            LETTERS[valueString.charAt(i) - '0'].draw(gl);
-            gl.glTranslatef(LETTER_SIZE * 0.6f, 0, 0);
+        if (value == VALUE_NAN) {
+            LETTERS[LETTER_INDEX_NAN].draw(gl);
+        } else {
+            String valueString = String.valueOf(value);
+            for (int i = 0; i < valueString.length(); i++) {
+                LETTERS[valueString.charAt(i) - '0'].draw(gl);
+                gl.glTranslatef(LETTER_SIZE * 0.6f, 0, 0);
+            }
         }
 
         gl.glPopMatrix();
