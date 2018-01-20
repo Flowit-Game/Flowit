@@ -43,7 +43,7 @@ public class Main extends Activity {
         AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("4BE63CCF02F5F8C39DA7FE4AB2C306B3")
+                .addTestDevice("4413FE813D2B5516E668ABC78B99A1BF")
                 .build();
         mAdView.loadAd(adRequest);
 
