@@ -10,6 +10,7 @@ import com.bytehamster.flowitgame.SoundPool;
 
 abstract public class State {
     static final int STEPS_NOT_SOLVED = 999;
+    private static final int UNLOCK_NEXT_LEVELS = 5;
 
     private float screenWidth;
     private float screenHeight;
@@ -75,7 +76,7 @@ abstract public class State {
     private int getPlayedInPack(int pack) {
         int num = 0;
         for (int i = (pack-1)*25; i < pack*25; i++) {
-            if(isSolved(i)) {
+            if (isSolved(i)) {
                 num++;
             }
         }
@@ -83,13 +84,23 @@ abstract public class State {
     }
 
     private boolean enoughUnlockedInPack(int pack) {
-        return getPlayedInPack(pack) >= 23;
+        return getPlayedInPack(pack) >= 10;
+    }
+
+    private boolean previousUnlocked(int level) {
+        for (int i = 1; i <= UNLOCK_NEXT_LEVELS; i++) {
+            if (isSolved(level - i)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     boolean isPlayable(int level) {
-        if (level%25 < 3) {
-            // One of the first three levels in pack
-            if (level < 3) {
+        if (level % 25 < UNLOCK_NEXT_LEVELS) {
+            // One of the first levels in pack
+            if (level < UNLOCK_NEXT_LEVELS) {
+                // First levels in game
                 return true;
             } else {
                 int pack = level / 25 + 1;
@@ -103,7 +114,7 @@ abstract public class State {
                 }
             }
         }
-        return isSolved(level - 1) || isSolved(level - 2) || isSolved(level - 3);
+        return previousUnlocked(level);
     }
 
     float getScreenWidth() {
