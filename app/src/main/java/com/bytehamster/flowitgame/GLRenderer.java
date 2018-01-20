@@ -17,12 +17,15 @@ import com.bytehamster.flowitgame.object.TextureCoordinates;
 import java.util.ArrayList;
 
 public class GLRenderer implements Renderer {
-    private Context myContext = null;
+    private static final int MIN_LOADING_TIME = 500;
+
+    private final Context myContext;
     private int width = 0;
     private int height = 0;
     private final int[] textures = new int[2];
     private Runnable onReady = null;
     private int loadProgress = 0;
+    private long loadStarted = 0;
     private final ArrayList<Drawable> objects = new ArrayList<>();
 
     public GLRenderer(Context c) {
@@ -45,6 +48,7 @@ public class GLRenderer implements Renderer {
         if (loadProgress == -1) {
             setupViewport(gl);
             loadProgress = 0;
+            loadStarted = System.currentTimeMillis();
         }
 
         if (loadProgress == 0) {
@@ -56,7 +60,11 @@ public class GLRenderer implements Renderer {
             loader.draw(gl);
 
             gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[1]);
-            loadProgress = 1;
+
+            long loadingDuration = System.currentTimeMillis() - loadStarted;
+            if (loadingDuration >= MIN_LOADING_TIME) {
+                loadProgress = 1;
+            }
             return; // Do not display other objects - just loading texture
         } else if (loadProgress == 1) {
             loadTexture(gl, textures[1], R.drawable.texture);
