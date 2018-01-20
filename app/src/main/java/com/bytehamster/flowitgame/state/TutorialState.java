@@ -106,7 +106,6 @@ public class TutorialState extends State {
     @Override
     public void onBackPressed() {
         nextState = MainMenuState.getInstance();
-        getPreferences().edit().putBoolean("tutorialDisplayed", false).apply();
     }
 
     @Override
