@@ -260,6 +260,9 @@ if (!isset($_SESSION["level_data"]) && isset($_GET["cols"]) && isset($_GET["rows
                 links.get(randomNumber).click();
             }
             function startRandom() {
+                if (!confirm("Start random?")) {
+                    return;
+                }
                 createCookie("randClicks", 60, 1);
                 clickRandom();
             }
@@ -284,6 +287,11 @@ if (!isset($_SESSION["level_data"]) && isset($_GET["cols"]) && isset($_GET["rows
                     setTimeout("clickRandom('"+ click +"')", 100);
                 }
             }
+            function askRestart() {
+                if (confirm("Restart?")) {
+                    window.location.href='./?action=restart';
+                }
+            }
             $(document).ready(function() {
                 autostart();
                 $("a").click(function() {
@@ -295,7 +303,7 @@ if (!isset($_SESSION["level_data"]) && isset($_GET["cols"]) && isset($_GET["rows
     <body>
         <h1>FlowIt! Level editor</h1>
         <div>
-            <a href="./?action=restart" class="button">Neustart</a> &nbsp;
+            <a href="javascript:askRestart();" class="button">Neustart</a> &nbsp;
             &nbsp; <a href="./?action=edit&r=0&c=0" class="button <?php echo @$_GET["action"] == "edit"?"active":""; ?>">Bearbeitungsmodus</a> &nbsp;
             &nbsp; <a href="./?action=play&play=restart"  class="button <?php echo @$_GET["action"] == "play"?"active":""; ?>">Level spielen</a> &nbsp;
             &nbsp; <a href="javascript:startRandom();"  class="button">Random!</a> &nbsp;
