@@ -288,43 +288,44 @@ public class GameState extends State {
 
     @Override
     public void onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+        if (event.getAction() != MotionEvent.ACTION_DOWN) {
+            return;
+        }
 
-            if (left.collides(event, getScreenHeight())) {
-                playSound(R.raw.click);
-                if (level % 25 == 0) {
-                    nextState = LevelSelectState.getInstance();
-                } else {
-                    level--;
-                    reloadLevel();
-                }
-            } else if (right.collides(event, getScreenHeight())
-                    || winMessage.collides(event, getScreenHeight())) {
-                playSound(R.raw.click);
-                level++;
-                if (level % 25 == 0) {
-                    nextState = LevelSelectState.getInstance();
-                } else {
-                    reloadLevel();
-                }
-            } else if (restart.collides(event, getScreenHeight())) {
-                playSound(R.raw.click);
+        if (left.collides(event, getScreenHeight())) {
+            playSound(R.raw.click);
+            if (level % 25 == 0) {
+                nextState = LevelSelectState.getInstance();
+            } else {
+                level--;
                 reloadLevel();
             }
-
-            if (isFilling || won || !isPlayable(level)) {
-                return;
+        } else if (right.collides(event, getScreenHeight())
+                || winMessage.collides(event, getScreenHeight())) {
+            playSound(R.raw.click);
+            level++;
+            if (level % 25 == 0) {
+                nextState = LevelSelectState.getInstance();
+            } else {
+                reloadLevel();
             }
+        } else if (restart.collides(event, getScreenHeight())) {
+            playSound(R.raw.click);
+            reloadLevel();
+        } else if (!isFilling && !won && isPlayable(level)) {
+            checkFieldTouched(event);
+        }
+    }
 
-            for (int row = 0; row < levelData.getHeight(); row++) {
-                for (int col = 0; col < levelData.getWidth(); col++) {
-                    if (event.getY() > boardStartY + row * levelDrawer.getBoxSize()
-                            && event.getY() < boardStartY + (row + 1) * levelDrawer.getBoxSize()
-                            && event.getX() > levelDrawer.getX() + (col + 0.5) * levelDrawer.getBoxSize()
-                            && event.getX() < levelDrawer.getX() + (col + 1.5) * levelDrawer.getBoxSize()) {
+    private void checkFieldTouched(MotionEvent event) {
+        for (int row = 0; row < levelData.getHeight(); row++) {
+            for (int col = 0; col < levelData.getWidth(); col++) {
+                if (event.getY() > boardStartY + row * levelDrawer.getBoxSize()
+                        && event.getY() < boardStartY + (row + 1) * levelDrawer.getBoxSize()
+                        && event.getX() > levelDrawer.getX() + (col + 0.5) * levelDrawer.getBoxSize()
+                        && event.getX() < levelDrawer.getX() + (col + 1.5) * levelDrawer.getBoxSize()) {
 
-                        triggerField(col, row);
-                    }
+                    triggerField(col, row);
                 }
             }
         }
