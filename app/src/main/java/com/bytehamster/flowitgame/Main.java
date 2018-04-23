@@ -53,7 +53,7 @@ public class Main extends Activity {
         createViews();
 
         if (Build.VERSION.SDK_INT >= 21) {
-            Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+            Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
             ActivityManager.TaskDescription taskDesc = new ActivityManager.TaskDescription(
                     getString(R.string.app_name), bm, 0xff206dbc);
             setTaskDescription(taskDesc);
