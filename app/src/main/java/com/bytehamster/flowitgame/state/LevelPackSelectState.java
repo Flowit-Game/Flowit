@@ -7,6 +7,7 @@ import com.bytehamster.flowitgame.GLRenderer;
 import com.bytehamster.flowitgame.R;
 import com.bytehamster.flowitgame.animation.Animation;
 import com.bytehamster.flowitgame.animation.AnimationFactory;
+import com.bytehamster.flowitgame.animation.TranslateAnimation;
 import com.bytehamster.flowitgame.object.Container;
 import com.bytehamster.flowitgame.object.Plane;
 import com.bytehamster.flowitgame.object.TextureCoordinates;
@@ -20,6 +21,7 @@ public class LevelPackSelectState extends State {
     private Plane pack1;
     private Plane pack2;
     private Plane pack3;
+    private Plane selectLevelPackText;
     private Container container;
     private boolean pressed = false;
     private ScrollHelper scrollHelper;
@@ -37,16 +39,18 @@ public class LevelPackSelectState extends State {
 
     @Override
     protected void initialize(GLRenderer glRenderer) {
+        TextureCoordinates coordinatesLogo = TextureCoordinates.getFromBlocks(6, 10, 12, 12);
+        selectLevelPackText = new Plane(0, glRenderer.getHeight(), glRenderer.getWidth(), glRenderer.getWidth() / 3, coordinatesLogo);
+        selectLevelPackText.setVisible(false);
+
         float menuEntriesWidth = glRenderer.getWidth() * 0.75f;
         float menuEntriesHeight = menuEntriesWidth / 6;
-        float menuEntriesAvailableSpace = getScreenHeight() - getAdHeight();
-        float menuEntriesStartY = getScreenHeight() - (menuEntriesAvailableSpace - 4 * menuEntriesHeight) / 2;
 
         container = new Container();
         scrollHelper = new ScrollHelper(container, false, true);
 
         TextureCoordinates coordinatesPack1 = TextureCoordinates.getFromBlocks(0, 5, 6, 6);
-        pack1 = new Plane(-menuEntriesWidth, menuEntriesStartY, menuEntriesWidth, menuEntriesHeight, coordinatesPack1);
+        pack1 = new Plane(-menuEntriesWidth, -menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesPack1);
         container.addDrawable(pack1);
 
         TextureCoordinates coordinatesPack2 = TextureCoordinates.getFromBlocks(0, 6, 6, 7);
@@ -58,13 +62,22 @@ public class LevelPackSelectState extends State {
         container.addDrawable(pack3);
 
         glRenderer.addDrawable(container);
+        glRenderer.addDrawable(selectLevelPackText);
     }
 
     @Override
     public void entry() {
         nextState = this;
         pressed = false;
-        container.setY(0);
+
+        selectLevelPackText.cancelAnimations();
+        selectLevelPackText.setY(getScreenHeight());
+        selectLevelPackText.setVisible(true);
+        TranslateAnimation logoAnimation = new TranslateAnimation(selectLevelPackText, Animation.DURATION_LONG, Animation.DURATION_LONG);
+        logoAnimation.setTo(0, getScreenHeight() - selectLevelPackText.getHeight());
+        logoAnimation.start();
+
+        container.setY(getScreenHeight() - selectLevelPackText.getHeight());
         AnimationFactory.startMenuAnimationEnter(pack1, (int) (3.0f * Animation.DURATION_SHORT));
         AnimationFactory.startMenuAnimationEnter(pack2, (int) (3.5f * Animation.DURATION_SHORT));
         AnimationFactory.startMenuAnimationEnter(pack3, (int) (4.0f * Animation.DURATION_SHORT));
@@ -72,6 +85,11 @@ public class LevelPackSelectState extends State {
 
     @Override
     public void exit() {
+        TranslateAnimation logoAnimation = new TranslateAnimation(selectLevelPackText, Animation.DURATION_SHORT, 0);
+        logoAnimation.setTo(0, getScreenHeight());
+        logoAnimation.setHideAfter(true);
+        logoAnimation.start();
+
         if (LevelSelectState.getInstance().getPack() == 1) {
             AnimationFactory.startMenuAnimationOutPressed(pack1);
         } else {

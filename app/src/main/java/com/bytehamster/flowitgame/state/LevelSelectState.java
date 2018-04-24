@@ -75,12 +75,8 @@ public class LevelSelectState extends State {
             });
         }
 
-        float boxSize = getScreenWidth() / (5 + 2 + 2);
-        float availableSpace = getScreenHeight() - getAdHeight() - selectLevelText.getHeight();
-        float boxStart = getScreenHeight() - selectLevelText.getHeight() - (availableSpace - boxSize * 6.5f) / 2;
-
         TranslateAnimation listAnimation = new TranslateAnimation(levelList, Animation.DURATION_LONG, Animation.DURATION_SHORT);
-        listAnimation.setTo(0, boxStart);
+        listAnimation.setTo(0, getScreenHeight() - selectLevelText.getHeight());
         listAnimation.start();
     }
 
