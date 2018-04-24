@@ -11,12 +11,14 @@ public class ScaleAnimation extends AnimationSingle {
         super(mesh, duration, startIn);
     }
 
-    public void setTo(float to) {
+    public ScaleAnimation setTo(float to) {
         this.to = to;
+        return this;
     }
 
-    public void setHideAfter(boolean hideAfter) {
+    public ScaleAnimation setHideAfter(boolean hideAfter) {
         this.hideAfter = hideAfter;
+        return this;
     }
 
     @Override

@@ -64,6 +64,9 @@ public class LevelDrawer extends Drawable {
 
         processAnimations();
 
+        gl.glPushMatrix();
+        gl.glScalef(getScale(), getScale(), getScale());
+
         float startY = getY() - boxSize;
         for (int col = 0; col < level.getWidth(); col++) {
             for (int row = 0; row < level.getHeight(); row++) {
@@ -80,6 +83,8 @@ public class LevelDrawer extends Drawable {
                 modifier.draw(gl);
             }
         }
+
+        gl.glPopMatrix();
     }
 
     private Plane getModifierPlane(Modifier modifier) {

@@ -13,13 +13,15 @@ public class TranslateAnimation extends AnimationSingle {
         super(mesh, duration, startIn);
     }
 
-    public void setTo(float x, float y) {
+    public TranslateAnimation setTo(float x, float y) {
         this.toX = x;
         this.toY = y;
+        return this;
     }
 
-    public void setHideAfter(boolean hideAfter) {
+    public TranslateAnimation setHideAfter(boolean hideAfter) {
         this.hideAfter = hideAfter;
+        return this;
     }
 
     @Override

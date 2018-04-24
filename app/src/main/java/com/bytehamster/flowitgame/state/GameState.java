@@ -193,17 +193,19 @@ public class GameState extends State {
         }
         boardStartY = topBarHeight + remainingSpace / 2;
 
-        levelDrawer.cancelAnimations();
-        levelDrawer.setVisible(true);
-        TranslateAnimation drawerAnimation;
-        if (lastLevelState == LastLevelState.NO_LEVEL) {
-            levelDrawer.setY(-levelDrawer.getBoxSize());
-            drawerAnimation = new TranslateAnimation(levelDrawer, Animation.DURATION_LONG, Animation.DURATION_LONG);
-        } else {
-            drawerAnimation = new TranslateAnimation(levelDrawer, Animation.DURATION_SHORT, 0);
+        if (levelDrawer.getY() != getScreenHeight() - boardStartY) {
+            levelDrawer.cancelAnimations();
+            levelDrawer.setVisible(true);
+            TranslateAnimation drawerAnimation;
+            if (lastLevelState == LastLevelState.NO_LEVEL) {
+                levelDrawer.setY(-levelDrawer.getBoxSize());
+                drawerAnimation = new TranslateAnimation(levelDrawer, Animation.DURATION_LONG, Animation.DURATION_LONG);
+            } else {
+                drawerAnimation = new TranslateAnimation(levelDrawer, Animation.DURATION_SHORT, 0);
+            }
+            drawerAnimation.setTo(levelDrawer.getX(), getScreenHeight() - boardStartY);
+            drawerAnimation.start();
         }
-        drawerAnimation.setTo(levelDrawer.getX(), getScreenHeight() - boardStartY);
-        drawerAnimation.start();
 
         if (!isPlayable(level)) {
             float availableSpace = getScreenHeight() - getAdHeight();
@@ -312,6 +314,13 @@ public class GameState extends State {
             }
         } else if (restart.collides(event, getScreenHeight())) {
             playSound(R.raw.click);
+
+            if (stepsUsed.getValue() != 0) {
+                new ScaleAnimation(levelDrawer, Animation.DURATION_SHORT/2, 0)
+                        .setTo(0.95f).start();
+                new ScaleAnimation(levelDrawer, Animation.DURATION_SHORT/2, Animation.DURATION_SHORT/2)
+                        .setTo(1f).start();
+            }
             reloadLevel();
         } else if (!isFilling && !won && isPlayable(level)) {
             checkFieldTouched(event);
