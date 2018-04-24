@@ -22,43 +22,38 @@ public class LevelDrawer extends Drawable {
     public static LevelDrawer getInstance() {
         if (instance == null) {
             instance = new LevelDrawer();
+            instance.initialize();
         }
         return instance;
     }
 
     private void initialize() {
-        if (level == null) {
-            this.boxSize = this.screenWidth / 6f;
-        } else {
-            this.boxSize = this.screenWidth / (float) (level.getWidth() + 1);
-        }
-
         colors = new Plane[6];
-        colors[0] = ObjectFactory.createSingleBox(8, 0, boxSize);
-        colors[1] = ObjectFactory.createSingleBox(10, 0, boxSize);
-        colors[2] = ObjectFactory.createSingleBox(12, 0, boxSize);
-        colors[3] = ObjectFactory.createSingleBox(14, 0, boxSize);
-        colors[4] = ObjectFactory.createSingleBox(8, 1, boxSize);
-        colors[5] = ObjectFactory.createSingleBox(15, 15, boxSize);
+        colors[0] = ObjectFactory.createSingleBox(8, 0, 1);
+        colors[1] = ObjectFactory.createSingleBox(10, 0, 1);
+        colors[2] = ObjectFactory.createSingleBox(12, 0, 1);
+        colors[3] = ObjectFactory.createSingleBox(14, 0, 1);
+        colors[4] = ObjectFactory.createSingleBox(8, 1, 1);
+        colors[5] = ObjectFactory.createSingleBox(15, 15, 1);
 
         modifiers = new Plane[17];
-        modifiers[0] = ObjectFactory.createSingleBox(9, 0, boxSize);
-        modifiers[1] = ObjectFactory.createSingleBox(11, 0, boxSize);
-        modifiers[2] = ObjectFactory.createSingleBox(13, 0, boxSize);
-        modifiers[3] = ObjectFactory.createSingleBox(15, 0, boxSize);
-        modifiers[4] = ObjectFactory.createSingleBox(9, 1, boxSize);
-        modifiers[5] = ObjectFactory.createSingleBox(8, 2, boxSize);
-        modifiers[6] = ObjectFactory.createSingleBox(10, 1, boxSize);
-        modifiers[7] = ObjectFactory.createSingleBox(15, 15, boxSize);
-        modifiers[8] = ObjectFactory.createSingleBox(10, 2, boxSize);
-        modifiers[9] = ObjectFactory.createSingleBox(9, 2, boxSize);
-        modifiers[10] = ObjectFactory.createSingleBox(11, 2, boxSize);
-        modifiers[11] = ObjectFactory.createSingleBox(12, 2, boxSize);
-        modifiers[12] = ObjectFactory.createSingleBox(13, 2, boxSize);
-        modifiers[13] = ObjectFactory.createSingleBox(10, 3, boxSize);
-        modifiers[14] = ObjectFactory.createSingleBox(9, 3, boxSize);
-        modifiers[15] = ObjectFactory.createSingleBox(11, 3, boxSize);
-        modifiers[16] = ObjectFactory.createSingleBox(12, 3, boxSize);
+        modifiers[0] = ObjectFactory.createSingleBox(9, 0, 1);
+        modifiers[1] = ObjectFactory.createSingleBox(11, 0, 1);
+        modifiers[2] = ObjectFactory.createSingleBox(13, 0, 1);
+        modifiers[3] = ObjectFactory.createSingleBox(15, 0, 1);
+        modifiers[4] = ObjectFactory.createSingleBox(9, 1, 1);
+        modifiers[5] = ObjectFactory.createSingleBox(8, 2, 1);
+        modifiers[6] = ObjectFactory.createSingleBox(10, 1, 1);
+        modifiers[7] = ObjectFactory.createSingleBox(15, 15, 1);
+        modifiers[8] = ObjectFactory.createSingleBox(10, 2, 1);
+        modifiers[9] = ObjectFactory.createSingleBox(9, 2, 1);
+        modifiers[10] = ObjectFactory.createSingleBox(11, 2, 1);
+        modifiers[11] = ObjectFactory.createSingleBox(12, 2, 1);
+        modifiers[12] = ObjectFactory.createSingleBox(13, 2, 1);
+        modifiers[13] = ObjectFactory.createSingleBox(10, 3, 1);
+        modifiers[14] = ObjectFactory.createSingleBox(9, 3, 1);
+        modifiers[15] = ObjectFactory.createSingleBox(11, 3, 1);
+        modifiers[16] = ObjectFactory.createSingleBox(12, 3, 1);
     }
 
     @Override
@@ -144,17 +139,27 @@ public class LevelDrawer extends Drawable {
     }
 
     public synchronized void setLevel(Level level) {
-        if (this.level == null || level.getWidth() != this.level.getWidth()) {
-            this.level = level;
-            initialize();
-        } else {
-            this.level = level;
+        this.level = level;
+        recalculateSizes();
+    }
+
+    private void recalculateSizes() {
+        if (level == null) {
+            return;
+        }
+
+        this.boxSize = this.screenWidth / (float) (level.getWidth() + 1);
+        for (Plane color : colors) {
+            color.setScale(boxSize);
+        }
+        for (Plane modifier : modifiers) {
+            modifier.setScale(boxSize);
         }
     }
 
     public void setScreenWidth(float screenWidth) {
         this.screenWidth = screenWidth;
-        initialize();
+        recalculateSizes();
     }
 
     public float getBoxSize() {

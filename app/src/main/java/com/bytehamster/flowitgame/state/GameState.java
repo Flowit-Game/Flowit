@@ -159,13 +159,6 @@ public class GameState extends State {
         lastLevelState = LastLevelState.NO_LEVEL;
         reloadLevel();
 
-        levelDrawer.cancelAnimations();
-        levelDrawer.setVisible(true);
-        levelDrawer.setY(-levelDrawer.getBoxSize());
-        TranslateAnimation drawerAnimation = new TranslateAnimation(levelDrawer, Animation.DURATION_LONG, Animation.DURATION_LONG);
-        drawerAnimation.setTo(levelDrawer.getX(), getScreenHeight() - boardStartY);
-        drawerAnimation.start();
-
         AnimationFactory.startMoveYTo(left, topButtonY);
         AnimationFactory.startMoveYTo(right, topButtonY);
         AnimationFactory.startMoveYTo(restart, topButtonY);
@@ -189,11 +182,6 @@ public class GameState extends State {
         levelData = new Level(level, getActivity());
         levelDrawer.setLevel(levelData);
 
-        if (lastLevelState == LastLevelState.NO_LEVEL) {
-            levelDrawer.setScreenWidth(getScreenWidth());
-            // Re-initialize board position every time you go back
-        }
-
         float remainingSpace = getScreenHeight() - getAdHeight() - topBarHeight - levelDrawer.getHeight();
         final float horizontalPaddingDelta = levelDrawer.getBoxSize() / 2;
         float horizontalPadding = horizontalPaddingDelta;
@@ -204,6 +192,18 @@ public class GameState extends State {
             horizontalPadding += horizontalPaddingDelta;
         }
         boardStartY = topBarHeight + remainingSpace / 2;
+
+        levelDrawer.cancelAnimations();
+        levelDrawer.setVisible(true);
+        TranslateAnimation drawerAnimation;
+        if (lastLevelState == LastLevelState.NO_LEVEL) {
+            levelDrawer.setY(-levelDrawer.getBoxSize());
+            drawerAnimation = new TranslateAnimation(levelDrawer, Animation.DURATION_LONG, Animation.DURATION_LONG);
+        } else {
+            drawerAnimation = new TranslateAnimation(levelDrawer, Animation.DURATION_SHORT, 0);
+        }
+        drawerAnimation.setTo(levelDrawer.getX(), getScreenHeight() - boardStartY);
+        drawerAnimation.start();
 
         if (!isPlayable(level)) {
             float availableSpace = getScreenHeight() - getAdHeight();

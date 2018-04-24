@@ -68,7 +68,7 @@ public class LevelList extends Drawable {
         draw.setY(getYFor(num));
         draw.draw(gl);
 
-        number.setValue(num);
+        number.setValue(num + 1);
         number.setX(draw.getX() + boxWidth + boxWidth / 4);
         number.setY(draw.getY() + boxHeight / 3);
         number.draw(gl);
