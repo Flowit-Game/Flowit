@@ -65,7 +65,7 @@ abstract public class State {
         return playedPrefs.getInt("s"+level, STEPS_NOT_SOLVED);
     }
 
-    boolean isSolved (int level) {
+    public boolean isSolved (int level) {
         return playedPrefs.getBoolean("l"+level, false);
     }
 
@@ -96,7 +96,7 @@ abstract public class State {
         return false;
     }
 
-    boolean isPlayable(int level) {
+    public boolean isPlayable(int level) {
         if (level % 25 < UNLOCK_NEXT_LEVELS) {
             // One of the first levels in pack
             if (level < UNLOCK_NEXT_LEVELS) {

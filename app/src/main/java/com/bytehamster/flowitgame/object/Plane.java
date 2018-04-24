@@ -43,9 +43,13 @@ public class Plane extends Mesh {
     }
 
     public boolean collides(MotionEvent event, float screenHeight) {
-        return event.getY() < screenHeight - getY()
-                && event.getY() > screenHeight - (getY() + getHeight())
-                && event.getX() > getX()
-                && event.getX() < getX() + getWidth();
+        return collides(event.getX(), event.getY(), screenHeight);
+    }
+
+    public boolean collides(float x, float y, float screenHeight) {
+        return y < screenHeight - getY()
+                && y  > screenHeight - (getY() + getHeight())
+                && x  > getX()
+                && x  < getX() + getWidth();
     }
 }
