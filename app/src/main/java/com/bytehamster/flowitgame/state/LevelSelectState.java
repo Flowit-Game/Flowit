@@ -10,6 +10,7 @@ import com.bytehamster.flowitgame.animation.TranslateAnimation;
 import com.bytehamster.flowitgame.object.LevelList;
 import com.bytehamster.flowitgame.object.Plane;
 import com.bytehamster.flowitgame.object.TextureCoordinates;
+import com.bytehamster.flowitgame.util.PackRanges;
 import com.bytehamster.flowitgame.util.ScrollHelper;
 
 public class LevelSelectState extends State {
@@ -61,18 +62,11 @@ public class LevelSelectState extends State {
         logoAnimation.start();
 
         if (pack == 1) {
-            levelList.setDisplayRange(new int[][]{
-                    new int[]{0, 24},
-                    new int[]{75, 99},
-            });
+            levelList.setDisplayRange(PackRanges.RANGE_1);
         } else if (pack == 2) {
-            levelList.setDisplayRange(new int[][]{
-                    new int[]{25, 49}
-            });
+            levelList.setDisplayRange(PackRanges.RANGE_2);
         } else if (pack == 3) {
-            levelList.setDisplayRange(new int[][]{
-                    new int[]{50, 74}
-            });
+            levelList.setDisplayRange(PackRanges.RANGE_3);
         }
         scrollHelper.setMaxima(0, getScreenHeight() - selectLevelText.getHeight(),
                 0, getAdHeight() + levelList.getHeight());

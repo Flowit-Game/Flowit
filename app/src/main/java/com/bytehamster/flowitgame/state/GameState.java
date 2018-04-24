@@ -20,6 +20,7 @@ import com.bytehamster.flowitgame.object.Number;
 import com.bytehamster.flowitgame.object.ObjectFactory;
 import com.bytehamster.flowitgame.object.Plane;
 import com.bytehamster.flowitgame.object.TextureCoordinates;
+import com.bytehamster.flowitgame.util.PackRanges;
 
 public class GameState extends State {
     @SuppressLint("StaticFieldLeak")
@@ -294,19 +295,19 @@ public class GameState extends State {
 
         if (left.collides(event, getScreenHeight())) {
             playSound(R.raw.click);
-            if (level % 25 == 0) {
+            if (PackRanges.isFirstInPack(level)) {
                 nextState = LevelSelectState.getInstance();
             } else {
-                level--;
+                level = PackRanges.previousLevel(level);
                 reloadLevel();
             }
         } else if (right.collides(event, getScreenHeight())
                 || winMessage.collides(event, getScreenHeight())) {
             playSound(R.raw.click);
-            level++;
-            if (level % 25 == 0) {
+            if (PackRanges.isLastInPack(level)) {
                 nextState = LevelSelectState.getInstance();
             } else {
+                level = PackRanges.nextLevel(level);
                 reloadLevel();
             }
         } else if (restart.collides(event, getScreenHeight())) {

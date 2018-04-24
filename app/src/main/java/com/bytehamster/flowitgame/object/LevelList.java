@@ -68,7 +68,7 @@ public class LevelList extends Drawable {
         draw.setY(getYFor(num));
         draw.draw(gl);
 
-        number.setValue(num + 1);
+        number.setValue(num);
         number.setX(draw.getX() + boxWidth + boxWidth / 4);
         number.setY(draw.getY() + boxHeight / 3);
         number.draw(gl);
@@ -115,7 +115,7 @@ public class LevelList extends Drawable {
                 planeLevel.setX(getXFor(num));
                 planeLevel.setY(getYFor(num));
                 if (planeLevel.collides(event.getX(), event.getY() + getY(), height)) {
-                    return num;
+                    return levelId;
                 }
                 num++;
             }
