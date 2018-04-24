@@ -20,7 +20,6 @@ public class LevelPackSelectState extends State {
     private Plane pack1;
     private Plane pack2;
     private Plane pack3;
-    private Plane pack4;
     private Container container;
     private boolean pressed = false;
     private ScrollHelper scrollHelper;
@@ -41,7 +40,7 @@ public class LevelPackSelectState extends State {
         float menuEntriesWidth = glRenderer.getWidth() * 0.75f;
         float menuEntriesHeight = menuEntriesWidth / 6;
         float menuEntriesAvailableSpace = getScreenHeight() - getAdHeight();
-        float menuEntriesStartY = getScreenHeight() - (menuEntriesAvailableSpace - 6 * menuEntriesHeight) / 2;
+        float menuEntriesStartY = getScreenHeight() - (menuEntriesAvailableSpace - 4 * menuEntriesHeight) / 2;
 
         container = new Container();
         scrollHelper = new ScrollHelper(container, false, true);
@@ -50,12 +49,8 @@ public class LevelPackSelectState extends State {
         pack1 = new Plane(-menuEntriesWidth, menuEntriesStartY, menuEntriesWidth, menuEntriesHeight, coordinatesPack1);
         container.addDrawable(pack1);
 
-        TextureCoordinates coordinatesPack4 = TextureCoordinates.getFromBlocks(6, 10, 12, 11);
-        pack4 = new Plane(-menuEntriesWidth, pack1.getY() - 2 * menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesPack4);
-        container.addDrawable(pack4);
-
         TextureCoordinates coordinatesPack2 = TextureCoordinates.getFromBlocks(0, 6, 6, 7);
-        pack2 = new Plane(-menuEntriesWidth, pack4.getY() - 2 * menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesPack2);
+        pack2 = new Plane(-menuEntriesWidth, pack1.getY() - 2 * menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesPack2);
         container.addDrawable(pack2);
 
         TextureCoordinates coordinatesPack3 = TextureCoordinates.getFromBlocks(0, 7, 6, 8);
@@ -71,9 +66,8 @@ public class LevelPackSelectState extends State {
         pressed = false;
         container.setY(0);
         AnimationFactory.startMenuAnimationEnter(pack1, (int) (3.0f * Animation.DURATION_SHORT));
-        AnimationFactory.startMenuAnimationEnter(pack4, (int) (3.5f * Animation.DURATION_SHORT));
-        AnimationFactory.startMenuAnimationEnter(pack2, (int) (4.0f * Animation.DURATION_SHORT));
-        AnimationFactory.startMenuAnimationEnter(pack3, (int) (4.5f * Animation.DURATION_SHORT));
+        AnimationFactory.startMenuAnimationEnter(pack2, (int) (3.5f * Animation.DURATION_SHORT));
+        AnimationFactory.startMenuAnimationEnter(pack3, (int) (4.0f * Animation.DURATION_SHORT));
     }
 
     @Override
@@ -94,12 +88,6 @@ public class LevelPackSelectState extends State {
             AnimationFactory.startMenuAnimationOutPressed(pack3);
         } else {
             AnimationFactory.startMenuAnimationOut(pack3);
-        }
-
-        if (LevelSelectState.getInstance().getPack() == 4) {
-            AnimationFactory.startMenuAnimationOutPressed(pack4);
-        } else {
-            AnimationFactory.startMenuAnimationOut(pack4);
         }
     }
 
@@ -125,8 +113,6 @@ public class LevelPackSelectState extends State {
                 openSelectState(2);
             } else if (pack3.collides(event.getX(), event.getY() + container.getY(), getScreenHeight())) {
                 openSelectState(3);
-            } else if (pack4.collides(event.getX(), event.getY() + container.getY(), getScreenHeight())) {
-                openSelectState(4);
             }
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
             pressed = false;
