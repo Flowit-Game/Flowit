@@ -7,8 +7,10 @@ import com.bytehamster.flowitgame.GLRenderer;
 import com.bytehamster.flowitgame.R;
 import com.bytehamster.flowitgame.animation.Animation;
 import com.bytehamster.flowitgame.animation.AnimationFactory;
+import com.bytehamster.flowitgame.object.Container;
 import com.bytehamster.flowitgame.object.Plane;
 import com.bytehamster.flowitgame.object.TextureCoordinates;
+import com.bytehamster.flowitgame.util.ScrollHelper;
 
 public class LevelPackSelectState extends State {
     @SuppressLint("StaticFieldLeak")
@@ -19,6 +21,9 @@ public class LevelPackSelectState extends State {
     private Plane pack2;
     private Plane pack3;
     private Plane pack4;
+    private Container container;
+    private boolean pressed = false;
+    private ScrollHelper scrollHelper;
 
     private LevelPackSelectState() {
 
@@ -38,27 +43,33 @@ public class LevelPackSelectState extends State {
         float menuEntriesAvailableSpace = getScreenHeight() - getAdHeight();
         float menuEntriesStartY = getScreenHeight() - (menuEntriesAvailableSpace - 6 * menuEntriesHeight) / 2;
 
+        container = new Container();
+        scrollHelper = new ScrollHelper(container, false, true);
+
         TextureCoordinates coordinatesPack1 = TextureCoordinates.getFromBlocks(0, 5, 6, 6);
         pack1 = new Plane(-menuEntriesWidth, menuEntriesStartY, menuEntriesWidth, menuEntriesHeight, coordinatesPack1);
-        glRenderer.addDrawable(pack1);
+        container.addDrawable(pack1);
 
         TextureCoordinates coordinatesPack4 = TextureCoordinates.getFromBlocks(6, 10, 12, 11);
         pack4 = new Plane(-menuEntriesWidth, pack1.getY() - 2 * menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesPack4);
-        glRenderer.addDrawable(pack4);
+        container.addDrawable(pack4);
 
         TextureCoordinates coordinatesPack2 = TextureCoordinates.getFromBlocks(0, 6, 6, 7);
         pack2 = new Plane(-menuEntriesWidth, pack4.getY() - 2 * menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesPack2);
-        glRenderer.addDrawable(pack2);
+        container.addDrawable(pack2);
 
         TextureCoordinates coordinatesPack3 = TextureCoordinates.getFromBlocks(0, 7, 6, 8);
         pack3 = new Plane(-menuEntriesWidth, pack2.getY() - 2 * menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesPack3);
-        glRenderer.addDrawable(pack3);
+        container.addDrawable(pack3);
 
+        glRenderer.addDrawable(container);
     }
 
     @Override
     public void entry() {
         nextState = this;
+        pressed = false;
+        container.setY(0);
         AnimationFactory.startMenuAnimationEnter(pack1, (int) (3.0f * Animation.DURATION_SHORT));
         AnimationFactory.startMenuAnimationEnter(pack4, (int) (3.5f * Animation.DURATION_SHORT));
         AnimationFactory.startMenuAnimationEnter(pack2, (int) (4.0f * Animation.DURATION_SHORT));
@@ -106,16 +117,21 @@ public class LevelPackSelectState extends State {
     @Override
     public void onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            if (pack1.collides(event, getScreenHeight())) {
+            pressed = true;
+        } else if (event.getAction() == MotionEvent.ACTION_UP && !scrollHelper.isScrolling() && pressed) {
+            if (pack1.collides(event.getX(), event.getY() + container.getY(), getScreenHeight())) {
                 openSelectState(1);
-            } else if (pack2.collides(event, getScreenHeight())) {
+            } else if (pack2.collides(event.getX(), event.getY() + container.getY(), getScreenHeight())) {
                 openSelectState(2);
-            } else if (pack3.collides(event, getScreenHeight())) {
+            } else if (pack3.collides(event.getX(), event.getY() + container.getY(), getScreenHeight())) {
                 openSelectState(3);
-            } else if (pack4.collides(event, getScreenHeight())) {
+            } else if (pack4.collides(event.getX(), event.getY() + container.getY(), getScreenHeight())) {
                 openSelectState(4);
             }
+        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+            pressed = false;
         }
+        scrollHelper.onTouchEvent(event);
     }
 
     private void openSelectState(int pack) {

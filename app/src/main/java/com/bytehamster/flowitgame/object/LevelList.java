@@ -24,8 +24,14 @@ public class LevelList extends Drawable {
 
     @Override
     public void draw(GL10 gl) {
+        if (!isVisible()) {
+            return;
+        }
+        processAnimations();
+
         gl.glPushMatrix();
         gl.glTranslatef(getX(), getY(), 0);
+        gl.glScalef(getScale(), getScale(), getScale());
 
         for (Plane levelIcon : levelIcons) {
             levelIcon.draw(gl);
