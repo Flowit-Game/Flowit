@@ -107,7 +107,7 @@ public class LevelSelectState extends State {
             pressed = true;
         } else if (event.getAction() == MotionEvent.ACTION_UP && !scrollHelper.isScrolling() && pressed) {
             if (levelList.collides(event, getScreenHeight())) {
-                GameState.getInstance().setLevel((pack - 1) * 25 + levelList.getCollision(event, getScreenHeight()));
+                GameState.getInstance().setLevel(levelList.getCollision(event, getScreenHeight()));
                 nextState = GameState.getInstance();
                 playSound(R.raw.click);
             }
