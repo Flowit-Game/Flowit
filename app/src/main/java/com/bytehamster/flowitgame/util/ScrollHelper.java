@@ -23,7 +23,7 @@ public class ScrollHelper {
         return isScrolling;
     }
 
-    public void reset() {
+    private void reset() {
         isScrolling = false;
         pressed = false;
     }

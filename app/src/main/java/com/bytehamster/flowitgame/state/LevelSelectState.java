@@ -21,6 +21,7 @@ public class LevelSelectState extends State {
     private Plane selectLevelText;
     private LevelList levelList;
     private ScrollHelper scrollHelper;
+    private boolean pressed = false;
 
     private LevelSelectState() {
 
@@ -45,16 +46,20 @@ public class LevelSelectState extends State {
 
         glRenderer.addDrawable(levelList);
         glRenderer.addDrawable(selectLevelText);
+        resetScrollPosition();
+    }
+
+    void resetScrollPosition() {
+        float boxSize = getScreenWidth() / (5 + 2 + 2);
+        float availableSpace = getScreenHeight() - getAdHeight() - selectLevelText.getHeight();
+        float boxStart = getScreenHeight() - selectLevelText.getHeight() - (availableSpace - boxSize * 6.5f) / 2;
+        levelList.setY(boxStart);
     }
 
     @Override
     public void entry() {
         nextState = this;
-
-        float boxSize = getScreenWidth() / (5 + 2 + 2);
-        float availableSpace = getScreenHeight() - getAdHeight() - selectLevelText.getHeight();
-        float boxStart = getScreenHeight() - selectLevelText.getHeight() - (availableSpace - boxSize * 6.5f) / 2;
-        levelList.setY(boxStart);
+        pressed = false;
 
         selectLevelText.cancelAnimations();
         selectLevelText.setY(getScreenHeight());
@@ -89,12 +94,16 @@ public class LevelSelectState extends State {
 
     @Override
     public void onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_UP && !scrollHelper.isScrolling()) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            pressed = true;
+        } else if (event.getAction() == MotionEvent.ACTION_UP && !scrollHelper.isScrolling() && pressed) {
             if (levelList.collides(event, getScreenHeight())) {
                 GameState.getInstance().setLevel((pack - 1) * 25 + levelList.getCollision(event, getScreenHeight()));
                 nextState = GameState.getInstance();
                 playSound(R.raw.click);
             }
+        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+            pressed = false;
         }
         scrollHelper.onTouchEvent(event);
     }

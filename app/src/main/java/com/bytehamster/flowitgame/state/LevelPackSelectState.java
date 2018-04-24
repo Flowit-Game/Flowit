@@ -107,22 +107,21 @@ public class LevelPackSelectState extends State {
     public void onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             if (pack1.collides(event, getScreenHeight())) {
-                nextState = LevelSelectState.getInstance();
-                LevelSelectState.getInstance().setPack(1);
-                playSound(R.raw.click);
+                openSelectState(1);
             } else if (pack2.collides(event, getScreenHeight())) {
-                nextState = LevelSelectState.getInstance();
-                LevelSelectState.getInstance().setPack(2);
-                playSound(R.raw.click);
+                openSelectState(2);
             } else if (pack3.collides(event, getScreenHeight())) {
-                nextState = LevelSelectState.getInstance();
-                LevelSelectState.getInstance().setPack(3);
-                playSound(R.raw.click);
+                openSelectState(3);
             } else if (pack4.collides(event, getScreenHeight())) {
-                nextState = LevelSelectState.getInstance();
-                LevelSelectState.getInstance().setPack(4);
-                playSound(R.raw.click);
+                openSelectState(4);
             }
         }
+    }
+
+    private void openSelectState(int pack) {
+        nextState = LevelSelectState.getInstance();
+        LevelSelectState.getInstance().setPack(pack);
+        LevelSelectState.getInstance().resetScrollPosition();
+        playSound(R.raw.click);
     }
 }
