@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 
 import com.bytehamster.flowitgame.GLRenderer;
 import com.bytehamster.flowitgame.SoundPool;
+import com.bytehamster.flowitgame.util.PackRanges;
 
 abstract public class State {
     static final int STEPS_NOT_SOLVED = 999;
@@ -73,48 +74,17 @@ abstract public class State {
         return prefs;
     }
 
-    private int getPlayedInPack(int pack) {
-        int num = 0;
-        for (int i = (pack-1)*25; i < pack*25; i++) {
-            if (isSolved(i)) {
-                num++;
-            }
+    public boolean isPlayable(int level) {
+        if (PackRanges.isFirstInPack(level)) {
+            return true;
         }
-        return num;
-    }
-
-    private boolean enoughUnlockedInPack(int pack) {
-        return getPlayedInPack(pack) >= 10;
-    }
-
-    private boolean previousUnlocked(int level) {
-        for (int i = 1; i <= UNLOCK_NEXT_LEVELS; i++) {
-            if (isSolved(level - i)) {
+        for (int i = 0; i <= UNLOCK_NEXT_LEVELS; i++) {
+            if (isSolved(level)) {
                 return true;
             }
+            level = PackRanges.previousLevel(level);
         }
         return false;
-    }
-
-    public boolean isPlayable(int level) {
-        if (level % 25 < UNLOCK_NEXT_LEVELS) {
-            // One of the first levels in pack
-            if (level < UNLOCK_NEXT_LEVELS) {
-                // First levels in game
-                return true;
-            } else {
-                int pack = level / 25 + 1;
-
-                if (pack == 4 && enoughUnlockedInPack(1)) {
-                    return true;
-                } else if (pack == 2 && enoughUnlockedInPack(1)) {
-                    return true;
-                } else if (pack == 3 && enoughUnlockedInPack(2)) {
-                    return true;
-                }
-            }
-        }
-        return previousUnlocked(level);
     }
 
     public float getScreenWidth() {
