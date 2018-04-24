@@ -12,7 +12,7 @@ public class ScrollHelper {
     private float minX, minY, maxX, maxY;
     private boolean isScrolling;
     private boolean pressed = false;
-    private static final float MIN_DISTANCE = 10;
+    private static final float MIN_DISTANCE = 5;
 
     public ScrollHelper(Drawable drawable, boolean horizontal, boolean vertical) {
         this.drawable = drawable;
