@@ -60,7 +60,9 @@ public class LevelSelectState extends State {
         logoAnimation.setTo(0, getScreenHeight() - selectLevelText.getHeight());
         logoAnimation.start();
 
-        levelList.entry(pack);
+        levelList.setDisplayRange(new int[][]{
+                new int[]{(pack - 1) * 25, (pack - 1) * 25 + 25}
+        });
 
         float boxSize = getScreenWidth() / (5 + 2 + 2);
         float availableSpace = getScreenHeight() - getAdHeight() - selectLevelText.getHeight();

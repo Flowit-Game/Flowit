@@ -13,17 +13,19 @@ public class LevelList extends Drawable {
     private final float boxHeight;
     private final float boxWidth;
     private final State context;
-    private final int levelCount = 25;
-    private int pack = 0;
+    private int[][] displayRange = new int[0][0];
 
     public LevelList(float boxSize, State context) {
         boxHeight = boxSize;
         boxWidth = boxSize;
         this.context = context;
+
         TextureCoordinates coordinatesLevel = TextureCoordinates.getFromBlocks(6, 0, 7, 1);
+        TextureCoordinates coordinatesLevelDone = TextureCoordinates.getFromBlocks(7, 0, 8, 1);
+        TextureCoordinates coordinatesLevelLocked = TextureCoordinates.getFromBlocks(0, 3, 7, 4);
         planeLevel = new Plane(0, 0, boxSize, boxSize, coordinatesLevel);
-        planeLevelDone = new Plane(0, 0, boxSize, boxSize, coordinatesLevel);
-        planeLevelLocked = new Plane(0, 0, boxSize, boxSize, coordinatesLevel);
+        planeLevelDone = new Plane(0, 0, boxSize, boxSize, coordinatesLevelDone);
+        planeLevelLocked = new Plane(0, 0, boxSize, boxSize, coordinatesLevelLocked);
         number = new Number();
         number.setFontSize(boxSize / 3);
     }
@@ -42,8 +44,7 @@ public class LevelList extends Drawable {
         return - (num/3) * boxHeight * 1.5f - boxHeight;
     }
 
-    private void drawButton(int num, GL10 gl) {
-        int levelID = (pack - 1) * 25 + num;
+    private void drawButton(int num, int levelID, GL10 gl) {
         Plane draw;
         if (context.isSolved(levelID)) {
             draw = planeLevelDone;
@@ -74,31 +75,21 @@ public class LevelList extends Drawable {
         gl.glTranslatef(getX(), getY(), 0);
         gl.glScalef(getScale(), getScale(), getScale());
 
-        for (int i = 0; i < levelCount; i++) {
-            drawButton(i, gl);
+        int num = 0;
+        for (int[] currentRange : displayRange) {
+            int from = currentRange[0];
+            int to = currentRange[1];
+            for (int levelId = from; levelId <= to; levelId++) {
+                drawButton(num, levelId, gl);
+                num++;
+            }
         }
 
         gl.glPopMatrix();
     }
 
-    public void entry(int pack) {
-        this.pack = pack;
-
-        TextureCoordinates coordinatesLevel;
-        TextureCoordinates coordinatesLevelDone;
-        TextureCoordinates coordinatesLevelLocked;
-        if (pack == 4) {
-            coordinatesLevel = TextureCoordinates.getFromBlocks(11, 1, 12, 2);
-            coordinatesLevelDone = TextureCoordinates.getFromBlocks(12, 1, 13, 2);
-            coordinatesLevelLocked = TextureCoordinates.getFromBlocks(13, 1, 14, 2);
-        } else {
-            coordinatesLevel = TextureCoordinates.getFromBlocks(6, pack - 1, 7, pack);
-            coordinatesLevelDone = TextureCoordinates.getFromBlocks(7, pack - 1, 8, pack);
-            coordinatesLevelLocked = TextureCoordinates.getFromBlocks(5 + pack, 3, 6 + pack, 4);
-        }
-        planeLevel.updateTextureCoordinates(coordinatesLevel);
-        planeLevelDone.updateTextureCoordinates(coordinatesLevelDone);
-        planeLevelLocked.updateTextureCoordinates(coordinatesLevelLocked);
+    public void setDisplayRange(int[][] displayRange) {
+        this.displayRange = displayRange;
     }
 
     public boolean collides(MotionEvent event, float height) {
@@ -106,11 +97,17 @@ public class LevelList extends Drawable {
     }
 
     public int getCollision(MotionEvent event, float height) {
-        for (int i = 0; i < levelCount; i++) {
-            planeLevel.setX(getXFor(i));
-            planeLevel.setY(getYFor(i));
-            if (planeLevel.collides(event.getX(), event.getY() + getY(), height)) {
-                return i;
+        int num = 0;
+        for (int[] currentRange : displayRange) {
+            int from = currentRange[0];
+            int to = currentRange[1];
+            for (int levelId = from; levelId <= to; levelId++) {
+                planeLevel.setX(getXFor(num));
+                planeLevel.setY(getYFor(num));
+                if (planeLevel.collides(event.getX(), event.getY() + getY(), height)) {
+                    return num;
+                }
+                num++;
             }
         }
         return -1;
