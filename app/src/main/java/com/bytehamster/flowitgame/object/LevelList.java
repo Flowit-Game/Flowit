@@ -8,18 +8,14 @@ import com.bytehamster.flowitgame.state.State;
 import javax.microedition.khronos.opengles.GL10;
 
 public class LevelList extends Drawable {
-
     private final Plane[] levelIcons = new Plane[25];
-    private float positionY;
 
-    public LevelList(float boxSize, float positionY) {
-        this.positionY = positionY;
-
+    public LevelList(float boxSize) {
         TextureCoordinates coordinatesLevel = TextureCoordinates.getFromBlocks(6, 0, 7, 1);
         for (int row = 0; row < 5; row++) {
             for (int col = 0; col < 5; col++) {
                 levelIcons[row * 5 + col] = new Plane((col * 1.5f + 1) * boxSize,
-                        positionY - (row * 1.5f) * boxSize, boxSize, boxSize, coordinatesLevel);
+                        0 - (row * 1.5f) * boxSize, boxSize, boxSize, coordinatesLevel);
                 levelIcons[row * 5 + col].setVisible(false);
                 levelIcons[row * 5 + col].setScale(0);
             }
@@ -29,7 +25,7 @@ public class LevelList extends Drawable {
     @Override
     public void draw(GL10 gl) {
         gl.glPushMatrix();
-        //gl.glTranslatef(0, positionY, 0);
+        gl.glTranslatef(getX(), getY(), 0);
 
         for (Plane levelIcon : levelIcons) {
             levelIcon.draw(gl);
@@ -94,7 +90,7 @@ public class LevelList extends Drawable {
 
     public int getCollision(MotionEvent event, float height) {
         for (int i = 0; i < levelIcons.length; i++) {
-            if (levelIcons[i].collides(event.getX(), event.getY(), height)) {
+            if (levelIcons[i].collides(event.getX(), event.getY() + getY(), height)) {
                 return i;
             }
         }

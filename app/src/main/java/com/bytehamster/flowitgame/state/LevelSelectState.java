@@ -10,6 +10,7 @@ import com.bytehamster.flowitgame.animation.TranslateAnimation;
 import com.bytehamster.flowitgame.object.LevelList;
 import com.bytehamster.flowitgame.object.Plane;
 import com.bytehamster.flowitgame.object.TextureCoordinates;
+import com.bytehamster.flowitgame.util.ScrollHelper;
 
 public class LevelSelectState extends State {
     @SuppressLint("StaticFieldLeak")
@@ -19,6 +20,7 @@ public class LevelSelectState extends State {
     private int pack = 1;
     private Plane selectLevelText;
     private LevelList levelList;
+    private ScrollHelper scrollHelper;
 
     private LevelSelectState() {
 
@@ -36,19 +38,23 @@ public class LevelSelectState extends State {
         TextureCoordinates coordinatesLogo = TextureCoordinates.getFromBlocks(0, 11, 6, 13);
         selectLevelText = new Plane(0, glRenderer.getHeight(), glRenderer.getWidth(), glRenderer.getWidth() / 3, coordinatesLogo);
         selectLevelText.setVisible(false);
-        glRenderer.addDrawable(selectLevelText);
-
 
         float boxSize = getScreenWidth() / (5 + 2 + 2);
-        float availableSpace = getScreenHeight() - getAdHeight() - selectLevelText.getHeight();
-        float boxStart = getScreenHeight() - selectLevelText.getHeight() - (availableSpace - boxSize * 6.5f) / 2;
-        levelList = new LevelList(boxSize, boxStart);
+        levelList = new LevelList(boxSize);
+        scrollHelper = new ScrollHelper(levelList, false, true);
+
         glRenderer.addDrawable(levelList);
+        glRenderer.addDrawable(selectLevelText);
     }
 
     @Override
     public void entry() {
         nextState = this;
+
+        float boxSize = getScreenWidth() / (5 + 2 + 2);
+        float availableSpace = getScreenHeight() - getAdHeight() - selectLevelText.getHeight();
+        float boxStart = getScreenHeight() - selectLevelText.getHeight() - (availableSpace - boxSize * 6.5f) / 2;
+        levelList.setY(boxStart);
 
         selectLevelText.cancelAnimations();
         selectLevelText.setY(getScreenHeight());
@@ -83,13 +89,14 @@ public class LevelSelectState extends State {
 
     @Override
     public void onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+        if (event.getAction() == MotionEvent.ACTION_UP && !scrollHelper.isScrolling()) {
             if (levelList.collides(event, getScreenHeight())) {
                 GameState.getInstance().setLevel((pack - 1) * 25 + levelList.getCollision(event, getScreenHeight()));
                 nextState = GameState.getInstance();
                 playSound(R.raw.click);
             }
         }
+        scrollHelper.onTouchEvent(event);
     }
 
     public int getPack() {
