@@ -1,25 +1,66 @@
 package com.bytehamster.flowitgame.object;
 
 import android.view.MotionEvent;
-import com.bytehamster.flowitgame.animation.Animation;
-import com.bytehamster.flowitgame.animation.ScaleAnimation;
 import com.bytehamster.flowitgame.state.State;
 
 import javax.microedition.khronos.opengles.GL10;
 
 public class LevelList extends Drawable {
-    private final Plane[] levelIcons = new Plane[25];
+    private final Plane planeLevel;
+    private final Plane planeLevelDone;
+    private final Plane planeLevelLocked;
+    private final Number number;
+    private final float boxHeight;
+    private final float boxWidth;
+    private final State context;
+    private final int levelCount = 25;
+    private int pack = 0;
 
-    public LevelList(float boxSize) {
+    public LevelList(float boxSize, State context) {
+        boxHeight = boxSize;
+        boxWidth = boxSize;
+        this.context = context;
         TextureCoordinates coordinatesLevel = TextureCoordinates.getFromBlocks(6, 0, 7, 1);
-        for (int row = 0; row < 5; row++) {
-            for (int col = 0; col < 5; col++) {
-                levelIcons[row * 5 + col] = new Plane((col * 1.5f + 1) * boxSize,
-                        0 - (row * 1.5f) * boxSize, boxSize, boxSize, coordinatesLevel);
-                levelIcons[row * 5 + col].setVisible(false);
-                levelIcons[row * 5 + col].setScale(0);
-            }
+        planeLevel = new Plane(0, 0, boxSize, boxSize, coordinatesLevel);
+        planeLevelDone = new Plane(0, 0, boxSize, boxSize, coordinatesLevel);
+        planeLevelLocked = new Plane(0, 0, boxSize, boxSize, coordinatesLevel);
+        number = new Number();
+        number.setFontSize(boxSize / 2);
+    }
+
+    private float getXFor(int num) {
+        if (num % 3 == 0) {
+            return boxWidth / 2;
+        } else if (num % 3 == 1) {
+            return context.getScreenWidth() / 3 + boxWidth / 2;
+        } else {
+            return (context.getScreenWidth() / 3)*2 + boxWidth / 2;
         }
+    }
+
+    private float getYFor(int num) {
+        return - (num/3) * boxHeight * 1.5f - boxHeight;
+    }
+
+    private void drawButton(int num, GL10 gl) {
+        int levelID = (pack - 1) * 25 + num;
+        Plane draw;
+        if (context.isSolved(levelID)) {
+            draw = planeLevelDone;
+        } else if (!context.isPlayable(levelID)) {
+            draw = planeLevelLocked;
+        } else {
+            draw = planeLevel;
+        }
+
+        draw.setX(getXFor(num));
+        draw.setY(getYFor(num));
+        draw.draw(gl);
+
+        number.setValue(num + 1);
+        number.setX(draw.getX() + boxWidth + boxWidth / 4);
+        number.setY(draw.getY() + boxHeight / 4);
+        number.draw(gl);
     }
 
     @Override
@@ -33,14 +74,16 @@ public class LevelList extends Drawable {
         gl.glTranslatef(getX(), getY(), 0);
         gl.glScalef(getScale(), getScale(), getScale());
 
-        for (Plane levelIcon : levelIcons) {
-            levelIcon.draw(gl);
+        for (int i = 0; i < levelCount; i++) {
+            drawButton(i, gl);
         }
 
         gl.glPopMatrix();
     }
 
-    public void entry(int pack, State context) {
+    public void entry(int pack) {
+        this.pack = pack;
+
         TextureCoordinates coordinatesLevel;
         TextureCoordinates coordinatesLevelDone;
         TextureCoordinates coordinatesLevelLocked;
@@ -53,41 +96,9 @@ public class LevelList extends Drawable {
             coordinatesLevelDone = TextureCoordinates.getFromBlocks(7, pack - 1, 8, pack);
             coordinatesLevelLocked = TextureCoordinates.getFromBlocks(5 + pack, 3, 6 + pack, 4);
         }
-
-        for (int row = 0; row < 5; row++) {
-            for (int col = 0; col < 5; col++) {
-                int levelID = (pack - 1) * 25 + row * 5 + col;
-                if (context.isSolved(levelID)) {
-                    levelIcons[row * 5 + col].updateTextureCoordinates(coordinatesLevelDone);
-                } else if (!context.isPlayable(levelID)) {
-                    levelIcons[row * 5 + col].updateTextureCoordinates(coordinatesLevelLocked);
-                } else {
-                    levelIcons[row * 5 + col].updateTextureCoordinates(coordinatesLevel);
-                }
-                levelIcons[row * 5 + col].setVisible(true);
-                levelIcons[row * 5 + col].setScale(0);
-                levelIcons[row * 5 + col].cancelAnimations();
-
-                ScaleAnimation scaleAnimation = new ScaleAnimation(levelIcons[row * 5 + col],
-                        Animation.DURATION_SHORT, (int) (Animation.DURATION_SHORT * 0.3f * (col + row) + Animation.DURATION_LONG));
-                scaleAnimation.setTo(1);
-                scaleAnimation.start();
-            }
-        }
-    }
-
-    public void exit() {
-        for (int row = 0; row < 5; row++) {
-            for (int col = 0; col < 5; col++) {
-                levelIcons[row * 5 + col].setVisible(true);
-
-                ScaleAnimation scaleAnimation = new ScaleAnimation(levelIcons[row * 5 + col],
-                        Animation.DURATION_SHORT, (int) (Animation.DURATION_SHORT * 0.3f * (col + row)));
-                scaleAnimation.setTo(0);
-                scaleAnimation.setHideAfter(true);
-                scaleAnimation.start();
-            }
-        }
+        planeLevel.updateTextureCoordinates(coordinatesLevel);
+        planeLevelDone.updateTextureCoordinates(coordinatesLevelDone);
+        planeLevelLocked.updateTextureCoordinates(coordinatesLevelLocked);
     }
 
     public boolean collides(MotionEvent event, float height) {
@@ -95,8 +106,10 @@ public class LevelList extends Drawable {
     }
 
     public int getCollision(MotionEvent event, float height) {
-        for (int i = 0; i < levelIcons.length; i++) {
-            if (levelIcons[i].collides(event.getX(), event.getY() + getY(), height)) {
+        for (int i = 0; i < levelCount; i++) {
+            planeLevel.setX(getXFor(i));
+            planeLevel.setY(getYFor(i));
+            if (planeLevel.collides(event.getX(), event.getY() + getY(), height)) {
                 return i;
             }
         }

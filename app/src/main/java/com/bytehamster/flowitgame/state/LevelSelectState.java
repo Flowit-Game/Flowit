@@ -41,19 +41,11 @@ public class LevelSelectState extends State {
         selectLevelText.setVisible(false);
 
         float boxSize = getScreenWidth() / (5 + 2 + 2);
-        levelList = new LevelList(boxSize);
+        levelList = new LevelList(boxSize, this);
         scrollHelper = new ScrollHelper(levelList, false, true);
 
         glRenderer.addDrawable(levelList);
         glRenderer.addDrawable(selectLevelText);
-        resetScrollPosition();
-    }
-
-    void resetScrollPosition() {
-        float boxSize = getScreenWidth() / (5 + 2 + 2);
-        float availableSpace = getScreenHeight() - getAdHeight() - selectLevelText.getHeight();
-        float boxStart = getScreenHeight() - selectLevelText.getHeight() - (availableSpace - boxSize * 6.5f) / 2;
-        levelList.setY(boxStart);
     }
 
     @Override
@@ -68,7 +60,15 @@ public class LevelSelectState extends State {
         logoAnimation.setTo(0, getScreenHeight() - selectLevelText.getHeight());
         logoAnimation.start();
 
-        levelList.entry(pack, this);
+        levelList.entry(pack);
+
+        float boxSize = getScreenWidth() / (5 + 2 + 2);
+        float availableSpace = getScreenHeight() - getAdHeight() - selectLevelText.getHeight();
+        float boxStart = getScreenHeight() - selectLevelText.getHeight() - (availableSpace - boxSize * 6.5f) / 2;
+
+        TranslateAnimation listAnimation = new TranslateAnimation(levelList, Animation.DURATION_LONG, Animation.DURATION_SHORT);
+        listAnimation.setTo(0, boxStart);
+        listAnimation.start();
     }
 
     @Override
@@ -78,7 +78,9 @@ public class LevelSelectState extends State {
         logoAnimation.setHideAfter(true);
         logoAnimation.start();
 
-        levelList.exit();
+        TranslateAnimation listAnimation = new TranslateAnimation(levelList, Animation.DURATION_SHORT, 0);
+        listAnimation.setTo(0, 0);
+        listAnimation.start();
     }
 
     @Override

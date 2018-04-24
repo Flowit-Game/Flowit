@@ -117,7 +117,7 @@ abstract public class State {
         return previousUnlocked(level);
     }
 
-    float getScreenWidth() {
+    public float getScreenWidth() {
         return screenWidth;
     }
 
@@ -125,7 +125,7 @@ abstract public class State {
         return adHeight;
     }
 
-    float getScreenHeight() {
+    public float getScreenHeight() {
         return screenHeight;
     }
 

@@ -137,7 +137,6 @@ public class LevelPackSelectState extends State {
     private void openSelectState(int pack) {
         nextState = LevelSelectState.getInstance();
         LevelSelectState.getInstance().setPack(pack);
-        LevelSelectState.getInstance().resetScrollPosition();
         playSound(R.raw.click);
     }
 }
