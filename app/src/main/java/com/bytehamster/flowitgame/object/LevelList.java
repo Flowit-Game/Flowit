@@ -25,7 +25,7 @@ public class LevelList extends Drawable {
         planeLevelDone = new Plane(0, 0, boxSize, boxSize, coordinatesLevel);
         planeLevelLocked = new Plane(0, 0, boxSize, boxSize, coordinatesLevel);
         number = new Number();
-        number.setFontSize(boxSize / 2);
+        number.setFontSize(boxSize / 3);
     }
 
     private float getXFor(int num) {
@@ -59,7 +59,7 @@ public class LevelList extends Drawable {
 
         number.setValue(num + 1);
         number.setX(draw.getX() + boxWidth + boxWidth / 4);
-        number.setY(draw.getY() + boxHeight / 4);
+        number.setY(draw.getY() + boxHeight / 3);
         number.draw(gl);
     }
 
