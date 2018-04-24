@@ -74,6 +74,8 @@ public class LevelSelectState extends State {
                     new int[]{50, 74}
             });
         }
+        scrollHelper.setMaxima(0, getScreenHeight() - selectLevelText.getHeight(),
+                0, getAdHeight() + levelList.getHeight());
 
         TranslateAnimation listAnimation = new TranslateAnimation(levelList, Animation.DURATION_LONG, Animation.DURATION_SHORT);
         listAnimation.setTo(0, getScreenHeight() - selectLevelText.getHeight());

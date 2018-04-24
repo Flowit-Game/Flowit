@@ -30,6 +30,16 @@ public class LevelList extends Drawable {
         number.setFontSize(boxSize / 3);
     }
 
+    public float getHeight() {
+        int num = 0;
+        for (int[] currentRange : displayRange) {
+            int from = currentRange[0];
+            int to = currentRange[1];
+            num += to - from + 1;
+        }
+        return boxHeight * num/3 * 1.5f + boxHeight;
+    }
+
     private float getXFor(int num) {
         if (num % 3 == 0) {
             return boxWidth / 2;

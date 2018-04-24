@@ -47,10 +47,10 @@ public class LevelPackSelectState extends State {
         float menuEntriesHeight = menuEntriesWidth / 6;
 
         container = new Container();
-        scrollHelper = new ScrollHelper(container, false, true);
+        scrollHelper = new ScrollHelper(container, false, false);
 
         TextureCoordinates coordinatesPack1 = TextureCoordinates.getFromBlocks(0, 5, 6, 6);
-        pack1 = new Plane(-menuEntriesWidth, -menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesPack1);
+        pack1 = new Plane(-menuEntriesWidth, -2*menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesPack1);
         container.addDrawable(pack1);
 
         TextureCoordinates coordinatesPack2 = TextureCoordinates.getFromBlocks(0, 6, 6, 7);
@@ -78,6 +78,8 @@ public class LevelPackSelectState extends State {
         logoAnimation.start();
 
         container.setY(getScreenHeight() - selectLevelPackText.getHeight());
+        scrollHelper.setMaxima(-Float.MAX_VALUE, -Float.MAX_VALUE, container.getY(), 0);
+
         AnimationFactory.startMenuAnimationEnter(pack1, (int) (3.0f * Animation.DURATION_SHORT));
         AnimationFactory.startMenuAnimationEnter(pack2, (int) (3.5f * Animation.DURATION_SHORT));
         AnimationFactory.startMenuAnimationEnter(pack3, (int) (4.0f * Animation.DURATION_SHORT));

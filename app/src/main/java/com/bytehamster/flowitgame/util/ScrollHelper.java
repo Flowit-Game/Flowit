@@ -9,6 +9,7 @@ public class ScrollHelper {
     private final boolean vertical;
     private float downX, downY;
     private float oldX, oldY;
+    private float minX, minY, maxX, maxY;
     private boolean isScrolling;
     private boolean pressed = false;
     private static final float MIN_DISTANCE = 10;
@@ -17,6 +18,13 @@ public class ScrollHelper {
         this.drawable = drawable;
         this.horizontal = horizontal;
         this.vertical = vertical;
+    }
+
+    public void setMaxima(float minX, float minY, float maxX, float maxY) {
+        this.minX = minX;
+        this.minY = minY;
+        this.maxX = maxX;
+        this.maxY = maxY;
     }
 
     public boolean isScrolling() {
@@ -46,11 +54,11 @@ public class ScrollHelper {
             if (isScrolling()) {
                 if (horizontal) {
                     float delta = downX - currentX;
-                    drawable.setX(oldX + delta);
+                    drawable.setX(Math.min(Math.max(oldX + delta, minX), maxX));
                 }
                 if (vertical) {
                     float delta = downY - currentY;
-                    drawable.setY(oldY + delta);
+                    drawable.setY(Math.min(Math.max(oldY + delta, minY), maxY));
                 }
             }
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
