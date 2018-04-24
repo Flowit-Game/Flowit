@@ -78,11 +78,13 @@ public class LevelSelectState extends State {
 
     @Override
     public void exit() {
+        selectLevelText.cancelAnimations();
         TranslateAnimation logoAnimation = new TranslateAnimation(selectLevelText, Animation.DURATION_SHORT, 0);
         logoAnimation.setTo(0, getScreenHeight());
         logoAnimation.setHideAfter(true);
         logoAnimation.start();
 
+        levelList.cancelAnimations();
         TranslateAnimation listAnimation = new TranslateAnimation(levelList, Animation.DURATION_SHORT, 0);
         listAnimation.setTo(0, 0);
         listAnimation.start();

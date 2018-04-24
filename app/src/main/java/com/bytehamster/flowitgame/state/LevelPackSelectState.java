@@ -87,6 +87,7 @@ public class LevelPackSelectState extends State {
 
     @Override
     public void exit() {
+        selectLevelPackText.cancelAnimations();
         TranslateAnimation logoAnimation = new TranslateAnimation(selectLevelPackText, Animation.DURATION_SHORT, 0);
         logoAnimation.setTo(0, getScreenHeight());
         logoAnimation.setHideAfter(true);

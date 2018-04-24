@@ -22,7 +22,7 @@ public class LevelList extends Drawable {
 
         TextureCoordinates coordinatesLevel = TextureCoordinates.getFromBlocks(6, 0, 7, 1);
         TextureCoordinates coordinatesLevelDone = TextureCoordinates.getFromBlocks(7, 0, 8, 1);
-        TextureCoordinates coordinatesLevelLocked = TextureCoordinates.getFromBlocks(0, 3, 7, 4);
+        TextureCoordinates coordinatesLevelLocked = TextureCoordinates.getFromBlocks(6, 3, 7, 4);
         planeLevel = new Plane(0, 0, boxSize, boxSize, coordinatesLevel);
         planeLevelDone = new Plane(0, 0, boxSize, boxSize, coordinatesLevelDone);
         planeLevelLocked = new Plane(0, 0, boxSize, boxSize, coordinatesLevelLocked);
