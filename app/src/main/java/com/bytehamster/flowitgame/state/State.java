@@ -47,13 +47,10 @@ abstract public class State {
 
     void makePlayed(int level) {
         playedPrefs.edit().putBoolean("l"+level, true).apply();
-        /* // Debug only!
-        playedPrefs.edit().putBoolean("l0", false).apply();
-        playedPrefs.edit().putBoolean("l1", false).apply();
-        playedPrefs.edit().putBoolean("l2", false).apply();
-        playedPrefs.edit().putBoolean("l3", false).apply();
-        playedPrefs.edit().putBoolean("l4", false).apply();
-        */
+    }
+
+    void makeUnPlayed(int level) {
+        playedPrefs.edit().putBoolean("l"+level, false).apply();
     }
 
     void saveSteps(int level, int steps) {

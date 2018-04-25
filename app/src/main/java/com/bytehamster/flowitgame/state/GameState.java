@@ -314,7 +314,7 @@ public class GameState extends State {
             }
         } else if (restart.collides(event, getScreenHeight())) {
             playSound(R.raw.click);
-
+            //makeUnPlayed(level);
             if (stepsUsed.getValue() != 0) {
                 wiggle();
             }
