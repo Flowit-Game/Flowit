@@ -316,15 +316,19 @@ public class GameState extends State {
             playSound(R.raw.click);
 
             if (stepsUsed.getValue() != 0) {
-                new ScaleAnimation(levelDrawer, Animation.DURATION_SHORT/2, 0)
-                        .setTo(0.95f).start();
-                new ScaleAnimation(levelDrawer, Animation.DURATION_SHORT/2, Animation.DURATION_SHORT/2)
-                        .setTo(1f).start();
+                wiggle();
             }
             reloadLevel();
         } else if (!isFilling && !won && isPlayable(level)) {
             checkFieldTouched(event);
         }
+    }
+
+    private void wiggle() {
+        new ScaleAnimation(levelDrawer, Animation.DURATION_SHORT/2, 0)
+                .setTo(0.95f).start();
+        new ScaleAnimation(levelDrawer, Animation.DURATION_SHORT/2, Animation.DURATION_SHORT/2)
+                .setTo(1f).start();
     }
 
     private void checkFieldTouched(MotionEvent event) {
