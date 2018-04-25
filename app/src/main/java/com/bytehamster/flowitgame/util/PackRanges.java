@@ -8,15 +8,32 @@ public class PackRanges {
     }
 
     public static final int[][] RANGE_1 = new int[][]{
-            new int[]{0, 24},
-            new int[]{75, 99},
+            new int[]{0, 13},
+            new int[]{15, 16},
+            new int[]{18, 19},
+            new int[]{25, 29},
+            new int[]{31, 31},
+            new int[]{33, 33},
+            new int[]{35, 36},
+            new int[]{50, 53},
+            new int[]{75, 76},
+            new int[]{84, 84},
+            new int[]{100, 100},
     };
     public static final int[][] RANGE_2 = new int[][]{
-            new int[]{25, 49}
+            new int[]{14, 14},
+            new int[]{17, 17},
     };
     public static final int[][] RANGE_3 = new int[][]{
-            new int[]{50, 74},
-            new int[]{100, 102}
+            new int[]{20, 24},
+            new int[]{30, 30},
+            new int[]{32, 32},
+            new int[]{34, 34},
+            new int[]{37, 49},
+            new int[]{54, 74},
+            new int[]{77, 83},
+            new int[]{85, 99},
+            new int[]{101, 102}
     };
 
 
