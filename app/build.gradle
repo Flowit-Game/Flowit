@@ -38,7 +38,16 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField "boolean", "DEBUG_LEVELS", "false"
+            signingConfig signingConfigs.debug
+        }
+        debugLevels {
+            buildConfigField "boolean", "DEBUG_LEVELS", "true"
+            signingConfig signingConfigs.debug
+        }
         release {
+            buildConfigField "boolean", "DEBUG_LEVELS", "false"
             signingConfig signingConfigs.release
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-project.txt'

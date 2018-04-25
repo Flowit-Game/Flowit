@@ -1,6 +1,7 @@
 package com.bytehamster.flowitgame.object;
 
 import android.view.MotionEvent;
+import com.bytehamster.flowitgame.BuildConfig;
 import com.bytehamster.flowitgame.state.State;
 
 import javax.microedition.khronos.opengles.GL10;
@@ -68,7 +69,11 @@ public class LevelList extends Drawable {
         draw.setY(getYFor(num));
         draw.draw(gl);
 
-        number.setValue(num + 1);
+        if (BuildConfig.DEBUG_LEVELS) {
+            number.setValue(levelID);
+        } else {
+            number.setValue(num + 1);
+        }
         number.setX(draw.getX() + boxWidth + boxWidth / 4);
         number.setY(draw.getY() + boxHeight / 3);
         number.draw(gl);

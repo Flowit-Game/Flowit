@@ -3,6 +3,7 @@ package com.bytehamster.flowitgame.state;
 import android.annotation.SuppressLint;
 import android.view.MotionEvent;
 
+import com.bytehamster.flowitgame.BuildConfig;
 import com.bytehamster.flowitgame.Converter;
 import com.bytehamster.flowitgame.GLRenderer;
 import com.bytehamster.flowitgame.R;
@@ -314,7 +315,9 @@ public class GameState extends State {
             }
         } else if (restart.collides(event, getScreenHeight())) {
             playSound(R.raw.click);
-            //makeUnPlayed(level);
+            if (BuildConfig.DEBUG_LEVELS) {
+                makeUnPlayed(level);
+            }
             if (stepsUsed.getValue() != 0) {
                 wiggle();
             }

@@ -5,13 +5,21 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.MotionEvent;
 
+import com.bytehamster.flowitgame.BuildConfig;
 import com.bytehamster.flowitgame.GLRenderer;
 import com.bytehamster.flowitgame.SoundPool;
 import com.bytehamster.flowitgame.util.PackRanges;
 
 abstract public class State {
     static final int STEPS_NOT_SOLVED = 999;
-    private static final int UNLOCK_NEXT_LEVELS = 5;
+    private static final int UNLOCK_NEXT_LEVELS;
+    static {
+        if (BuildConfig.DEBUG_LEVELS) {
+            UNLOCK_NEXT_LEVELS = 100;
+        } else {
+            UNLOCK_NEXT_LEVELS = 5;
+        }
+    }
 
     private float screenWidth;
     private float screenHeight;
