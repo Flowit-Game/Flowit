@@ -304,7 +304,7 @@ if (!isset($_SESSION["level_data"]) && isset($_GET["cols"]) && isset($_GET["rows
         <h1>FlowIt! Level editor</h1>
         <div>
             <a href="javascript:askRestart();" class="button">Neustart</a> &nbsp;
-            &nbsp; <a href="./?action=edit&r=0&c=0" class="button <?php echo @$_GET["action"] == "edit"?"active":""; ?>">Bearbeitungsmodus</a> &nbsp;
+            &nbsp; <a href="./?action=edit&r=-1&c=0" class="button <?php echo @$_GET["action"] == "edit"?"active":""; ?>">Bearbeitungsmodus</a> &nbsp;
             &nbsp; <a href="./?action=play&play=restart"  class="button <?php echo @$_GET["action"] == "play"?"active":""; ?>">Level spielen</a> &nbsp;
             &nbsp; <a href="javascript:startRandom();"  class="button">Random!</a> &nbsp;
             &nbsp; <a href="./?action=source"  class="button <?php echo @$_GET["action"] == "source"?"active":""; ?>">Quellcode anzeigen</a>
