@@ -54,11 +54,11 @@ public class ScrollHelper {
             if (isScrolling()) {
                 if (horizontal) {
                     float delta = downX - currentX;
-                    drawable.setX(Math.min(Math.max(oldX + delta, minX), maxX));
+                    drawable.setX(Math.max(Math.min(oldX + delta, maxX), minX));
                 }
                 if (vertical) {
                     float delta = downY - currentY;
-                    drawable.setY(Math.min(Math.max(oldY + delta, minY), maxY));
+                    drawable.setY(Math.max(Math.min(oldY + delta, maxY), minY));
                 }
             }
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
