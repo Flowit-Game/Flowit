@@ -1680,4 +1680,99 @@
                0FFr00
                w0o00b" />
 
+    <level number="103"
+           color="dggggg
+               bbbbbg
+               gggggg
+               gooooo
+               gggggg
+               rrrrrg
+               gggggg
+               gd00dg"
+           modifier="
+               F00000
+               R00000
+               000000
+               00000L
+               000000
+               R00000
+               000000
+               0UXXUF" />
+
+    <level number="104"
+           color="gbgbbg
+               bbbbgr
+               b0000r
+               bggg0r
+               b0gg0r
+               b0000r
+               bbrrrr
+               gborrg"
+           modifier="
+               00F000
+               0000a0
+               0XXXX0
+               0000X0
+               0X00X0
+               0XXXX0
+               000000
+               UFUF0U" />
+
+    <level number="105"
+           color="rddddd
+               odr00d
+               gdr00d
+               00rooo
+               00oggg
+               ddgr00
+               d0g000
+               ddd000"
+           modifier="
+               F0F000
+               F0DXX0
+               F00XX0
+               XXro0L
+               XXog0L
+               00grXX
+               0X0XXX
+               00UXXX" />
+
+    <level number="106"
+           color="rrbgg0
+               grrrrb
+               brbgoo
+               brrrrg
+               oobgrg
+               grrrrb
+               rbbgrr
+               rrrrrr"
+           modifier="
+               F000DX
+               R0000L
+               00w00L
+               R0000L
+               R00s00
+               R0000L
+               0U000L
+               000000" />
+
+    <level number="107"
+           color="rroob0
+               rroob0
+               ggoob0
+               ggobb0
+               ggobb0
+               bboddb
+               oooodd
+               oobobd"
+           modifier="
+               00000X
+               0B0B0X
+               00000X
+               0B0B0X
+               00000X
+               R0000L
+               000000
+               F0U0UF" />
+
 </levels>
