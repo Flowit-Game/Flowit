@@ -16,12 +16,12 @@ public class PackRanges {
             new int[]{33, 33},
             new int[]{35, 36},
             new int[]{50, 53},
-            new int[]{75, 76},
+            new int[]{75, 75},
             new int[]{84, 84},
             new int[]{100, 100},
-            new int[]{103, 107},
     };
     public static final int[][] RANGE_2 = new int[][]{
+            new int[]{76, 76},
             new int[]{14, 14},
             new int[]{17, 18},
             new int[]{20, 24},
@@ -39,6 +39,7 @@ public class PackRanges {
             new int[]{89, 89},
             new int[]{93, 93},
             new int[]{96, 97},
+            new int[]{103, 107},
     };
     public static final int[][] RANGE_3 = new int[][]{
             new int[]{43, 43},
