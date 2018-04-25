@@ -1775,4 +1775,139 @@
                000000
                F0U0UF" />
 
+    <level number="108"
+           color="rrrrb
+               ddddb
+               ddbrb
+               ddbrb
+               0obrb
+               0oggg"
+           modifier="
+               R000D
+               R0000
+               B00D0
+               00000
+               X0U00
+               XU00L" />
+
+    <level number="109"
+           color="oooor
+               ogggb
+               ogggb
+               ogggb
+               ogggb
+               rbbbb"
+           modifier="
+               F000a
+               00000
+               00F00
+               00000
+               00000
+               w000F" />
+
+    <level number="110"
+           color="oobbb
+               oorg0
+               brrdd
+               brrdd
+               brrdd
+               rrrg0"
+           modifier="
+               B000L
+               0000X
+               D0000
+               0000B
+               00000
+               F00UX" />
+
+    <level number="111"
+           color="drogd
+               drogd
+               drogd
+               drogd
+               drogd
+               00000"
+           modifier="
+               F0000
+               0a000
+               00a00
+               000a0
+               0000F
+               XXXXX" />
+
+    <level number="112"
+           color="dogoo
+               dogro
+               dogro
+               dobro
+               dobro
+               dobro"
+           modifier="
+               0FDF0
+               00000
+               000a0
+               00000
+               00000
+               U0U00" />
+
+    <level number="113"
+           color="bbbrr
+               bbbrr
+               brrbb
+               brrbb
+               rrbbb
+               rrbbb"
+           modifier="
+               0B000
+               000B0
+               0000B
+               B0B0B
+               00000
+               0B0B0" />
+
+    <level number="114"
+           color="rrrrg
+               rbrrg
+               rbrbg
+               bbrbg
+               bbbb0
+               bbbb0"
+           modifier="
+               F000L
+               0000L
+               0000L
+               0000L
+               0000X
+               UUUUX" />
+
+    <level number="115"
+           color="rrrrr
+               oooor
+               gggor
+               bbgor
+               0bgor
+               00000"
+           modifier="
+               R0000
+               R0000
+               R0000
+               R0000
+               XUUUU
+               XXXXX" />
+
+    <level number="116"
+           color="ddooo
+               ddooo
+               dbbbb
+               dobgg
+               dobgg
+               goggg"
+           modifier="
+               F000F
+               00000
+               00a00
+               00000
+               00000
+               Uw00F" />
+
 </levels>
