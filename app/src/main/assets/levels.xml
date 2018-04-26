@@ -1910,4 +1910,49 @@
                00000
                Uw00F" />
 
+    <level number="117"
+           color="bbbbb
+               bbbbb
+               grobb
+               rroro
+               rroro
+               rrrro"
+           modifier="
+               00000
+               F00D0
+               R0000
+               00000
+               00U00
+               F000U" />
+
+    <level number="118"
+           color="ggbro
+               ggdro
+               dddrr
+               bbbrr
+               bbbrr
+               bbbrr"
+           modifier="
+               B000D
+               0R000
+               0B000
+               00000
+               0B000
+               00UF0" />
+
+    <level number="119"
+           color="rr0rr
+               or0rr
+               gr0rr
+               br0rr
+               0rrrr
+               0rrrr"
+           modifier="
+               F0Xgb
+               F0Xro
+               F0Xog
+               F0Xrb
+               X00bg
+               X00ro" />
+
 </levels>
