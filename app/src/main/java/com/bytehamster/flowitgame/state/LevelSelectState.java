@@ -71,8 +71,9 @@ public class LevelSelectState extends State {
         scrollHelper.setMaxima(0, getScreenHeight() - selectLevelText.getHeight(),
                 0, getAdHeight() + levelList.getHeight());
 
+        float levelListPos = getScreenHeight() - selectLevelText.getHeight();
         TranslateAnimation listAnimation = new TranslateAnimation(levelList, Animation.DURATION_LONG, Animation.DURATION_SHORT);
-        listAnimation.setTo(0, getScreenHeight() - selectLevelText.getHeight());
+        listAnimation.setTo(0, getPreferences().getFloat("scroll_state_" + pack, levelListPos));
         listAnimation.start();
     }
 
@@ -113,6 +114,7 @@ public class LevelSelectState extends State {
             }
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
             pressed = false;
+            getPreferences().edit().putFloat("scroll_state_" + pack, levelList.getY()).apply();
         }
         scrollHelper.onTouchEvent(event);
     }
