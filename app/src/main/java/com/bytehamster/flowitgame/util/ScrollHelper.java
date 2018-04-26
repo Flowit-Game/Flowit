@@ -27,6 +27,14 @@ public class ScrollHelper {
         this.maxY = maxY;
     }
 
+    private void setChildX(float pos) {
+        drawable.setX(Math.max(Math.min(pos, maxX), minX));
+    }
+
+    private void setChildY(float pos) {
+        drawable.setY(Math.max(Math.min(pos, maxY), minY));
+    }
+
     public boolean isScrolling() {
         return isScrolling;
     }
@@ -54,11 +62,11 @@ public class ScrollHelper {
             if (isScrolling()) {
                 if (horizontal) {
                     float delta = downX - currentX;
-                    drawable.setX(Math.max(Math.min(oldX + delta, maxX), minX));
+                    setChildX(oldX + delta);
                 }
                 if (vertical) {
                     float delta = downY - currentY;
-                    drawable.setY(Math.max(Math.min(oldY + delta, maxY), minY));
+                    setChildY(oldY + delta);
                 }
             }
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
