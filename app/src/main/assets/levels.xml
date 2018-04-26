@@ -1955,4 +1955,49 @@
                X00bg
                X00ro" />
 
+    <level number="120"
+           color="gbdro
+               bbdrr
+               bbdrr
+               obdrb
+               bbdrr
+               gbdro"
+           modifier="
+               go0go
+               oo0gg
+               00000
+               F000F
+               F000F
+               F0U0F" />
+
+    <level number="121"
+           color="oddro
+               oddro
+               odgro
+               bdrrb
+               bdrrb
+               bdrrb"
+           modifier="
+               D000D
+               00000
+               00w00
+               00000
+               00000
+               UF0FU" />
+
+    <level number="122"
+           color="gggoo
+               gggoo
+               rrroo
+               bbrgg
+               boogg
+               boorr"
+           modifier="
+               BBBBB
+               BBBBB
+               BB0BB
+               BBBBB
+               BBBBB
+               BBBBB" />
+
 </levels>
