@@ -21,6 +21,7 @@ import com.bytehamster.flowitgame.state.MainMenuState;
 import com.bytehamster.flowitgame.state.SettingsState;
 import com.bytehamster.flowitgame.state.State;
 import com.bytehamster.flowitgame.state.TutorialState;
+import com.bytehamster.flowitgame.util.AdManager;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
@@ -30,6 +31,7 @@ public class Main extends Activity {
     private MyGLSurfaceView glSurfaceView;
     private SoundPool soundPool;
     private State currentState;
+    private AdManager adManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,13 +41,8 @@ public class Main extends Activity {
         setContentView(R.layout.main);
         glSurfaceView = findViewById(R.id.gl_surface_view);
 
-        MobileAds.initialize(getApplicationContext(), "ca-app-pub-8233037560237995~7887041460");
-        AdView mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("4413FE813D2B5516E668ABC78B99A1BF")
-                .build();
-        mAdView.loadAd(adRequest);
+        adManager = new AdManager(this, (AdView) findViewById(R.id.adView));
+        adManager.loadAd();
 
         getSharedPreferences("preferences", Context.MODE_PRIVATE).edit()
                 .putInt("lastAppVersion", BuildConfig.VERSION_CODE).apply();
