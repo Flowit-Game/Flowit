@@ -76,7 +76,7 @@ public class Main extends Activity {
                         TutorialState.getInstance()
                 };
 
-                int adHeight = AdSize.SMART_BANNER.getHeightInPixels(Main.this);
+                int adHeight = findViewById(R.id.textView).getHeight(); //AdSize.SMART_BANNER.getHeightInPixels(Main.this);
                 for (State state : states) {
                     state.initialize(glSurfaceView.getRenderer(), soundPool, Main.this, adHeight);
                 }

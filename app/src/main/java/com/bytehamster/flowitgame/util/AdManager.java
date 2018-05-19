@@ -1,7 +1,6 @@
 package com.bytehamster.flowitgame.util;
 
 import android.content.Context;
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
@@ -16,10 +15,10 @@ public class AdManager {
     }
 
     public void loadAd() {
-        AdRequest adRequest = new AdRequest.Builder()
+        /*AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .addTestDevice("4413FE813D2B5516E668ABC78B99A1BF")
                 .build();
-        adView.loadAd(adRequest);
+        adView.loadAd(adRequest);*/
     }
 }
