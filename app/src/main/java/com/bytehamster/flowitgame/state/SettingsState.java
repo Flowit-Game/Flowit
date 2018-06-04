@@ -11,11 +11,14 @@ import com.bytehamster.flowitgame.animation.ScaleAnimation;
 import com.bytehamster.flowitgame.object.ObjectFactory;
 import com.bytehamster.flowitgame.object.Plane;
 import com.bytehamster.flowitgame.object.TextureCoordinates;
+import com.bytehamster.flowitgame.util.AdManager;
 
 public class SettingsState extends State {
     @SuppressLint("StaticFieldLeak")
     private static SettingsState instance;
     private State nextState = this;
+
+    private AdManager adManager;
 
     private Plane volumeOff;
     private Plane volumeOn;
@@ -127,8 +130,12 @@ public class SettingsState extends State {
             } else if (consentButton.collides(event, getScreenHeight())) {
                 nextState = MainMenuState.getInstance();
                 playSound(R.raw.click);
-                // TODO
+                adManager.askConsent();
             }
         }
+    }
+
+    public void setAdManager(AdManager adManager) {
+        this.adManager = adManager;
     }
 }

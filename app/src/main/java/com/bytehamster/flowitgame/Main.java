@@ -22,10 +22,8 @@ import com.bytehamster.flowitgame.state.SettingsState;
 import com.bytehamster.flowitgame.state.State;
 import com.bytehamster.flowitgame.state.TutorialState;
 import com.bytehamster.flowitgame.util.AdManager;
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 
 public class Main extends Activity {
     private MyGLSurfaceView glSurfaceView;
@@ -76,10 +74,11 @@ public class Main extends Activity {
                         TutorialState.getInstance()
                 };
 
-                int adHeight = findViewById(R.id.textView).getHeight(); //AdSize.SMART_BANNER.getHeightInPixels(Main.this);
+                int adHeight = AdSize.SMART_BANNER.getHeightInPixels(Main.this);
                 for (State state : states) {
                     state.initialize(glSurfaceView.getRenderer(), soundPool, Main.this, adHeight);
                 }
+                SettingsState.getInstance().setAdManager(adManager);
 
                 currentState = MainMenuState.getInstance();
                 currentState.entry();
