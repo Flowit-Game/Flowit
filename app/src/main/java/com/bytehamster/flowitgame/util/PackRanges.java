@@ -2,6 +2,11 @@ package com.bytehamster.flowitgame.util;
 
 import java.util.ArrayList;
 
+/**
+ * RANGE_1: Easy - No need to take away blocks with a modifier that did not create the block
+ * RANGE_2: Medium
+ * RANGE_3: Hard - I found it hard to solve
+ */
 public class PackRanges {
     private PackRanges() {
 
