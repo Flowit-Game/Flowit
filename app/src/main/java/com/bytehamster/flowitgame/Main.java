@@ -127,11 +127,18 @@ public class Main extends Activity {
                 glSurfaceView.getRenderer().onResume();
             }
         });
+        adManager.setPopupAllowed(true);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         glSurfaceView.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adManager.setPopupAllowed(false);
     }
 }

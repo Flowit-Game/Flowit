@@ -21,6 +21,7 @@ public class AdManager {
     private final AdView adView;
     private ConsentForm consentForm;
     private final ConsentInformation consentInformation;
+    private boolean popupAllowed = true;
 
 
     public AdManager(Context context, AdView adView) {
@@ -28,8 +29,6 @@ public class AdManager {
         this.adView = adView;
 
         consentInformation = ConsentInformation.getInstance(context);
-        consentInformation.setConsentStatus(ConsentStatus.UNKNOWN);
-
         MobileAds.initialize(context.getApplicationContext(), "ca-app-pub-8233037560237995~7887041460");
     }
 
@@ -98,7 +97,9 @@ public class AdManager {
 
                     @Override
                     public void onConsentFormLoaded() {
-                        consentForm.show();
+                        if (popupAllowed) {
+                            consentForm.show();
+                        }
                     }
                 })
                 .withPersonalizedAdsOption()
@@ -119,5 +120,9 @@ public class AdManager {
         }
         AdRequest adRequest = builder.build();
         adView.loadAd(adRequest);
+    }
+
+    public void setPopupAllowed(boolean popupAllowed) {
+        this.popupAllowed = popupAllowed;
     }
 }
