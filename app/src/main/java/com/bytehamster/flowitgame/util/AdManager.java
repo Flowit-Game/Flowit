@@ -33,6 +33,11 @@ public class AdManager {
     }
 
     public void loadAd() {
+        if (!isFirstLevelSolved()) {
+            Log.d("AdManager", "First run - displaying no ads");
+            return;
+        }
+
         Log.d("AdManager", "Requesting consent info");
         String[] publisherIds = {"pub-8233037560237995"};
         consentInformation.requestConsentInfoUpdate(publisherIds, new ConsentInfoUpdateListener() {
@@ -122,6 +127,10 @@ public class AdManager {
         }
         AdRequest adRequest = builder.build();
         adView.loadAd(adRequest);
+    }
+
+    private boolean isFirstLevelSolved() {
+        return context.getSharedPreferences("playedState", Context.MODE_PRIVATE).getBoolean("l1", false);
     }
 
     public void setPopupAllowed(boolean popupAllowed) {
