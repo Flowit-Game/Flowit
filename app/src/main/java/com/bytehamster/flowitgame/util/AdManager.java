@@ -33,6 +33,7 @@ public class AdManager {
     }
 
     public void loadAd() {
+        Log.d("AdManager", "Requesting consent info");
         String[] publisherIds = {"pub-8233037560237995"};
         consentInformation.requestConsentInfoUpdate(publisherIds, new ConsentInfoUpdateListener() {
             @Override
@@ -66,6 +67,7 @@ public class AdManager {
     }
 
     public void askConsent() {
+        Log.d("AdManager", "Asking for consent");
         URL privacyUrl;
         try {
             privacyUrl = new URL("http://www.tools.bytehamster.com/privacy/flowit.txt");
