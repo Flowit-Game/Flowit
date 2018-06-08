@@ -72,8 +72,9 @@ public class LevelSelectState extends State {
                 0, getAdHeight() + levelList.getHeight());
 
         float levelListPos = getScreenHeight() - selectLevelText.getHeight();
+        float lastScrollPos = getPreferences().getFloat("scroll_state_" + pack, levelListPos);
         TranslateAnimation listAnimation = new TranslateAnimation(levelList, Animation.DURATION_LONG, Animation.DURATION_SHORT);
-        listAnimation.setTo(0, getPreferences().getFloat("scroll_state_" + pack, levelListPos));
+        listAnimation.setTo(0, scrollHelper.clampY(lastScrollPos));
         listAnimation.start();
     }
 

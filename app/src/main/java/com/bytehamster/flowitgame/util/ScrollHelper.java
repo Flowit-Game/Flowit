@@ -27,12 +27,20 @@ public class ScrollHelper {
         this.maxY = maxY;
     }
 
+    public float clampX(float pos) {
+        return Math.max(Math.min(pos, maxX), minX);
+    }
+
+    public float clampY(float pos) {
+        return Math.max(Math.min(pos, maxY), minY);
+    }
+
     private void setChildX(float pos) {
-        drawable.setX(Math.max(Math.min(pos, maxX), minX));
+        drawable.setX(clampX(pos));
     }
 
     private void setChildY(float pos) {
-        drawable.setY(Math.max(Math.min(pos, maxY), minY));
+        drawable.setY(clampY(pos));
     }
 
     public boolean isScrolling() {
