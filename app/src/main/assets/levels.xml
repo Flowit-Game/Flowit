@@ -2000,4 +2000,49 @@
                BBBBB
                BBBBB" />
 
+    <level number="123"
+           color="bdrrr
+               bdrrr
+               odrbb
+               grrrg
+               bbbbo
+               bddbb"
+           modifier="
+               FD00F
+               00000
+               R000F
+               g000L
+               0000L
+               0dU0F" />
+
+    <level number="124"
+           color="0doo0
+               ddood
+               gdooo
+               gdbgo
+               bbbgo
+               0dbg0"
+           modifier="
+               XdF0X
+               0s00d
+               00000
+               x0000
+               00000
+               XdFUX" />
+
+    <level number="125"
+           color="rrooo
+               rddgg
+               rddgg
+               rddgg
+               rrbbb
+               orbbb"
+           modifier="
+               F000L
+               00000
+               0F00B
+               0000L
+               00000
+               U0U0F" />
+
 </levels>
