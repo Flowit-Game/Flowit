@@ -23,6 +23,7 @@ if (@$_GET["action"] == "restart") {
     <head>
         <title>Flowit Level Editor</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
         <script src="res/jquery-3.1.1.min.js"></script>
         <link rel="stylesheet" href="res/bootstrap-4.3.1.min.css">
         <link rel="stylesheet" type="text/css" href="res/style.css">

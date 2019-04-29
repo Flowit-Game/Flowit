@@ -1,16 +1,17 @@
 <?php
 
-function drawBoard($LEVEL_DATA, $action, $highlight_col, $highlight_row, $highlight) {
+function drawBoard($LEVEL_DATA, $action, $highlight_col, $highlight_row, $highlight, $onlyLinkifyAction=false) {
 
     echo "<table id=\"board\" class=\"mx-auto\">";
     for ($i = 0; $i < $_SESSION["rows"]; $i++) {
         echo "<tr>";
         for ($y = 0; $y < $_SESSION["cols"]; $y++) {
             echo "<td>";
-            if ($LEVEL_DATA[$i][$y]["type"] == TYPE_EMPTY || $LEVEL_DATA[$i][$y]["type"] == TYPE_DISABLED) {
-                echo "<a class=\"field\" href=\"./?action=$action&r=$i&c=$y\">";
+            if ($onlyLinkifyAction && ($LEVEL_DATA[$i][$y]["type"] == TYPE_EMPTY
+                    || $LEVEL_DATA[$i][$y]["type"] == TYPE_DISABLED)) {
+                echo "<span class=\"field\">";
             } else {
-                echo "<a class=\"field fieldFull\" href=\"./?action=$action&r=$i&c=$y\">";
+                echo "<a class=\"field\" href=\"./?action=$action&r=$i&c=$y\">";
             }
 
             if ($LEVEL_DATA[$i][$y]["type"] == TYPE_EMPTY) {

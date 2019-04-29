@@ -1,50 +1,3 @@
-/**{
-    margin:0px;
-    padding:0px;
-    border: none;
-    text-align:center;
-    font-family: Arial;
-    font-size: 16px;
-}
-img{
-    background:transparent;
-}
-table{
-    border-spacing: 0px;
-    line-height: 0px;
-}
-body{
-    padding: 20px;
-    overflow-y:scroll;
-    width: 80%;
-    margin: auto;
-    background: #ddd;
-}
-body > *{
-    margin:auto;
-}
-h1 {
-    margin-bottom: 20px;
-    font-size: 30px;
-    display: block;
-}
-a{
-    display:block;
-    text-align:center;
-    text-decoration: none;
-    color: #22d;
-}
-a.button {
-    background: #ccc;
-    padding: 8px;
-    display: inline-block;
-}
-a.button:hover {
-    background: #aaa;
-}
-a.active {
-    background: #aaa;
-}*/
 textarea {
     font-family: monospace;
     text-align: left;
@@ -53,6 +6,7 @@ textarea {
 .field {
     position: relative;
 }
+
 .field > img {
     position: absolute;
     top: 0px;
@@ -60,10 +14,37 @@ textarea {
     width: 70px;
     height: 70px;
 }
+
 #board td, .editor td {
     width: 70px;
     height: 70px;
 }
+
+#board a, .editor a {
+    opacity: 1;
+    transition:opacity 100ms ease-out;
+}
+
+#board a:hover, .editor a:hover {
+    opacity: 0.4;
+}
+
 .card {
     min-width: 400px;
+}
+
+@media screen and (max-width: 500px) {
+    .field > img {
+        width: 50px;
+        height: 50px;
+    }
+
+    #board td, .editor td {
+        width: 50px;
+        height: 50px;
+    }
+
+    .card {
+        min-width: 300px;
+    }
 }
