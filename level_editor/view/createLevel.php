@@ -1,4 +1,12 @@
-<div class="container text-center p-3">
+<div class="container p-3">
+    <?php
+        if (@$sendResult != "") {
+            echo $sendResult;
+        }
+    ?>
+    <div class="alert alert-primary">
+        This website works best on big PC screens.
+    </div>
     <h4 class="m-1">Create level</h4>
     <a href="?cols=5&rows=6&r=0&c=0&action=edit" class="btn btn-secondary m-1">Create small level</a>
     <br/>

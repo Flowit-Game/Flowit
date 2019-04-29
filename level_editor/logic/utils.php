@@ -3,8 +3,14 @@
 function begins_with($haystack, $needle) {
     return strpos($haystack, $needle) === 0;
 }
+
 function contains($haystack, $needle) {
     return strpos($haystack, $needle) !== false;
+}
+
+function resetLevel() {
+    unset($_SESSION["level_data"]);
+    $_SESSION["solved"] = false;
 }
 
 define("ROTATING", true);

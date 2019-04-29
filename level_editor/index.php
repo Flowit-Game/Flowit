@@ -6,7 +6,9 @@ include("view/boardDrawer.php");
 include("logic/utils.php");
 
 if (@$_GET["action"] == "restart") {
-    unset($_SESSION["level_data"]);
+    resetLevel();
+} else if (@$_GET["action"] == "source") {
+    include("logic/send.php");
 } else if (begins_with(@$_GET["action"], "save_")) {
     include("logic/handleEditUpdates.php");
 } else if (@$_GET["action"] == "play" && @$_GET["play"] == "restart") {
