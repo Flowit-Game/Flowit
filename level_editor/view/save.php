@@ -13,7 +13,7 @@
         </div>
     <?php } else { ?>
         <div class="alert alert-danger">
-            Please solve the design by playing before saving.
+            The current design was not solved yet. To save, you need to solve the level by playing.
         </div>
     <?php } ?>
 </div>
