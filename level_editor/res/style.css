@@ -29,6 +29,10 @@ textarea {
     opacity: 0.4;
 }
 
+.editor {
+    min-height: 400px;
+}
+
 .card {
     min-width: 400px;
 }

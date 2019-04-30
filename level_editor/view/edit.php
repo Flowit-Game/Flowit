@@ -6,15 +6,13 @@
             </div>
             <div class="card-body">
                 <?php
-                    drawBoard($_SESSION["level_data"], "edit", $_GET["c"], $_GET["r"],
+                    drawBoard($_SESSION["level_data"], "edit", @$_GET["c"], @$_GET["r"],
                             @$_GET["action"] == "edit");
                 ?>
             </div>
         </div>
         <?php
-            if (@$_GET["action"] == "edit") {
-                include("view/editor-toolbox.php");
-            } 
+            include("view/editor-toolbox.php");
         ?>
     </div>
 </div>
