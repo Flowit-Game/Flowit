@@ -13,8 +13,58 @@ function setFieldType($x, $y, $type) {
         $_SESSION["play_data"][$x][$y]["type"] = $type;
     }
 }
-
-$solved = false;
+function fill($x, $y, $dx, $dy, $from, $to) {
+    global $wasFilled;
+    while(true) {
+        $x += $dx;
+        $y += $dy;
+        if($x >= 0 && $x < $_SESSION["rows"]
+            &&  $y >= 0 && $y < $_SESSION["cols"]
+            && $_SESSION["play_data"][$x][$y]["type"] == TYPE_EMPTY
+            && $_SESSION["play_data"][$x][$y]["color"] == $from) {
+            
+            $wasFilled = true;
+            $_SESSION["play_data"][$x][$y]["color"] = $to;
+        } else {
+            return;
+        }
+    }
+}
+function twofill($x, $y, $dx, $dy, $color) {
+    global $wasFilled;
+    fill($x, $y, $dx, $dy, COLOR_EMPTY, $color);
+    if (!$wasFilled) {
+        fill($x, $y, $dx, $dy, $color, COLOR_EMPTY);
+    }
+}
+function recFill($x, $y, $from, $to, $isFirst = false) {
+    global $wasFilled;
+    if($x >= 0 && $x < $_SESSION["rows"]
+        &&  $y >= 0 && $y < $_SESSION["cols"]
+        && (($_SESSION["play_data"][$x][$y]["type"] == TYPE_EMPTY
+                && $_SESSION["play_data"][$x][$y]["color"] == $from) || $isFirst)) {
+        
+        $wasFilled = !$isFirst;
+        $_SESSION["play_data"][$x][$y]["color"] = $to;
+        
+        recFill($x-1, $y, $from, $to);
+        recFill($x+1, $y, $from, $to);
+        recFill($x, $y-1, $from, $to);
+        recFill($x, $y+1, $from, $to);
+    }
+}
+function isSolved() {
+    for ($r=0; $r < sizeof($_SESSION["play_data"]); $r++) {
+        for ($c=0; $c < sizeof($_SESSION["play_data"][0]); $c++) {
+            if ($_SESSION["play_data"][$r][$c]["type"] == TYPE_EMPTY
+                && ($_SESSION["play_data"][$r][$c]["color"]
+                    != $_SESSION["level_data"][$r][$c]["dest_color"])) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
 
 if(isset($_GET["c"])) {
     $c = $_GET["c"];
@@ -32,22 +82,6 @@ if(isset($_GET["c"])) {
         setFieldColor($r+1, $c+1, $color);setFieldType($r+1, $c+1, TYPE_EMPTY);
     } else if($_SESSION["play_data"][$r][$c]["type"] == TYPE_FLOW) {
         $wasFilled = false;
-        function recFill($x, $y, $from, $to, $isFirst = false) {
-            global $wasFilled;
-            if($x >= 0 && $x < $_SESSION["rows"]
-                &&  $y >= 0 && $y < $_SESSION["cols"]
-                && (($_SESSION["play_data"][$x][$y]["type"] == TYPE_EMPTY
-                        && $_SESSION["play_data"][$x][$y]["color"] == $from) || $isFirst)) {
-                
-                $wasFilled = !$isFirst;
-                $_SESSION["play_data"][$x][$y]["color"] = $to;
-                
-                recFill($x-1, $y, $from, $to);
-                recFill($x+1, $y, $from, $to);
-                recFill($x, $y-1, $from, $to);
-                recFill($x, $y+1, $from, $to);
-            }
-        }
         $color = $_SESSION["play_data"][$r][$c]["dest_color"];
         recFill($r, $c, COLOR_EMPTY, $color, true);
         if (!$wasFilled) {
@@ -55,31 +89,6 @@ if(isset($_GET["c"])) {
         }
     } else if($_SESSION["play_data"][$r][$c]["type"] == TYPE_LIMIT) {
         $wasFilled = false;
-        
-        function fill($x, $y, $dx, $dy, $from, $to) {
-            global $wasFilled;
-            while(true) {
-                $x += $dx;
-                $y += $dy;
-                if($x >= 0 && $x < $_SESSION["rows"]
-                    &&  $y >= 0 && $y < $_SESSION["cols"]
-                    && $_SESSION["play_data"][$x][$y]["type"] == TYPE_EMPTY
-                    && $_SESSION["play_data"][$x][$y]["color"] == $from) {
-                    
-                    $wasFilled = true;
-                    $_SESSION["play_data"][$x][$y]["color"] = $to;
-                } else {
-                    return;
-                }
-            }
-        }
-        function twofill($x, $y, $dx, $dy, $color) {
-            global $wasFilled;
-            fill($x, $y, $dx, $dy, COLOR_EMPTY, $color);
-            if (!$wasFilled) {
-                fill($x, $y, $dx, $dy, $color, COLOR_EMPTY);
-            }
-        }
         
         $col = $_SESSION["play_data"][$r][$c];
         $color = $_SESSION["play_data"][$r][$c]["dest_color"];
@@ -106,16 +115,7 @@ if(isset($_GET["c"])) {
         }
     }
 
-    $solved = true;
-    for ($r=0; $r < sizeof($_SESSION["play_data"]); $r++) {
-        for ($c=0; $c < sizeof($_SESSION["play_data"][0]); $c++) {
-            if ($_SESSION["play_data"][$r][$c]["type"] == TYPE_EMPTY
-                && ($_SESSION["play_data"][$r][$c]["color"]
-                    != $_SESSION["level_data"][$r][$c]["dest_color"])) {
-                $solved = false;
-            }
-        }
-    }
+    $solved = isSolved();
     if ($solved) {
         $_SESSION["solved"] = true;
     }

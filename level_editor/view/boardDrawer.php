@@ -1,8 +1,24 @@
 <?php
 
+function getCurrentlySelectedType() {
+    $type = "";
+    if (@$_SESSION["level_data"][$_GET["r"]][$_GET["c"]]["type"] == TYPE_EMPTY) {
+        $type = "empty";
+    } else if (@$_SESSION["level_data"][$_GET["r"]][$_GET["c"]]["type"] == TYPE_LIMIT) {
+        $type = "limit";
+    } else if (@$_SESSION["level_data"][$_GET["r"]][$_GET["c"]]["type"] == TYPE_BOMB) {
+        $type = "bomb";
+    } else if (@$_SESSION["level_data"][$_GET["r"]][$_GET["c"]]["type"] == TYPE_FLOW) {
+        $type = "flow";
+    }
+    return $type;
+}
+
 function drawBoard($LEVEL_DATA, $action, $highlight_col, $highlight_row, $highlight, $onlyLinkifyAction=false) {
 
-    echo "<table id=\"board\" class=\"mx-auto\">";
+    echo "<table id=\"board\" class=\"mx-auto\" ";
+    echo "data-selected-type=\"".getCurrentlySelectedType()."\"";
+    echo "data-solved=\"".($_SESSION["solved"] ? "true" : "false")."\">";
     for ($i = 0; $i < $_SESSION["rows"]; $i++) {
         echo "<tr>";
         for ($y = 0; $y < $_SESSION["cols"]; $y++) {
@@ -11,7 +27,8 @@ function drawBoard($LEVEL_DATA, $action, $highlight_col, $highlight_row, $highli
                     || $LEVEL_DATA[$i][$y]["type"] == TYPE_DISABLED)) {
                 echo "<span class=\"field\">";
             } else {
-                echo "<a class=\"field\" href=\"./?action=$action&r=$i&c=$y\">";
+                $url = "./?action=$action&r=$i&c=$y";
+                echo "<a class=\"field\" onclick=\"api('$url'); return false;\" href=\"$url\">";
             }
 
             if ($LEVEL_DATA[$i][$y]["type"] == TYPE_EMPTY) {

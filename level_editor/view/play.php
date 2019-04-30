@@ -1,9 +1,12 @@
 <div class="container p-3">
-    <?php if (@$solved) { ?>
-        <div class="alert alert-success">
-            Level was solved. Congratulations.
-        </div>
-    <?php } ?>
+    <div id="solvedCongrats" class="alert alert-success">
+        Level was solved. Congratulations.
+    </div>
+    <style>
+        #solvedCongrats {
+            display: <?= @$_SESSION["solved"] ? "block" : "none" ?>;
+        }
+    </style>
     <div class="row">
         <div class="col card p-0 m-2">
             <div class="card-header">

@@ -4,20 +4,7 @@ session_start();
 
 include("view/boardDrawer.php");
 include("logic/utils.php");
-
-if (@$_GET["action"] == "restart") {
-    resetLevel();
-} else if (@$_GET["action"] == "source") {
-    include("logic/send.php");
-} else if (begins_with(@$_GET["action"], "save_")) {
-    include("logic/handleEditUpdates.php");
-} else if (@$_GET["action"] == "play" && @$_GET["play"] == "restart") {
-    $_SESSION["play_data"] = @$_SESSION["level_data"];
-} else if (@$_GET["action"] == "play") {
-    include("logic/handlePlayUpdates.php");
-} else if (!isset($_SESSION["level_data"]) && isset($_GET["cols"]) && isset($_GET["rows"])) {
-    include("logic/handleInitLevel.php");
-}
+include("logic/handleUserInput.php");
 
 ?>
 <!DOCTYPE html>
@@ -25,6 +12,7 @@ if (@$_GET["action"] == "restart") {
     <head>
         <title>Flowit Level Editor</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="icon" type="image/png" href="drawable/icon_web.png" sizes="256x256">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
         <script src="res/jquery-3.1.1.min.js"></script>
         <link rel="stylesheet" href="res/bootstrap-4.3.1.min.css">
@@ -48,11 +36,11 @@ if (@$_GET["action"] == "restart") {
                 </ul>
             </div>
             <div class="navbar-expand navbar-right mt-2 mt-lg-0">
-                <a class="btn btn-secondary" href="javascript:askRestart();">Restart</a>
+                <a class="btn btn-secondary" onclick="return confirm('Restart?')" href="./?action=restart">Restart</a>
                 <?php if (@$_SESSION["solved"]) { ?>
-                    <a class="btn btn-success" href="./?action=source">Save</a>
+                    <a class="btn btn-success" id="saveButton" href="./?action=source">Save</a>
                 <?php } else { ?>
-                    <a class="btn btn-secondary" href="./?action=source">Save</a>
+                    <a class="btn btn-secondary" id="saveButton" href="./?action=source">Save</a>
                 <?php } ?>
             </div>
         </div>
