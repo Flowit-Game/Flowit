@@ -1,6 +1,6 @@
 <?php
 
-function getLevelCode() {
+function getLevelCode($name) {
     $COLOR_MAPPING2 = array(
         COLOR_EMPTY => "X",
         COLOR_RED => "r",
@@ -10,7 +10,9 @@ function getLevelCode() {
         COLOR_BLACK => "d",
     );
 
-    $code = "    <level number=\"\"\n        color=\"";
+    $code  = "    <level number=\"\"\n";
+    $code .= "        author=\"$name\"\n";
+    $code .= "        color=\"";
 
     $isFirst = true;
     foreach ($_SESSION["level_data"] as $row) {

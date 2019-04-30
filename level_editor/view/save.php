@@ -12,13 +12,17 @@
             <div class="card-body">
                 <form action="?action=source" method="post">
                     <div class="form-group">
-                        Your name to be listed in the credits section
+                        Your name to be listed in the credits section. Required.
                         <input type="text" class="form-control" placeholder="Name" name="name" />
+                    </div>
+                    <div class="form-group">
+                        Your email address if you want to be notified as soon as the level was included.
+                        <input type="email" class="form-control" placeholder="Email" name="email" />
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="checkAgree" id="checkAgree">
                         <label class="form-check-label" for="checkAgree">
-                            I agree that the level I designed will be included in the app Flowit. I provide a license for this use free of charge.
+                            I agree that the level I designed will be included in the app Flowit. I provide a license for this use free of charge. Required.
                         </label>
                     </div>
                     <input type="hidden" name="save" value="true">
@@ -27,8 +31,9 @@
             </div>
         </div>
     <?php } else { ?>
-        <div class="alert alert-danger">
-            The current design was not solved yet. To save, you need to solve the level by playing.
+        <div class="alert alert-secondary">
+            The current design was not solved yet. The level can only be submitted if it can be solved.
+            <a class="btn btn-primary" href="./?action=play">Play level now</a>
         </div>
     <?php } ?>
 </div>

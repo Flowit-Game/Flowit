@@ -1,6 +1,6 @@
 <div class="container p-3">
     <div id="solvedCongrats" class="alert alert-success">
-        Level was solved. Congratulations.
+        The current design was solved. Congratulations. You can now submit the level.
     </div>
     <style>
         #solvedCongrats {

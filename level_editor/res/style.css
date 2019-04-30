@@ -52,3 +52,13 @@ textarea {
         min-width: 300px;
     }
 }
+
+.screen-size-warning {
+    display: none;
+}
+
+@media screen and (max-width: 1000px) {
+    .screen-size-warning {
+        display: block;
+    }
+}

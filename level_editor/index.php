@@ -36,11 +36,11 @@ include("logic/handleUserInput.php");
                 </ul>
             </div>
             <div class="navbar-expand navbar-right mt-2 mt-lg-0">
-                <a class="btn btn-secondary" onclick="return confirm('Restart?')" href="./?action=restart">Restart</a>
+                <a class="btn btn-secondary" onclick="return confirm('Delete the level you designed?')" href="./?action=restart">Delete</a>
                 <?php if (@$_SESSION["solved"]) { ?>
-                    <a class="btn btn-success" id="saveButton" href="./?action=source">Save</a>
+                    <a class="btn btn-success" id="saveButton" href="./?action=source">Submit</a>
                 <?php } else { ?>
-                    <a class="btn btn-secondary" id="saveButton" href="./?action=source">Save</a>
+                    <a class="btn btn-secondary" id="saveButton" href="./?action=source">Submit</a>
                 <?php } ?>
             </div>
         </div>

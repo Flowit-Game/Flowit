@@ -18,7 +18,7 @@ function drawBoard($LEVEL_DATA, $action, $highlight_col, $highlight_row, $highli
 
     echo "<table id=\"board\" class=\"mx-auto\" ";
     echo "data-selected-type=\"".getCurrentlySelectedType()."\"";
-    echo "data-solved=\"".($_SESSION["solved"] ? "true" : "false")."\">";
+    echo "data-solved=\"".(@$_SESSION["solved"] ? "true" : "false")."\">";
     for ($i = 0; $i < $_SESSION["rows"]; $i++) {
         echo "<tr>";
         for ($y = 0; $y < $_SESSION["cols"]; $y++) {
