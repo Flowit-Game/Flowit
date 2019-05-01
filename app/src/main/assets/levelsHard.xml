@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<levels>
+
+    <level number="43"
+        color="gg0gg
+               bbggg
+               bbbbb
+               ggggg
+               gbboo
+               gb0bo"
+        modifier="
+               D0XFB
+               0B00L
+               0000L
+               0000L
+               00F00
+               0UXUF" />
+
+    <level number="55"
+        color="bgbgg
+               gggdg
+               gbggg
+               gbooo
+               ggood
+               gggdg"
+        modifier="
+               s00F0
+               000D0
+               0w000
+               00F00
+               0000L
+               B000g" />
+
+    <level number="63"
+        color="rbbbr
+               gbrbr
+               gbbbb
+               bbrrg
+               gbrrb
+               grrg0"
+        modifier="
+               s000F
+               00000
+               00s0F
+               B000L
+               0F00L
+               U0FUX" />
+
+    <level number="64"
+        color="bbrbr
+               rbrbr
+               rgbgr
+               rgrgb
+               ggggr
+               grrr0"
+        modifier="
+               F0000
+               00000
+               F0w0a
+               B0B0L
+               0U00L
+               FUUUX" />
+
+    <level number="65"
+        color="gggrr
+               rrrrr
+               rrggr
+               rrrrr
+               rrggr
+               rrgrr"
+        modifier="
+               F000B
+               R0000
+               B0000
+               0000a
+               F0000
+               BU0U0" />
+
+    <level number="68"
+        color="rbbbg
+               rbbbg
+               rbgbb
+               rggbb
+               brrbb
+               rbrrb"
+        modifier="
+               D0s0F
+               0000L
+               0000L
+               0B00L
+               00L0L
+               0UF0F" />
+
+    <level number="69"
+        color="bbddd
+               bbrdb
+               brrdd
+               oorrb
+               obrbr
+               obrb0"
+        modifier="
+               00D00
+               w0000
+               00B0F
+               00B0L
+               0B00L
+               FUFUX" />
+
+    <level number="70"
+        color="rrrdg
+               orrdg
+               obrrg
+               oroog
+               orrrr
+               oodbr"
+        modifier="
+               Fb0D0
+               0000w
+               0b00L
+               w0UBF
+               bg000
+               FUUFF" />
+
+    <level number="71"
+        color="bbdrb
+               bbrrb
+               grrrr
+               rrooo
+               grgoo
+               0goob"
+        modifier="
+               F0DF0
+               00g0w
+               g0000
+               R00B0
+               R0F00
+               XUFo0" />
+
+    <level number="72"
+        color="bbbbb
+               bbrrb
+               bbrrg
+               rrbbg
+               brrrg
+               grbrg"
+        modifier="
+               0D00a
+               B0B00
+               R0000
+               F0000
+               R0000
+               F0F00" />
+
+    <level number="73"
+        color="grgbr
+               rrgbr
+               bbgbr
+               bbggr
+               gbbgg
+               gbbbg"
+        modifier="
+               0F0B0
+               00L00
+               BU0F0
+               0R00w
+               00U00
+               U00UF" />
+
+    <level number="74"
+        color="rgbrb
+               bgbrb
+               ggrbb
+               ggrbb
+               gbrbb
+               grrrr"
+        modifier="
+               00D00
+               0000L
+               0000F
+               B000B
+               0UFUL
+               FUB0F" />
+
+    <level number="83"
+        color="roooro
+               rrorrr
+               orrrdr
+               oorrrr
+               orrrrr
+               rrrorr
+               rrooor
+               oooooo"
+        modifier="
+               F0F00o
+               00000L
+               0R00Fr
+               F0000L
+               00UU0L
+               00000L
+               FU000r
+               F00U00" />
+
+    <level number="86"
+        color="gbgrb0
+               bbbrrg
+               brbbrr
+               brbgrg
+               rrggrg
+               brrggg
+               0grbgb
+               000000"
+        modifier="
+               00DFDX
+               00000L
+               000R00
+               00FF00
+               00L000
+               R00000
+               XUFU00
+               XXXXXX" />
+
+    <level number="88"
+        color="gogbgo
+               gggboo
+               oggbbb
+               rrrrob
+               orooob
+               brrrrb
+               ggggob
+               ogggog"
+        modifier="
+               FD0DD0
+               000000
+               R00000
+               F00000
+               R00000
+               F00000
+               R00000
+               F000U0" />
+
+    <level number="90"
+        color="rgdgdb
+               rrrbbb
+               rrgggg
+               ggbbbb
+               orbbbb
+               boooob
+               oododb
+               oododd"
+        modifier="
+               FFDgDF
+               000000
+               00000L
+               00000L
+               or0000
+               R00000
+               000000
+               F0U0UF" />
+
+    <level number="91"
+        color="rgggob
+               rgrboo
+               bgrooo
+               ggrboo
+               ggrrob
+               ogggor
+               ogggoo
+               obrgbo"
+        modifier="
+               F00D0F
+               R00000
+               R00000
+               F00000
+               R0000b
+               o0000L
+               o00000
+               oUU0UF" />
+
+    <level number="92"
+        color="rrrrbb
+               rrbrbg
+               brrrrg
+               rrbgbr
+               rrbbbb
+               rrbobr
+               boooor
+               ooborr"
+        modifier="
+               F0D00F
+               00000F
+               R0000L
+               000000
+               R00000
+               000000
+               R00000
+               F000U0" />
+
+    <level number="94"
+        color="rrbgdd
+               rbbodd
+               rrrodd
+               rrrodd
+               rrrodd
+               rrrodd
+               rrrood
+               rgbod0"
+        modifier="
+               oobDrb
+               obborr
+               oggdoo
+               orrrdo
+               obdoog
+               obdddg
+               00000L
+               FFFFFX" />
+
+    <level number="95"
+        color="rrrrrr
+               rrrrrr
+               rgrrrr
+               rrrrrr
+               rrrrrr
+               rrrrrr
+               rrrrrr
+               rgbgdo"
+        modifier="
+               dooogb
+               drrobb
+               dgrddg
+               bbrrrg
+               bodogg
+               bodobb
+               000000
+               FFFUFF" />
+
+    <level number="98"
+        color="rrobor
+               rrbrrr
+               brbrrr
+               orbrbr
+               rrbrbr
+               grrbbo
+               brbbrr
+               rrbbrr"
+        modifier="
+               00FDDF
+               00D000
+               F00000
+               R00000
+               F00000
+               R0000L
+               F00000
+               00000F" />
+
+    <level number="99"
+        color="rrrrrr
+               rrrrgr
+               rggrgr
+               rrgrgg
+               rggrgr
+               rrrrrr
+               rrrrrr
+               rgbgod"
+        modifier="
+               orbrdo
+               doobrd
+               dbgoro
+               robdbg
+               dbrrbd
+               oodogb
+               000000
+               FFFUFF" />
+    
+    <level number="101"
+        color="oooggr
+               gggbrr
+               gggbrr
+               gggbrr
+               dddddr
+               ooddgg
+               rooogg
+               oorrgg"
+        modifier="
+               00000F
+               000000
+               0B0B0B
+               000000
+               F0000L
+               000000
+               R00000
+               F0UU0F" />
+
+    <level number="102"
+           color="oorbrb
+               obrbrr
+               rrrbbo
+               rggbbg
+               rggbbb
+               rggobb
+               rogrbb
+               goooob"
+           modifier="
+               00D0FF
+               0R0000
+               R000rL
+               0Bw00g
+               000U00
+               000o00
+               0FFr00
+               w0o00b" />
+
+</levels>

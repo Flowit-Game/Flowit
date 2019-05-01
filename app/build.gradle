@@ -55,14 +55,20 @@ android {
     }
 
     task compressLevelFile << {
-        String levels = file(projectDir.path + '/src/main/assets/levels.xml').text
-        print '  Original: ' + levels.length() + ' bytes'
-        levels = levels.replaceAll("\\s+", " ").replaceAll("\"\n ?", "\" ").replaceAll(" ?\n ?", "")
-        levels = levels.replaceAll("=\" ", "=\"").replaceAll("<!--([^>]*)-->", "") + '\n'
-        println ', compressed: ' + levels.length() + ' bytes'
-        file(projectDir.path + '/src/main/assets/levels_compressed.xml').text = levels
+        compress(projectDir.path + '/src/main/assets/levelsEasy.xml')
+        compress(projectDir.path + '/src/main/assets/levelsMedium.xml')
+        compress(projectDir.path + '/src/main/assets/levelsHard.xml')
     }
     preBuild.dependsOn compressLevelFile
+}
+
+def compress(path) {
+    String levels = file(path).text
+    print '  Original: ' + levels.length() + ' bytes'
+    levels = levels.replaceAll("\\s+", " ").replaceAll("\"\n ?", "\" ").replaceAll(" ?\n ?", "")
+    levels = levels.replaceAll("=\" ", "=\"").replaceAll("<!--([^>]*)-->", "") + '\n'
+    println ', compressed: ' + levels.length() + ' bytes'
+    file(path + '.compressed').text = levels
 }
 
 dependencies {

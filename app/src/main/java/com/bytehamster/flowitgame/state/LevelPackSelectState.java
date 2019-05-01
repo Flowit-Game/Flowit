@@ -8,6 +8,7 @@ import com.bytehamster.flowitgame.R;
 import com.bytehamster.flowitgame.animation.Animation;
 import com.bytehamster.flowitgame.animation.AnimationFactory;
 import com.bytehamster.flowitgame.animation.TranslateAnimation;
+import com.bytehamster.flowitgame.model.LevelPack;
 import com.bytehamster.flowitgame.object.Container;
 import com.bytehamster.flowitgame.object.Plane;
 import com.bytehamster.flowitgame.object.TextureCoordinates;
@@ -93,19 +94,19 @@ public class LevelPackSelectState extends State {
         logoAnimation.setHideAfter(true);
         logoAnimation.start();
 
-        if (LevelSelectState.getInstance().getPack() == 1) {
+        if (LevelSelectState.getInstance().getPack() == LevelPack.EASY) {
             AnimationFactory.startMenuAnimationOutPressed(pack1);
         } else {
             AnimationFactory.startMenuAnimationOut(pack1);
         }
 
-        if (LevelSelectState.getInstance().getPack() == 2) {
+        if (LevelSelectState.getInstance().getPack() == LevelPack.MEDIUM) {
             AnimationFactory.startMenuAnimationOutPressed(pack2);
         } else {
             AnimationFactory.startMenuAnimationOut(pack2);
         }
 
-        if (LevelSelectState.getInstance().getPack() == 3) {
+        if (LevelSelectState.getInstance().getPack() == LevelPack.HARD) {
             AnimationFactory.startMenuAnimationOutPressed(pack3);
         } else {
             AnimationFactory.startMenuAnimationOut(pack3);
@@ -129,11 +130,11 @@ public class LevelPackSelectState extends State {
             pressed = true;
         } else if (event.getAction() == MotionEvent.ACTION_UP && !scrollHelper.isScrolling() && pressed) {
             if (pack1.collides(event.getX(), event.getY() + container.getY(), getScreenHeight())) {
-                openSelectState(1);
+                openSelectState(LevelPack.EASY);
             } else if (pack2.collides(event.getX(), event.getY() + container.getY(), getScreenHeight())) {
-                openSelectState(2);
+                openSelectState(LevelPack.MEDIUM);
             } else if (pack3.collides(event.getX(), event.getY() + container.getY(), getScreenHeight())) {
-                openSelectState(3);
+                openSelectState(LevelPack.HARD);
             }
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
             pressed = false;
@@ -141,7 +142,7 @@ public class LevelPackSelectState extends State {
         scrollHelper.onTouchEvent(event);
     }
 
-    private void openSelectState(int pack) {
+    private void openSelectState(LevelPack pack) {
         nextState = LevelSelectState.getInstance();
         LevelSelectState.getInstance().setPack(pack);
         playSound(R.raw.click);

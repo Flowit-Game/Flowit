@@ -8,7 +8,7 @@ import android.view.MotionEvent;
 import com.bytehamster.flowitgame.BuildConfig;
 import com.bytehamster.flowitgame.GLRenderer;
 import com.bytehamster.flowitgame.SoundPool;
-import com.bytehamster.flowitgame.util.PackRanges;
+import com.bytehamster.flowitgame.model.Level;
 
 abstract public class State {
     static final int STEPS_NOT_SOLVED = 999;
@@ -79,15 +79,14 @@ abstract public class State {
         return prefs;
     }
 
-    public boolean isPlayable(int level) {
-        if (PackRanges.isFirstInPack(level)) {
-            return true;
-        }
+    public boolean isPlayable(Level level) {
         for (int i = 0; i <= UNLOCK_NEXT_LEVELS; i++) {
-            if (isSolved(level)) {
+            if (level.getIndexInPack() == 0) {
+                return true;
+            } else if (isSolved(level.getNumber())) {
                 return true;
             }
-            level = PackRanges.previousLevel(level);
+            level = level.getPack().getLevel(level.getIndexInPack() - 1);
         }
         return false;
     }

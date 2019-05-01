@@ -7,10 +7,10 @@ import com.bytehamster.flowitgame.GLRenderer;
 import com.bytehamster.flowitgame.R;
 import com.bytehamster.flowitgame.animation.Animation;
 import com.bytehamster.flowitgame.animation.TranslateAnimation;
+import com.bytehamster.flowitgame.model.LevelPack;
 import com.bytehamster.flowitgame.object.LevelList;
 import com.bytehamster.flowitgame.object.Plane;
 import com.bytehamster.flowitgame.object.TextureCoordinates;
-import com.bytehamster.flowitgame.util.PackRanges;
 import com.bytehamster.flowitgame.util.ScrollHelper;
 
 public class LevelSelectState extends State {
@@ -18,7 +18,7 @@ public class LevelSelectState extends State {
     private static LevelSelectState instance;
     private State nextState = this;
 
-    private int pack = 1;
+    private LevelPack pack;
     private Plane selectLevelText;
     private LevelList levelList;
     private ScrollHelper scrollHelper;
@@ -61,18 +61,12 @@ public class LevelSelectState extends State {
         logoAnimation.setTo(0, getScreenHeight() - selectLevelText.getHeight());
         logoAnimation.start();
 
-        if (pack == 1) {
-            levelList.setDisplayRange(PackRanges.RANGE_1);
-        } else if (pack == 2) {
-            levelList.setDisplayRange(PackRanges.RANGE_2);
-        } else if (pack == 3) {
-            levelList.setDisplayRange(PackRanges.RANGE_3);
-        }
+        levelList.setPack(pack);
         scrollHelper.setMaxima(0, getScreenHeight() - selectLevelText.getHeight(),
                 0, getAdHeight() + levelList.getHeight());
 
         float levelListPos = getScreenHeight() - selectLevelText.getHeight();
-        float lastScrollPos = getPreferences().getFloat("scroll_state_" + pack, levelListPos);
+        float lastScrollPos = getPreferences().getFloat("scroll_state_" + pack.id(), levelListPos);
         TranslateAnimation listAnimation = new TranslateAnimation(levelList, Animation.DURATION_LONG, Animation.DURATION_SHORT);
         listAnimation.setTo(0, scrollHelper.clampY(lastScrollPos));
         listAnimation.start();
@@ -115,16 +109,16 @@ public class LevelSelectState extends State {
             }
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
             pressed = false;
-            getPreferences().edit().putFloat("scroll_state_" + pack, levelList.getY()).apply();
+            getPreferences().edit().putFloat("scroll_state_" + pack.id(), levelList.getY()).apply();
         }
         scrollHelper.onTouchEvent(event);
     }
 
-    public int getPack() {
+    public LevelPack getPack() {
         return pack;
     }
 
-    public void setPack(int pack) {
+    public void setPack(LevelPack pack) {
         this.pack = pack;
     }
 }

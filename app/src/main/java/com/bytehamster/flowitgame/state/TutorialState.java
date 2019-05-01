@@ -8,6 +8,7 @@ import com.bytehamster.flowitgame.R;
 import com.bytehamster.flowitgame.animation.Animation;
 import com.bytehamster.flowitgame.animation.AnimationFactory;
 import com.bytehamster.flowitgame.animation.TranslateAnimation;
+import com.bytehamster.flowitgame.model.LevelPack;
 import com.bytehamster.flowitgame.object.Plane;
 import com.bytehamster.flowitgame.object.TextureCoordinates;
 
@@ -119,8 +120,8 @@ public class TutorialState extends State {
             } else {
                 screenNumber = 3;
                 playSound(R.raw.click);
-                LevelSelectState.getInstance().setPack(1);
-                GameState.getInstance().setLevel(0);
+                LevelSelectState.getInstance().setPack(LevelPack.EASY);
+                GameState.getInstance().setLevel(LevelPack.EASY.getLevel(0));
                 nextState = GameState.getInstance();
             }
         }

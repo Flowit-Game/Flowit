@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.bytehamster.flowitgame.model.LevelPack;
 import com.bytehamster.flowitgame.state.ExitState;
 import com.bytehamster.flowitgame.state.GameState;
 import com.bytehamster.flowitgame.state.LevelPackSelectState;
@@ -45,6 +46,7 @@ public class Main extends Activity {
         getSharedPreferences("preferences", Context.MODE_PRIVATE).edit()
                 .putInt("lastAppVersion", BuildConfig.VERSION_CODE).apply();
 
+        LevelPack.parsePacks(this);
         createViews();
 
         if (Build.VERSION.SDK_INT >= 21) {

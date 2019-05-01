@@ -15,21 +15,20 @@ import com.bytehamster.flowitgame.animation.TranslateAnimation;
 import com.bytehamster.flowitgame.filler.Filler;
 import com.bytehamster.flowitgame.model.Field;
 import com.bytehamster.flowitgame.model.Level;
+import com.bytehamster.flowitgame.model.LevelPack;
 import com.bytehamster.flowitgame.model.Modifier;
 import com.bytehamster.flowitgame.object.LevelDrawer;
 import com.bytehamster.flowitgame.object.Number;
 import com.bytehamster.flowitgame.object.ObjectFactory;
 import com.bytehamster.flowitgame.object.Plane;
 import com.bytehamster.flowitgame.object.TextureCoordinates;
-import com.bytehamster.flowitgame.util.PackRanges;
 
 public class GameState extends State {
     @SuppressLint("StaticFieldLeak")
     private static GameState instance;
     private State nextState = this;
 
-    private int level = 0;
-    private Level levelData = null;
+    private Level level;
     private float boardStartY = 0;
     private final LevelDrawer levelDrawer = LevelDrawer.getInstance();
     private Plane winMessage;
@@ -173,15 +172,14 @@ public class GameState extends State {
         rightButtonGlow.stopWhenFinished();
         won = false;
         stepsUsed.setValue(0);
-        if (loadSteps(level) == STEPS_NOT_SOLVED) {
+        if (loadSteps(level.getNumber()) == STEPS_NOT_SOLVED) {
             stepsBest.setValue(Number.VALUE_NAN);
         } else {
-            stepsBest.setValue(loadSteps(level));
+            stepsBest.setValue(loadSteps(level.getNumber()));
         }
         AnimationFactory.startScaleHide(stepsImproved, 0);
         isFilling = false;
-        levelData = new Level(level, getActivity());
-        levelDrawer.setLevel(levelData);
+        levelDrawer.setLevel(level);
 
         float remainingSpace = getScreenHeight() - getAdHeight() - topBarHeight - levelDrawer.getHeight();
         final float horizontalPaddingDelta = levelDrawer.getBoxSize() / 2;
@@ -227,7 +225,7 @@ public class GameState extends State {
             outAnimation.start();
         }
 
-        if (isSolved(level)) {
+        if (isSolved(level.getNumber())) {
             if (lastLevelState == LastLevelState.NO_LEVEL) {
                 solved.setScale(1);
                 AnimationFactory.startMoveYTo(solved, topButtonY);
@@ -236,9 +234,9 @@ public class GameState extends State {
             }
             lastLevelState = LastLevelState.SOLVED;
         } else {
-            if (!isSolved(level) && lastLevelState == LastLevelState.NO_LEVEL) {
+            if (!isSolved(level.getNumber()) && lastLevelState == LastLevelState.NO_LEVEL) {
                 solved.setVisible(false);
-            } else if (!isSolved(level) && lastLevelState == LastLevelState.SOLVED) {
+            } else if (!isSolved(level.getNumber()) && lastLevelState == LastLevelState.SOLVED) {
                 hideSolved();
             }
             lastLevelState = LastLevelState.NOT_SOLVED;
@@ -298,25 +296,25 @@ public class GameState extends State {
 
         if (left.collides(event, getScreenHeight())) {
             playSound(R.raw.click);
-            if (PackRanges.isFirstInPack(level)) {
+            if (level.getIndexInPack() == 0) {
                 nextState = LevelSelectState.getInstance();
             } else {
-                level = PackRanges.previousLevel(level);
+                level = level.getPack().getLevel(level.getIndexInPack() - 1);
                 reloadLevel();
             }
         } else if (right.collides(event, getScreenHeight())
                 || winMessage.collides(event, getScreenHeight())) {
             playSound(R.raw.click);
-            if (PackRanges.isLastInPack(level)) {
+            if (level.getPack().size() == level.getIndexInPack() + 1) {
                 nextState = LevelSelectState.getInstance();
             } else {
-                level = PackRanges.nextLevel(level);
+                level = level.getPack().getLevel(level.getIndexInPack() + 1);
                 reloadLevel();
             }
         } else if (restart.collides(event, getScreenHeight())) {
             playSound(R.raw.click);
             if (BuildConfig.DEBUG_LEVELS) {
-                makeUnPlayed(level);
+                makeUnPlayed(level.getNumber());
             }
             if (stepsUsed.getValue() != 0) {
                 wiggle();
@@ -335,8 +333,8 @@ public class GameState extends State {
     }
 
     private void checkFieldTouched(MotionEvent event) {
-        for (int row = 0; row < levelData.getHeight(); row++) {
-            for (int col = 0; col < levelData.getWidth(); col++) {
+        for (int row = 0; row < level.getHeight(); row++) {
+            for (int col = 0; col < level.getWidth(); col++) {
                 if (event.getY() > boardStartY + row * levelDrawer.getBoxSize()
                         && event.getY() < boardStartY + (row + 1) * levelDrawer.getBoxSize()
                         && event.getX() > levelDrawer.getX() + (col + 0.5) * levelDrawer.getBoxSize()
@@ -349,14 +347,14 @@ public class GameState extends State {
     }
 
     private void triggerField(final int col, final int row) {
-        Filler filler = Filler.get(levelData, col, row, this);
+        Filler filler = Filler.get(level, col, row, this);
         if (filler != null) {
             stepsUsed.increment();
             playSound(R.raw.click);
             isFilling = true;
-            if (levelData.fieldAt(col, row).getModifier().isRotating()) {
-                Modifier rotated = levelData.fieldAt(col, row).getModifier().rotate();
-                levelData.fieldAt(col, row).setModifier(rotated);
+            if (level.fieldAt(col, row).getModifier().isRotating()) {
+                Modifier rotated = level.fieldAt(col, row).getModifier().rotate();
+                level.fieldAt(col, row).setModifier(rotated);
             }
             filler.setOnFinished(new Runnable() {
                 @Override
@@ -369,15 +367,15 @@ public class GameState extends State {
         }
     }
 
-    public void setLevel(int level) {
+    public void setLevel(Level level) {
         this.level = level;
     }
 
     private void checkWon() {
         won = true;
-        for (int r = 0; r < levelData.getHeight(); r++) {
-            for (int c = 0; c < levelData.getWidth(); c++) {
-                Field f = levelData.fieldAt(c, r);
+        for (int r = 0; r < level.getHeight(); r++) {
+            for (int c = 0; c < level.getWidth(); c++) {
+                Field f = level.fieldAt(c, r);
                 if (Converter.convertColor(f.getModifier()) != null // Is not a color
                         && f.getColor() != Converter.convertColor(f.getModifier())) {
                     won = false;
@@ -387,8 +385,8 @@ public class GameState extends State {
 
         if (won) {
             playSound(R.raw.won);
-            makePlayed(level);
-            saveSteps(level, stepsUsed.getValue());
+            makePlayed(level.getNumber());
+            saveSteps(level.getNumber(), stepsUsed.getValue());
             lastLevelState = LastLevelState.SOLVED;
 
             float availableSpace = getScreenHeight() - getAdHeight();

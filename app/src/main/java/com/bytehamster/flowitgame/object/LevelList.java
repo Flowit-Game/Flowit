@@ -2,6 +2,8 @@ package com.bytehamster.flowitgame.object;
 
 import android.view.MotionEvent;
 import com.bytehamster.flowitgame.BuildConfig;
+import com.bytehamster.flowitgame.model.Level;
+import com.bytehamster.flowitgame.model.LevelPack;
 import com.bytehamster.flowitgame.state.State;
 
 import javax.microedition.khronos.opengles.GL10;
@@ -14,7 +16,7 @@ public class LevelList extends Drawable {
     private final float boxHeight;
     private final float boxWidth;
     private final State context;
-    private int[][] displayRange = new int[0][0];
+    private LevelPack pack;
 
     public LevelList(float boxSize, State context) {
         boxHeight = boxSize;
@@ -32,12 +34,7 @@ public class LevelList extends Drawable {
     }
 
     public float getHeight() {
-        int num = 0;
-        for (int[] currentRange : displayRange) {
-            int from = currentRange[0];
-            int to = currentRange[1];
-            num += to - from + 1;
-        }
+        int num = pack.size();
         return boxHeight * num/3 * 1.5f + boxHeight;
     }
 
@@ -55,24 +52,24 @@ public class LevelList extends Drawable {
         return - (num/3) * boxHeight * 1.5f - boxHeight;
     }
 
-    private void drawButton(int num, int levelID, GL10 gl) {
+    private void drawButton(int indexInPack, Level level, GL10 gl) {
         Plane draw;
-        if (context.isSolved(levelID)) {
+        if (context.isSolved(level.getNumber())) {
             draw = planeLevelDone;
-        } else if (!context.isPlayable(levelID)) {
+        } else if (!context.isPlayable(level)) {
             draw = planeLevelLocked;
         } else {
             draw = planeLevel;
         }
 
-        draw.setX(getXFor(num));
-        draw.setY(getYFor(num));
+        draw.setX(getXFor(indexInPack));
+        draw.setY(getYFor(indexInPack));
         draw.draw(gl);
 
         if (BuildConfig.DEBUG_LEVELS) {
-            number.setValue(levelID);
+            number.setValue(level.getNumber());
         } else {
-            number.setValue(num + 1);
+            number.setValue(indexInPack + 1);
         }
         number.setX(draw.getX() + boxWidth + boxWidth / 4);
         number.setY(draw.getY() + boxHeight / 3);
@@ -90,41 +87,31 @@ public class LevelList extends Drawable {
         gl.glTranslatef(getX(), getY(), 0);
         gl.glScalef(getScale(), getScale(), getScale());
 
-        int num = 0;
-        for (int[] currentRange : displayRange) {
-            int from = currentRange[0];
-            int to = currentRange[1];
-            for (int levelId = from; levelId <= to; levelId++) {
-                drawButton(num, levelId, gl);
-                num++;
+        if (pack != null) {
+            for (int i = 0; i < pack.size(); i++) {
+                drawButton(i, pack.getLevel(i), gl);
             }
         }
 
         gl.glPopMatrix();
     }
 
-    public void setDisplayRange(int[][] displayRange) {
-        this.displayRange = displayRange;
+    public void setPack(LevelPack pack) {
+        this.pack = pack;
     }
 
     public boolean collides(MotionEvent event, float height) {
-        return getCollision(event, height) != -1;
+        return getCollision(event, height) != null;
     }
 
-    public int getCollision(MotionEvent event, float height) {
-        int num = 0;
-        for (int[] currentRange : displayRange) {
-            int from = currentRange[0];
-            int to = currentRange[1];
-            for (int levelId = from; levelId <= to; levelId++) {
-                planeLevel.setX(getXFor(num));
-                planeLevel.setY(getYFor(num));
-                if (planeLevel.collides(event.getX(), event.getY() + getY(), height)) {
-                    return levelId;
-                }
-                num++;
+    public Level getCollision(MotionEvent event, float height) {
+        for (int i = 0; i < pack.size(); i++) {
+            planeLevel.setX(getXFor(i));
+            planeLevel.setY(getYFor(i));
+            if (planeLevel.collides(event.getX(), event.getY() + getY(), height)) {
+                return pack.getLevel(i);
             }
         }
-        return -1;
+        return null;
     }
 }
