@@ -33,7 +33,7 @@
     <?php } else { ?>
         <div class="alert alert-secondary">
             The current design was not solved yet. The level can only be submitted if it can be solved.
-            <a class="btn btn-primary" href="./?action=play">Play level now</a>
+            <a class="btn btn-primary" href="./?action=play&play=restart">Play level now</a>
         </div>
     <?php } ?>
 </div>

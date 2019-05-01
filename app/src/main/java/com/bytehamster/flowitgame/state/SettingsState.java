@@ -1,6 +1,8 @@
 package com.bytehamster.flowitgame.state;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.MotionEvent;
 
 import com.bytehamster.flowitgame.GLRenderer;
@@ -25,6 +27,7 @@ public class SettingsState extends State {
     private Plane tutorialButton;
     private Plane volumeButton;
     private Plane consentButton;
+    private Plane editorButton;
 
     private SettingsState() {
 
@@ -42,7 +45,7 @@ public class SettingsState extends State {
         float menuEntriesWidth = glRenderer.getWidth() * 0.75f;
         float menuEntriesHeight = menuEntriesWidth / 6;
         float menuEntriesAvailableSpace = getScreenHeight() - getAdHeight();
-        float menuEntriesStartY = getScreenHeight() - (menuEntriesAvailableSpace - 4 * menuEntriesHeight) / 2;
+        float menuEntriesStartY = getScreenHeight() - (menuEntriesAvailableSpace - 6 * menuEntriesHeight) / 2;
 
         TextureCoordinates coordinatesVolume = TextureCoordinates.getFromBlocks(6, 13, 12, 14);
         volumeButton = new Plane(-menuEntriesWidth, menuEntriesStartY, menuEntriesWidth, menuEntriesHeight, coordinatesVolume);
@@ -55,6 +58,10 @@ public class SettingsState extends State {
         TextureCoordinates coordinatesConsent = TextureCoordinates.getFromBlocks(6, 14, 12, 15);
         consentButton = new Plane(-menuEntriesWidth, tutorialButton.getY() - 2 * menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesConsent);
         glRenderer.addDrawable(consentButton);
+
+        TextureCoordinates coordinatesEditor = TextureCoordinates.getFromBlocks(6, 15, 12, 16);
+        editorButton = new Plane(-menuEntriesWidth, consentButton.getY() - 2 * menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesEditor);
+        glRenderer.addDrawable(editorButton);
 
         volumeOn  = ObjectFactory.createSingleBox(0, 15, menuEntriesHeight);
         volumeOn.setVisible(false);
@@ -83,6 +90,7 @@ public class SettingsState extends State {
         AnimationFactory.startMenuAnimationEnter(volumeButton, (int) (2.0f * Animation.DURATION_SHORT));
         AnimationFactory.startMenuAnimationEnter(tutorialButton, (int) (2.5f * Animation.DURATION_SHORT));
         AnimationFactory.startMenuAnimationEnter(consentButton, (int) (3.0f * Animation.DURATION_SHORT));
+        AnimationFactory.startMenuAnimationEnter(editorButton, (int) (3.5f * Animation.DURATION_SHORT));
     }
 
     @Override
@@ -102,6 +110,7 @@ public class SettingsState extends State {
 
         AnimationFactory.startMenuAnimationOut(volumeButton);
         AnimationFactory.startMenuAnimationOut(consentButton);
+        AnimationFactory.startMenuAnimationOut(editorButton);
     }
 
     @Override
@@ -131,6 +140,11 @@ public class SettingsState extends State {
                 nextState = MainMenuState.getInstance();
                 playSound(R.raw.click);
                 adManager.askConsent();
+            } else if (editorButton.collides(event, getScreenHeight())) {
+                nextState = MainMenuState.getInstance();
+                playSound(R.raw.click);
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://flowit.bytehamster.com/"));
+                getActivity().startActivity(browserIntent);
             }
         }
     }
