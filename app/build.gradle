@@ -1,7 +1,3 @@
-plugins {
-    id('com.github.triplet.play')
-}
-
 apply plugin: 'com.android.application'
 
 android {
@@ -57,9 +53,10 @@ android {
     preBuild.dependsOn compressLevelFile
 }
 
-play {
-    track = 'alpha'
-    if (project.hasProperty("TRIPLET_API_KEY")) {
+if (project.hasProperty("TRIPLET_API_KEY")) {
+    apply plugin: 'com.github.triplet.play'
+    play {
+        track = 'alpha'
         serviceAccountCredentials = file(TRIPLET_API_KEY)
     }
 }
