@@ -54,10 +54,12 @@ android {
         }
     }
 
-    task compressLevelFile << {
-        compress(projectDir.path + '/src/main/assets/levelsEasy.xml')
-        compress(projectDir.path + '/src/main/assets/levelsMedium.xml')
-        compress(projectDir.path + '/src/main/assets/levelsHard.xml')
+    tasks.register("compressLevelFile") {
+        doLast {
+            compress(projectDir.path + '/src/main/assets/levelsEasy.xml')
+            compress(projectDir.path + '/src/main/assets/levelsMedium.xml')
+            compress(projectDir.path + '/src/main/assets/levelsHard.xml')
+        }
     }
     preBuild.dependsOn compressLevelFile
 }
@@ -72,8 +74,9 @@ def compress(path) {
 }
 
 dependencies {
-    implementation 'com.google.android.gms:play-services-ads-lite:11.0.4'
-    implementation 'com.google.android.ads.consent:consent-library:1.0.6'
+    implementation 'com.google.firebase:firebase-core:16.0.8'
+    implementation 'com.google.firebase:firebase-ads-lite:17.2.0'
+    implementation 'com.google.android.ads.consent:consent-library:1.0.7'
 }
 
 apply plugin: 'com.google.gms.google-services'

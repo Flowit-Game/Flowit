@@ -119,7 +119,7 @@ public class AdManager {
         Log.d("AdManager", "Loading ads. Personalized: " + personalized);
         AdRequest.Builder builder = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("4413FE813D2B5516E668ABC78B99A1BF");
+                .addTestDevice("60A0C2C6A9877637B6A090ECCFD5CDD9");
         if (!personalized) {
             Bundle extras = new Bundle();
             extras.putString("npa", "1");
