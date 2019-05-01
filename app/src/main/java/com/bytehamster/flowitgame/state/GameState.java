@@ -15,7 +15,6 @@ import com.bytehamster.flowitgame.animation.TranslateAnimation;
 import com.bytehamster.flowitgame.filler.Filler;
 import com.bytehamster.flowitgame.model.Field;
 import com.bytehamster.flowitgame.model.Level;
-import com.bytehamster.flowitgame.model.LevelPack;
 import com.bytehamster.flowitgame.model.Modifier;
 import com.bytehamster.flowitgame.object.LevelDrawer;
 import com.bytehamster.flowitgame.object.Number;
@@ -52,6 +51,7 @@ public class GameState extends State {
     private float stepsUsedCurrentYDelta;
     private float stepsUsedBestYDelta;
     private LastLevelState lastLevelState = LastLevelState.NO_LEVEL;
+    private Filler filler;
 
     private enum LastLevelState {
         SOLVED, NO_LEVEL, NOT_SOLVED
@@ -320,7 +320,16 @@ public class GameState extends State {
             if (stepsUsed.getValue() != 0) {
                 wiggle();
             }
-            reloadLevel();
+            if (isFilling) {
+                filler.setOnFinished(new Runnable() {
+                    @Override
+                    public void run() {
+                        reloadLevel();
+                    }
+                });
+            } else {
+                reloadLevel();
+            }
         } else if (!isFilling && !won && isPlayable(level)) {
             checkFieldTouched(event);
         }
@@ -348,7 +357,7 @@ public class GameState extends State {
     }
 
     private void triggerField(final int col, final int row) {
-        Filler filler = Filler.get(level, col, row, this);
+        filler = Filler.get(level, col, row, this);
         if (filler != null) {
             stepsUsed.increment();
             playSound(R.raw.click);
