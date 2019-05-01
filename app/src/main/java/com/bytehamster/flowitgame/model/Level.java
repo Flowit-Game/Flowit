@@ -1,6 +1,7 @@
 package com.bytehamster.flowitgame.model;
 
 public class Level {
+    private Field[][] originalMap;
     private Field[][] map;
     private int number;
     private int indexInPack;
@@ -21,11 +22,23 @@ public class Level {
             height = 8;
         }
 
+        originalMap = new Field[width][height];
         map = new Field[width][height];
-        for(int col = 0; col < width; col++) {
-            for(int row = 0; row < height; row++) {
+        for (int col = 0; col < width; col++) {
+            for (int row = 0; row < height; row++) {
                 int index = col + row * width;
-                map[col][row] = new Field(color.charAt(index), modifier.charAt(index));
+                originalMap[col][row] = new Field(color.charAt(index), modifier.charAt(index));
+            }
+        }
+        reset();
+    }
+
+    public void reset() {
+        int width = originalMap.length;
+        int height = originalMap[0].length;
+        for (int col = 0; col < width; col++) {
+            for (int row = 0; row < height; row++) {
+                map[col][row] = originalMap[col][row].clone();
             }
         }
     }

@@ -179,6 +179,7 @@ public class GameState extends State {
         }
         AnimationFactory.startScaleHide(stepsImproved, 0);
         isFilling = false;
+        level.reset();
         levelDrawer.setLevel(level);
 
         float remainingSpace = getScreenHeight() - getAdHeight() - topBarHeight - levelDrawer.getHeight();

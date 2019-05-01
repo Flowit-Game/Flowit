@@ -81,6 +81,11 @@ public class Field {
         }
     }
 
+    public Field(Color color, Modifier modifier) {
+        this.color = color;
+        this.modifier = modifier;
+    }
+
     public Modifier getModifier() {
         return modifier;
     }
@@ -103,5 +108,9 @@ public class Field {
 
     public void setVisited(boolean visited) {
         isVisited = visited;
+    }
+
+    public Field clone() {
+        return new Field(color, modifier);
     }
 }
