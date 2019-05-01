@@ -2,8 +2,8 @@ package com.bytehamster.flowitgame.object;
 
 import com.bytehamster.flowitgame.animation.Animation;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import javax.microedition.khronos.opengles.GL10;
 
@@ -12,7 +12,7 @@ public abstract class Drawable {
     private float y  = 0;
     private float scale = 1;
     private boolean visible = true;
-    private final ArrayList<Animation> animations = new ArrayList<>();
+    private final ConcurrentLinkedQueue<Animation> animations = new ConcurrentLinkedQueue<>();
 
     public void addAnimation(Animation anim) {
         if (!animations.contains(anim)) {
