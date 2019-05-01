@@ -42,6 +42,11 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     tasks.register("compressLevelFile") {
         doLast {
             compress(projectDir.path + '/src/main/assets/levelsEasy.xml')

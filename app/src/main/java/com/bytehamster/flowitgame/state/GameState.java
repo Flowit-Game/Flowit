@@ -321,12 +321,7 @@ public class GameState extends State {
                 wiggle();
             }
             if (isFilling) {
-                filler.setOnFinished(new Runnable() {
-                    @Override
-                    public void run() {
-                        reloadLevel();
-                    }
-                });
+                filler.setOnFinished(this::reloadLevel);
             } else {
                 reloadLevel();
             }
@@ -366,12 +361,9 @@ public class GameState extends State {
                 Modifier rotated = level.fieldAt(col, row).getModifier().rotate();
                 level.fieldAt(col, row).setModifier(rotated);
             }
-            filler.setOnFinished(new Runnable() {
-                @Override
-                public void run() {
-                    isFilling = false;
-                    checkWon();
-                }
+            filler.setOnFinished(() -> {
+                isFilling = false;
+                checkWon();
             });
             filler.fill();
         }
