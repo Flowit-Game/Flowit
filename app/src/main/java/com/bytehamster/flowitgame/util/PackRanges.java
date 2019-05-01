@@ -25,6 +25,7 @@ public class PackRanges {
             new int[]{84, 84},
             new int[]{100, 100},
             new int[]{108, 125},
+            new int[]{128, 128},
     };
     public static final int[][] RANGE_2 = new int[][]{
             new int[]{76, 76},
@@ -46,6 +47,7 @@ public class PackRanges {
             new int[]{93, 93},
             new int[]{96, 97},
             new int[]{103, 107},
+            new int[]{126, 127},
     };
     public static final int[][] RANGE_3 = new int[][]{
             new int[]{43, 43},

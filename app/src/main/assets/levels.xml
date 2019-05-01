@@ -2045,4 +2045,53 @@
                00000
                U0U0F" />
 
+    <level number="126"
+           color="rrrrr
+               rbbbb
+               rrrrr
+               bbbrg
+               oorrg
+               odrdg"
+           modifier="
+               0000F
+               0000L
+               00000
+               R000F
+               00000
+               FU0U0" />
+
+    <level number="127"
+           color="rgbbo
+               rgbbo
+               rgbbo
+               bgbro
+               gggro
+               rbgro"
+           modifier="
+               000DF
+               00B00
+               00000
+               R0000
+               00000
+               rUFF0" />
+
+    <level number="128"
+           color="roorrg
+               roordd
+               rrdddd
+               rrdddr
+               rrdddr
+               ggrrrr
+               ggrrbb
+               rrrrbb"
+           modifier="
+               0DD00F
+               00000L
+               00000L
+               000B00
+               00000L
+               R00000
+               R00000
+               F000UU" />
+
 </levels>
