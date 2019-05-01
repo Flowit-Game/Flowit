@@ -1,29 +1,17 @@
+plugins {
+    id('com.github.triplet.play')
+}
+
 apply plugin: 'com.android.application'
-apply plugin: 'com.github.triplet.play'
 
 android {
     compileSdkVersion 26
     buildToolsVersion '28.0.3'
 
-    playAccountConfigs {
-        defaultAccountConfig {
-            if (project.hasProperty("TRIPLET_API_KEY")) {
-                jsonFile = file(TRIPLET_API_KEY)
-            }
-        }
-    }
-
-    play {
-        track = 'alpha'
-        uploadImages = true
-    }
-
     defaultConfig {
         applicationId "com.bytehamster.flowitgame"
         minSdkVersion 14
         targetSdkVersion 26
-
-        playAccountConfig = playAccountConfigs.defaultAccountConfig
     }
 
     signingConfigs {
@@ -62,6 +50,13 @@ android {
         }
     }
     preBuild.dependsOn compressLevelFile
+}
+
+play {
+    track = 'alpha'
+    if (project.hasProperty("TRIPLET_API_KEY")) {
+        serviceAccountCredentials = file(TRIPLET_API_KEY)
+    }
 }
 
 def compress(path) {
