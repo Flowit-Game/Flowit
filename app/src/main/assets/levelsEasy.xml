@@ -225,6 +225,100 @@
                F0UFU
                XXXXX" />
 
+    <level number="133"
+        color="rrbbb
+               bbgoo
+               ddgoo
+               dordd
+               dorrr
+               dorgr"
+        modifier="
+               F000L
+               R000F
+               R0U00
+               0000L
+               00000
+               FUFU0" />
+
+   <level number="134"
+        color="0gogo
+               bdooo
+               rdddb
+               rdrdo
+               rdrdo
+               rrrdo"
+        modifier="
+               XDDDF
+               R0000
+               0000L
+               00000
+               0F000
+               F000F" />
+
+   <level number="129"
+        color="rbbbb
+               rgrrr
+               ogrdr
+               rgrdr
+               rgrdr
+               rrrdr"
+        modifier="
+               0000L
+               F0000
+               R0000
+               00000
+               0U000
+               000UF" />
+
+   <level number="130"
+        color="gggooo
+               gogoob
+               gogboo
+               oobbbb
+               oorrrd
+               oorrrd
+               oorrrd
+               odrrrd"
+        modifier="
+               00000F
+               00000L
+               00FU00
+               00000L
+               00000D
+               000000
+               000000
+               FUF000" />
+
+   <level number="131"
+        color="dgggg
+               dborr
+               dborr
+               dborr
+               ddogg
+               ddddd"
+        modifier="
+               F000L
+               00D00
+               0000F
+               0U000
+               0000L
+               00000" />
+
+   <level number="132"
+        color="ooorr
+               oooor
+               oooor
+               oooor
+               orord
+               rrrrr"
+        modifier="
+               00000
+               DFDU0
+               0D0D0
+               0000F
+               0000L
+               0000F" />
+
     <level number="16"
         color="obrrr
                obrrr
