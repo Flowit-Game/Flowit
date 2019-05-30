@@ -30,6 +30,21 @@
                 </form>
             </div>
         </div>
+        <?php if ($_SERVER["SERVER_ADDR"] === $_SERVER["REMOTE_ADDR"]) { ?>
+            <div class="card p-0 m-2 mx-auto">
+                <div class="card-header">
+                    Level code
+                </div>
+                <div class="card-body">
+                    <pre><?php
+                            $code = getLevelCode("");
+                            $code = str_replace("<", "&lt;", $code);
+                            $code = str_replace(">", "&gt;", $code);
+                            echo $code;
+                    ?></pre>
+                </div>
+            </div>
+        <?php } ?>
     <?php } else { ?>
         <div class="alert alert-secondary">
             The current design was not solved yet. The level can only be submitted if it can be solved.
