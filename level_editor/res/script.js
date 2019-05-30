@@ -33,19 +33,19 @@ function api(url) {
 document.onkeydown = checkKey;
 function checkKey(e) {
     e = e || window.event;
-    if (e.keyCode == '38') {
+    if (e.keyCode == '38' || e.key == 'w') {
         // up arrow
         api("./?action=edit&c="+param("c",  0)+"&r="+param("r", -1));
         e.preventDefault();
-    } else if (e.keyCode == '40') {
+    } else if (e.keyCode == '40' || e.key == 's') {
         // down arrow
         api("./?action=edit&c="+param("c",  0)+"&r="+param("r", +1));
         e.preventDefault();
-    } else if (e.keyCode == '37') {
+    } else if (e.keyCode == '37' || e.key == 'a') {
        // left arrow
         api("./?action=edit&c="+param("c", -1)+"&r="+param("r",  0));
         e.preventDefault();
-    } else if (e.keyCode == '39') {
+    } else if (e.keyCode == '39' || e.key == 'd') {
        // right arrow
         api("./?action=edit&c="+param("c", +1)+"&r="+param("r",  0));
         e.preventDefault();
