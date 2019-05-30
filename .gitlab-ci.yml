@@ -15,4 +15,5 @@ cache:
 build:
   stage: build
   script:
+  - cat app/src/main/assets/*.xml | grep "<level " | cut -d '"' -f 2 | sort -g | uniq --repeated | wc -l | xargs test 0 -eq
   - ./gradlew assembleDebug
