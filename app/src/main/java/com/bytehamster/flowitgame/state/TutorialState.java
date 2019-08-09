@@ -121,8 +121,7 @@ public class TutorialState extends State {
                 screenNumber = 3;
                 playSound(R.raw.click);
                 LevelSelectState.getInstance().setPack(LevelPack.EASY);
-                GameState.getInstance().setLevel(LevelPack.EASY.getLevel(0));
-                nextState = GameState.getInstance();
+                nextState = LevelSelectState.getInstance();
             }
         }
     }
