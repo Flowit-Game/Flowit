@@ -1,3 +1,2 @@
-Added button to open level editor
-3 new levels
+6 new levels
 Bug fixes and improvements
