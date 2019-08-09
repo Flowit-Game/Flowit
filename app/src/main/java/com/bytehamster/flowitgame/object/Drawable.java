@@ -16,7 +16,9 @@ public abstract class Drawable {
 
     public void addAnimation(Animation anim) {
         if (!animations.contains(anim)) {
-            animations.add(anim);
+            synchronized (animations) {
+                animations.add(anim);
+            }
         }
     }
 
