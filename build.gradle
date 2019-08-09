@@ -3,12 +3,10 @@ buildscript {
     repositories {
         google()
         jcenter()
-        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.0'
-        classpath 'com.google.gms:google-services:4.2.0'
-        classpath 'com.github.triplet.gradle:play-publisher:2.3.0-SNAPSHOT'
+        classpath 'com.android.tools.build:gradle:3.5.0-rc03'
+        classpath 'com.google.gms:google-services:4.3.0'
     }
 }
 

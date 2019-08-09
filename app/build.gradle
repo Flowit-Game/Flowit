@@ -1,13 +1,15 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+    id 'com.github.triplet.play' version '2.3.0'
+}
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '28.0.3'
+    compileSdkVersion 28
 
     defaultConfig {
         applicationId "com.bytehamster.flowitgame"
         minSdkVersion 14
-        targetSdkVersion 26
+        targetSdkVersion 28
     }
 
     signingConfigs {
