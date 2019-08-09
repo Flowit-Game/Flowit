@@ -41,7 +41,6 @@ public class GameState extends State {
     private Plane headerBackground;
     private Number stepsUsed;
     private Number stepsBest;
-    private AnimationRepeated rightButtonGlow;
     private boolean isFilling = false;
     private boolean won = false;
     private float topBarHeight;
@@ -150,7 +149,6 @@ public class GameState extends State {
 
         ScaleAnimation rightAnimation = new ScaleAnimation(right, Animation.DURATION_LONG, 0);
         rightAnimation.setTo(1.2f);
-        rightButtonGlow = new AnimationRepeated(rightAnimation);
     }
 
     @Override
@@ -169,7 +167,6 @@ public class GameState extends State {
     }
 
     private void reloadLevel() {
-        rightButtonGlow.stopWhenFinished();
         won = false;
         stepsUsed.setValue(0);
         if (loadSteps(level.getNumber()) == STEPS_NOT_SOLVED) {
@@ -254,8 +251,6 @@ public class GameState extends State {
 
     @Override
     public void exit() {
-        rightButtonGlow.pause();
-
         levelDrawer.cancelAnimations();
         TranslateAnimation logoAnimation = new TranslateAnimation(levelDrawer, Animation.DURATION_LONG, Animation.DURATION_LONG);
         logoAnimation.setTo(levelDrawer.getX(), -levelDrawer.getBoxSize());
@@ -398,17 +393,9 @@ public class GameState extends State {
             inAnimation.setTo(0, (availableSpace - winMessage.getHeight()) / 2 + getAdHeight());
             inAnimation.start();
 
-            TranslateAnimation outAnimation = new TranslateAnimation(winMessage, Animation.DURATION_SHORT, 8 * Animation.DURATION_SHORT);
-            outAnimation.setTo(0, -getScreenWidth() * 0.5f);
-            outAnimation.setHideAfter(true);
-            outAnimation.start();
-
             if (!solved.isVisible()) {
                 showSolved(Animation.DURATION_LONG);
             }
-
-            right.addAnimation(rightButtonGlow);
-            rightButtonGlow.start();
 
             if (stepsUsed.getValue() < stepsBest.getValue() && stepsBest.getValue() < STEPS_NOT_SOLVED) {
                 AnimationFactory.startScaleShow(stepsImproved, 0);
