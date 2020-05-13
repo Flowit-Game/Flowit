@@ -75,7 +75,7 @@ def compress(path) {
 dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.8'
     implementation 'com.google.firebase:firebase-ads-lite:17.2.0'
-    implementation 'com.google.android.ads.consent:consent-library:1.0.7'
+    implementation 'com.google.android.ads.consent:consent-library:1.0.8'
 }
 
 apply plugin: 'com.google.gms.google-services'
