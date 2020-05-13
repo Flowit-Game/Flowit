@@ -17,18 +17,13 @@ if (@$_POST["save"] == "true" && isset($_SESSION["level_data"])) {
         $receiver = "info@bytehamster.com";
         $subject = "Flowit level proposal";
 
-        $text = "Email: " . $_POST["email"] . "\n \n"
-                . getLevelCode($_POST["name"]);
+        $text = "Email: " . $_POST["email"] . "\n \n" . getLevelCode($_POST["name"]);
 
-        $headers   = array();
-        $headers[] = "MIME-Version: 1.0";
-        $headers[] = "Content-type: text/plain; charset=utf-8";
-        $headers[] = "From: ByteHamster system <system@bytehamster.com>";
-        $headers[] = "Subject: {$subject}";
-        $headers[] = "X-Mailer: PHP/".phpversion();
+        $Header = "MIME-Version: 1.0\n";
+        $Header .= "Content-type: text/plain; charset=utf-8\n";
+        $Header .= "From: ByteHamster System <system@bytehamster.com>\n";
 
-        $mailSuccess = mail($receiver, $subject, $text, implode("\r\n",$headers));
-
+        $mailSuccess = mail($receiver, $subject, $text, $Header);
         if ($mailSuccess) {
             $sendResult .= "<div class=\"alert alert-success\">Level was sent successfully. Thanks a lot!</div>";
             resetLevel();
