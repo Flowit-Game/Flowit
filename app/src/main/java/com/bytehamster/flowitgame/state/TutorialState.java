@@ -120,8 +120,7 @@ public class TutorialState extends State {
             } else {
                 screenNumber = 3;
                 playSound(R.raw.click);
-                LevelSelectState.getInstance().setPack(LevelPack.EASY);
-                nextState = LevelSelectState.getInstance();
+                nextState = LevelPackSelectState.getInstance();
             }
         }
     }

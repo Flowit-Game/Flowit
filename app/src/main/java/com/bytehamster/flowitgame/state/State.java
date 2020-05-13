@@ -9,6 +9,7 @@ import com.bytehamster.flowitgame.BuildConfig;
 import com.bytehamster.flowitgame.GLRenderer;
 import com.bytehamster.flowitgame.SoundPool;
 import com.bytehamster.flowitgame.model.Level;
+import com.bytehamster.flowitgame.model.LevelPack;
 
 abstract public class State {
     static final int STEPS_NOT_SOLVED = 999;
@@ -82,7 +83,14 @@ abstract public class State {
     public boolean isPlayable(Level level) {
         for (int i = 0; i <= UNLOCK_NEXT_LEVELS; i++) {
             if (level.getIndexInPack() == 0) {
-                return true;
+                if (level.getPack() == LevelPack.EASY) {
+                    return true;
+                } else if (level.getPack() == LevelPack.MEDIUM) {
+                    return isSolved(LevelPack.EASY.getLevel(0).getNumber());
+                } else if (level.getPack() == LevelPack.HARD) {
+                    return isSolved(LevelPack.MEDIUM.getLevel(0).getNumber());
+                }
+                return false;
             } else if (isSolved(level.getNumber())) {
                 return true;
             }
