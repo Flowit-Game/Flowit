@@ -265,6 +265,7 @@ public class GameState extends State {
         AnimationFactory.startMoveYTo(stepsBest, getScreenHeight() + topBarPadding + stepsUsedBestYDelta);
         AnimationFactory.startMoveYTo(stepsUsed, getScreenHeight() + topBarPadding + stepsUsedCurrentYDelta);
         AnimationFactory.startMoveYTo(headerBackground, getScreenHeight());
+        AnimationFactory.startMoveYTo(winMessage, -getScreenWidth() * 0.5f);
         AnimationFactory.startScaleHide(stepsImproved, 0);
 
         TranslateAnimation outAnimation = new TranslateAnimation(lockedMessage, Animation.DURATION_SHORT, 0);
