@@ -122,13 +122,11 @@ public class Main extends Activity {
     protected void onResume() {
         super.onResume();
 
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                glSurfaceView.onResume();
-                glSurfaceView.getRenderer().onResume();
-            }
-        });
+        new Handler().postDelayed(() -> {
+            glSurfaceView.getRenderer().onResume();
+            glSurfaceView.onResume();
+            glSurfaceView.invalidate();
+        }, 200);
         adManager.setPopupAllowed(true);
     }
 

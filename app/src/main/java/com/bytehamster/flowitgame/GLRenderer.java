@@ -10,6 +10,7 @@ import android.opengl.GLUtils;
 import android.opengl.GLSurfaceView.Renderer;
 import android.support.annotation.DrawableRes;
 
+import android.util.Log;
 import com.bytehamster.flowitgame.object.Drawable;
 import com.bytehamster.flowitgame.object.Plane;
 import com.bytehamster.flowitgame.object.TextureCoordinates;
@@ -77,9 +78,12 @@ public class GLRenderer implements Renderer {
             gl.glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
         }
 
+        debugOutput(gl);
+        gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[1]);
         for (Drawable o : objects) {
             o.draw(gl);
         }
+        debugOutput(gl);
     }
 
     private void loadTexture(GL10 gl, int position, @DrawableRes int resource) {
@@ -87,8 +91,8 @@ public class GLRenderer implements Renderer {
         GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, BitmapFactory.decodeResource(myContext.getResources(), resource), 0);
         gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
         gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
-        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S, GL10.GL_ZERO);
-        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T, GL10.GL_ZERO);
+        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S, GL10.GL_CLAMP_TO_EDGE);
+        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T, GL10.GL_CLAMP_TO_EDGE);
     }
 
     @Override
@@ -98,6 +102,7 @@ public class GLRenderer implements Renderer {
 
         this.width = width;
         this.height = height;
+        setupViewport(gl);
     }
 
     private void setupViewport(GL10 gl) {
@@ -120,6 +125,17 @@ public class GLRenderer implements Renderer {
 
         gl.glGenTextures(textures.length, textures, 0);
         loadTexture(gl, textures[0], R.drawable.loading);
+        loadProgress = 0;
+        debugOutput(gl);
+    }
+
+    private static void debugOutput(GL10 gl) {
+        int code = gl.glGetError();
+        if (code != 0) {
+            StackTraceElement elem = new Exception().getStackTrace()[1];
+            Log.e("ERRRRRRR", "Code: " + code + " in " + elem.getClassName()
+                    + "/" + elem.getMethodName() + ":" + elem.getLineNumber());
+        }
     }
 
     @Override
