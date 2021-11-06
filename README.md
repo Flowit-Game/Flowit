@@ -1,15 +1,20 @@
 # Flowit
 
+<img src="app/src/main/play/listings/en-US/graphics/icon/ic_launcher_web.png" width="150" />
+
 Easy to learn, hard to master. Play the addicting puzzle game Flowit now and to think outside the box.
 There are already 75 levels available and even more to come. The game features a clean and elegant design - you will be amazed by the simplicity and complexity at the same time. 
 Fill all boxes with the color of their border by using the special boxes. Those, for example, fill surrounding boxes in only one direction with their color. Discover various types of special boxes in the provided level packs.
 
-## Level packs
-- Easy: No need to take away blocks with a modifier that did not create the block
-- Medium
-- Hard: I found it hard to solve
+## Contributing levels
 
-## Level definitions
+### Level editor
+
+Levels can easily be created on https://flowit.bytehamster.com using a visual editor.
+
+### Level definitions
+
+Alternatively, levels can be designed in xml.
 
 ```
 <level number="0"
@@ -41,4 +46,15 @@ Fill all boxes with the color of their border by using the special boxes. Those,
 | w | Up |
 | x | Right |
 | a | Left |
-| s | Down | 
+| s | Down |
+
+### Level packs
+
+- Easy: No need to take away blocks with a modifier that did not create the block
+- Hard: I found it hard to solve (even though I designed the level)
+- Medium: Everything else
+- Community: Contributed levels
+
+## License
+
+This app is licensed under the GPL v3.
