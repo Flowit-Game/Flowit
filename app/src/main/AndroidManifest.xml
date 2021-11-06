@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bytehamster.flowitgame"
-    android:versionCode="16"
-    android:versionName="2.7">
+    package="com.bytehamster.flowitgame">
 
     <application
         android:allowBackup="true"
