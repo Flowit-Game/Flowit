@@ -41,7 +41,7 @@ public class MainMenuState extends State {
 
         float menuEntriesWidth = glRenderer.getWidth() * 0.75f;
         float menuEntriesHeight = menuEntriesWidth / 6;
-        float menuEntriesAvailableSpace = getScreenHeight() - getAdHeight() - logoHeight;
+        float menuEntriesAvailableSpace = getScreenHeight() - logoHeight;
         float menuEntriesStartY = getScreenHeight() - logoHeight - (menuEntriesAvailableSpace - 4 * menuEntriesHeight) / 2;
 
         TextureCoordinates coordinatesStart = TextureCoordinates.getFromBlocks(0, 2, 6, 3);

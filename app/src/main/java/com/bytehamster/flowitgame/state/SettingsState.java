@@ -13,20 +13,16 @@ import com.bytehamster.flowitgame.animation.ScaleAnimation;
 import com.bytehamster.flowitgame.object.ObjectFactory;
 import com.bytehamster.flowitgame.object.Plane;
 import com.bytehamster.flowitgame.object.TextureCoordinates;
-import com.bytehamster.flowitgame.util.AdManager;
 
 public class SettingsState extends State {
     @SuppressLint("StaticFieldLeak")
     private static SettingsState instance;
     private State nextState = this;
 
-    private AdManager adManager;
-
     private Plane volumeOff;
     private Plane volumeOn;
     private Plane tutorialButton;
     private Plane volumeButton;
-    private Plane consentButton;
     private Plane editorButton;
 
     private SettingsState() {
@@ -44,8 +40,8 @@ public class SettingsState extends State {
     protected void initialize(GLRenderer glRenderer) {
         float menuEntriesWidth = glRenderer.getWidth() * 0.75f;
         float menuEntriesHeight = menuEntriesWidth / 6;
-        float menuEntriesAvailableSpace = getScreenHeight() - getAdHeight();
-        float menuEntriesStartY = getScreenHeight() - (menuEntriesAvailableSpace - 6 * menuEntriesHeight) / 2;
+        float menuEntriesAvailableSpace = getScreenHeight();
+        float menuEntriesStartY = getScreenHeight() - (menuEntriesAvailableSpace - 4 * menuEntriesHeight) / 2;
 
         TextureCoordinates coordinatesVolume = TextureCoordinates.getFromBlocks(6, 13, 12, 14);
         volumeButton = new Plane(-menuEntriesWidth, menuEntriesStartY, menuEntriesWidth, menuEntriesHeight, coordinatesVolume);
@@ -55,12 +51,8 @@ public class SettingsState extends State {
         tutorialButton = new Plane(-menuEntriesWidth, volumeButton.getY() - 2 * menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesTutorial);
         glRenderer.addDrawable(tutorialButton);
 
-        TextureCoordinates coordinatesConsent = TextureCoordinates.getFromBlocks(6, 14, 12, 15);
-        consentButton = new Plane(-menuEntriesWidth, tutorialButton.getY() - 2 * menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesConsent);
-        glRenderer.addDrawable(consentButton);
-
         TextureCoordinates coordinatesEditor = TextureCoordinates.getFromBlocks(6, 15, 12, 16);
-        editorButton = new Plane(-menuEntriesWidth, consentButton.getY() - 2 * menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesEditor);
+        editorButton = new Plane(-menuEntriesWidth, tutorialButton.getY() - 2 * menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesEditor);
         glRenderer.addDrawable(editorButton);
 
         volumeOn  = ObjectFactory.createSingleBox(0, 15, menuEntriesHeight);
@@ -89,8 +81,7 @@ public class SettingsState extends State {
 
         AnimationFactory.startMenuAnimationEnter(volumeButton, (int) (2.0f * Animation.DURATION_SHORT));
         AnimationFactory.startMenuAnimationEnter(tutorialButton, (int) (2.5f * Animation.DURATION_SHORT));
-        AnimationFactory.startMenuAnimationEnter(consentButton, (int) (3.0f * Animation.DURATION_SHORT));
-        AnimationFactory.startMenuAnimationEnter(editorButton, (int) (3.5f * Animation.DURATION_SHORT));
+        AnimationFactory.startMenuAnimationEnter(editorButton, (int) (3.0f * Animation.DURATION_SHORT));
     }
 
     @Override
@@ -109,7 +100,6 @@ public class SettingsState extends State {
         }
 
         AnimationFactory.startMenuAnimationOut(volumeButton);
-        AnimationFactory.startMenuAnimationOut(consentButton);
         AnimationFactory.startMenuAnimationOut(editorButton);
     }
 
@@ -136,10 +126,6 @@ public class SettingsState extends State {
             } else if (tutorialButton.collides(event, getScreenHeight())) {
                 nextState = TutorialState.getInstance();
                 playSound(R.raw.click);
-            } else if (consentButton.collides(event, getScreenHeight())) {
-                nextState = MainMenuState.getInstance();
-                playSound(R.raw.click);
-                adManager.askConsent();
             } else if (editorButton.collides(event, getScreenHeight())) {
                 nextState = MainMenuState.getInstance();
                 playSound(R.raw.click);
@@ -147,9 +133,5 @@ public class SettingsState extends State {
                 getActivity().startActivity(browserIntent);
             }
         }
-    }
-
-    public void setAdManager(AdManager adManager) {
-        this.adManager = adManager;
     }
 }

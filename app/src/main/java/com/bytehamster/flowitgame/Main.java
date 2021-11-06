@@ -22,15 +22,11 @@ import com.bytehamster.flowitgame.state.MainMenuState;
 import com.bytehamster.flowitgame.state.SettingsState;
 import com.bytehamster.flowitgame.state.State;
 import com.bytehamster.flowitgame.state.TutorialState;
-import com.bytehamster.flowitgame.util.AdManager;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
 
 public class Main extends Activity {
     private MyGLSurfaceView glSurfaceView;
     private SoundPool soundPool;
     private State currentState;
-    private AdManager adManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,9 +35,6 @@ public class Main extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.main);
         glSurfaceView = findViewById(R.id.gl_surface_view);
-
-        adManager = new AdManager(this, (AdView) findViewById(R.id.adView));
-        adManager.loadAd();
 
         getSharedPreferences("preferences", Context.MODE_PRIVATE).edit()
                 .putInt("lastAppVersion", BuildConfig.VERSION_CODE).apply();
@@ -76,11 +69,9 @@ public class Main extends Activity {
                         TutorialState.getInstance()
                 };
 
-                int adHeight = AdSize.SMART_BANNER.getHeightInPixels(Main.this);
                 for (State state : states) {
-                    state.initialize(glSurfaceView.getRenderer(), soundPool, Main.this, adHeight);
+                    state.initialize(glSurfaceView.getRenderer(), soundPool, Main.this);
                 }
-                SettingsState.getInstance().setAdManager(adManager);
 
                 currentState = MainMenuState.getInstance();
                 currentState.entry();
@@ -127,18 +118,11 @@ public class Main extends Activity {
             glSurfaceView.onResume();
             glSurfaceView.invalidate();
         }, 200);
-        adManager.setPopupAllowed(true);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         glSurfaceView.onPause();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        adManager.setPopupAllowed(false);
     }
 }

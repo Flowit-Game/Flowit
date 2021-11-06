@@ -8,9 +8,9 @@ import android.graphics.BitmapFactory;
 import android.opengl.GLU;
 import android.opengl.GLUtils;
 import android.opengl.GLSurfaceView.Renderer;
-import android.support.annotation.DrawableRes;
 
 import android.util.Log;
+import androidx.annotation.DrawableRes;
 import com.bytehamster.flowitgame.object.Drawable;
 import com.bytehamster.flowitgame.object.Plane;
 import com.bytehamster.flowitgame.object.TextureCoordinates;
@@ -133,7 +133,7 @@ public class GLRenderer implements Renderer {
         int code = gl.glGetError();
         if (code != 0) {
             StackTraceElement elem = new Exception().getStackTrace()[1];
-            Log.e("ERRRRRRR", "Code: " + code + " in " + elem.getClassName()
+            Log.e("ERROR", "Code: " + code + " in " + elem.getClassName()
                     + "/" + elem.getMethodName() + ":" + elem.getLineNumber());
         }
     }

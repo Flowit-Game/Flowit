@@ -62,8 +62,7 @@ public class LevelSelectState extends State {
         logoAnimation.start();
 
         levelList.setPack(pack);
-        scrollHelper.setMaxima(0, getScreenHeight() - selectLevelText.getHeight(),
-                0, getAdHeight() + levelList.getHeight());
+        scrollHelper.setMaxima(0, getScreenHeight() - selectLevelText.getHeight(), 0, levelList.getHeight());
 
         float levelListPos = getScreenHeight() - selectLevelText.getHeight();
         float lastScrollPos = getPreferences().getFloat("scroll_state_" + pack.id(), levelListPos);

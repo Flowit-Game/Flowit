@@ -179,13 +179,13 @@ public class GameState extends State {
         level.reset();
         levelDrawer.setLevel(level);
 
-        float remainingSpace = getScreenHeight() - getAdHeight() - topBarHeight - levelDrawer.getHeight();
+        float remainingSpace = getScreenHeight() - topBarHeight - levelDrawer.getHeight();
         final float horizontalPaddingDelta = levelDrawer.getBoxSize() / 2;
         float horizontalPadding = horizontalPaddingDelta;
         while (remainingSpace < 0) {
             levelDrawer.setScreenWidth(getScreenWidth() - 2 * horizontalPadding);
             levelDrawer.setX(horizontalPadding);
-            remainingSpace = getScreenHeight() - getAdHeight() - topBarHeight - levelDrawer.getHeight();
+            remainingSpace = getScreenHeight() - topBarHeight - levelDrawer.getHeight();
             horizontalPadding += horizontalPaddingDelta;
         }
         boardStartY = topBarHeight + remainingSpace / 2;
@@ -205,7 +205,7 @@ public class GameState extends State {
         }
 
         if (!isPlayable(level)) {
-            float availableSpace = getScreenHeight() - getAdHeight();
+            float availableSpace = getScreenHeight();
             lockedMessage.cancelAnimations();
             lockedMessage.setVisible(true);
             TranslateAnimation inAnimation;
@@ -214,7 +214,7 @@ public class GameState extends State {
             } else {
                 inAnimation = new TranslateAnimation(lockedMessage, Animation.DURATION_SHORT, 0);
             }
-            inAnimation.setTo(0, (availableSpace-lockedMessage.getHeight())/2 + getAdHeight());
+            inAnimation.setTo(0, (availableSpace-lockedMessage.getHeight())/2);
             inAnimation.start();
         } else {
             TranslateAnimation outAnimation = new TranslateAnimation(lockedMessage, Animation.DURATION_SHORT, 0);
@@ -387,11 +387,11 @@ public class GameState extends State {
             saveSteps(level.getNumber(), stepsUsed.getValue());
             lastLevelState = LastLevelState.SOLVED;
 
-            float availableSpace = getScreenHeight() - getAdHeight();
+            float availableSpace = getScreenHeight();
             winMessage.setY(-getScreenWidth() * 0.5f);
             winMessage.setVisible(true);
             TranslateAnimation inAnimation = new TranslateAnimation(winMessage, Animation.DURATION_SHORT, 0);
-            inAnimation.setTo(0, (availableSpace - winMessage.getHeight()) / 2 + getAdHeight());
+            inAnimation.setTo(0, (availableSpace - winMessage.getHeight()) / 2);
             inAnimation.start();
 
             if (!solved.isVisible()) {

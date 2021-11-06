@@ -43,7 +43,7 @@ public class TutorialState extends State {
         float tutScreenWidth = glRenderer.getWidth() * (5f / 6f);
         float tutScreenHeight = tutScreenWidth * (4f / 5f);
         float tutScreenX = glRenderer.getWidth() * (1f / 12f);
-        float tutScreenY = glRenderer.getHeight() - logoHeight - (glRenderer.getHeight() - getAdHeight() + tutScreenHeight - logoHeight) / 2;
+        float tutScreenY = glRenderer.getHeight() - logoHeight - (glRenderer.getHeight() + tutScreenHeight - logoHeight) / 2;
         TextureCoordinates coordinatesScreen1 = TextureCoordinates.getFromBlocks(6, 6, 11, 10);
         screen1 = new Plane(tutScreenX, tutScreenY, tutScreenWidth, tutScreenHeight, coordinatesScreen1);
         screen1.setScale(0);
