@@ -14,7 +14,7 @@ if (@$_POST["save"] == "true" && isset($_SESSION["level_data"])) {
     }
 
     if ($success) {
-        $receiver = "info@bytehamster.com";
+        $receiver = "flowit@heype.de";
         $subject = "Flowit level proposal";
 
         $text = "Email: " . $_POST["email"] . "\n \n" . getLevelCode($_POST["name"]);

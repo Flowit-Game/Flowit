@@ -5,6 +5,9 @@ textarea {
 
 .field {
     position: relative;
+    display: block;
+    width: 70px;
+    height: 70px;
 }
 
 .field > img {
@@ -23,6 +26,9 @@ textarea {
 #board a, .editor a {
     opacity: 1;
     transition:opacity 100ms ease-out;
+    display: block;
+    width: 70px;
+    height: 70px;
 }
 
 #board a:hover, .editor a:hover {
