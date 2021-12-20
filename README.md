@@ -6,7 +6,12 @@ Easy to learn, hard to master. Play the addicting puzzle game Flowit now and to 
 There are already 75 levels available and even more to come. The game features a clean and elegant design - you will be amazed by the simplicity and complexity at the same time. 
 Fill all boxes with the color of their border by using the special boxes. Those, for example, fill surrounding boxes in only one direction with their color. Discover various types of special boxes in the provided level packs.
 
-[Download on Google Play](https://play.google.com/store/apps/details?id=com.bytehamster.flowitgame)
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+     alt="Get it on F-Droid"
+     height="80">](https://f-droid.org/packages/com.bytehamster.flowitgame/)
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
+     alt="Get it on Google Play"
+     height="80">](https://play.google.com/store/apps/details?id=com.bytehamster.flowitgame)
 
 ## Screenshots
 
