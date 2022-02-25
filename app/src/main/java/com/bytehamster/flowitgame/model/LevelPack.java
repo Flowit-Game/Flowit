@@ -15,12 +15,14 @@ public class LevelPack {
     public static LevelPack EASY;
     public static LevelPack MEDIUM;
     public static LevelPack HARD;
+    public static LevelPack COMMUNITY;
     private int id;
 
     public static void parsePacks(Context context) {
         EASY = new LevelPack(1, "levelsEasy.xml", context);
         MEDIUM = new LevelPack(2, "levelsMedium.xml", context);
-        HARD = new LevelPack(2, "levelsHard.xml", context);
+        HARD = new LevelPack(3, "levelsHard.xml", context);
+        COMMUNITY = new LevelPack(4, "levelsCommunity.xml", context);
     }
 
     private LevelPack(int id, String fileName, Context context) {

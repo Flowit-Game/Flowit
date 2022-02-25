@@ -22,6 +22,7 @@ public class LevelPackSelectState extends State {
     private Plane pack1;
     private Plane pack2;
     private Plane pack3;
+    private Plane pack4;
     private Plane selectLevelPackText;
     private Container container;
     private boolean pressed = false;
@@ -62,6 +63,10 @@ public class LevelPackSelectState extends State {
         pack3 = new Plane(-menuEntriesWidth, pack2.getY() - 2 * menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesPack3);
         container.addDrawable(pack3);
 
+        TextureCoordinates coordinatesPack4 = TextureCoordinates.getFromBlocks(6, 14, 12, 15);
+        pack4 = new Plane(-menuEntriesWidth, pack3.getY() - 2 * menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesPack4);
+        container.addDrawable(pack4);
+
         glRenderer.addDrawable(container);
         glRenderer.addDrawable(selectLevelPackText);
     }
@@ -84,6 +89,7 @@ public class LevelPackSelectState extends State {
         AnimationFactory.startMenuAnimationEnter(pack1, (int) (3.0f * Animation.DURATION_SHORT));
         AnimationFactory.startMenuAnimationEnter(pack2, (int) (3.5f * Animation.DURATION_SHORT));
         AnimationFactory.startMenuAnimationEnter(pack3, (int) (4.0f * Animation.DURATION_SHORT));
+        AnimationFactory.startMenuAnimationEnter(pack4, (int) (4.5f * Animation.DURATION_SHORT));
     }
 
     @Override
@@ -111,6 +117,12 @@ public class LevelPackSelectState extends State {
         } else {
             AnimationFactory.startMenuAnimationOut(pack3);
         }
+
+        if (LevelSelectState.getInstance().getPack() == LevelPack.COMMUNITY) {
+            AnimationFactory.startMenuAnimationOutPressed(pack4);
+        } else {
+            AnimationFactory.startMenuAnimationOut(pack4);
+        }
     }
 
     @Override
@@ -135,6 +147,8 @@ public class LevelPackSelectState extends State {
                 openSelectState(LevelPack.MEDIUM);
             } else if (pack3.collides(event.getX(), event.getY() + container.getY(), getScreenHeight())) {
                 openSelectState(LevelPack.HARD);
+            } else if (pack4.collides(event.getX(), event.getY() + container.getY(), getScreenHeight())) {
+                openSelectState(LevelPack.COMMUNITY);
             }
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
             pressed = false;
