@@ -1,2 +1,1 @@
-6 new levels
-Bug fixes and improvements
+New community levels screen. It is still very empty, so make sure to contribute a level using https://flowit.bytehamster.com/ :)
