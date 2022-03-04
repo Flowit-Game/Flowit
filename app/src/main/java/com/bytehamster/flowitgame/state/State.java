@@ -87,6 +87,8 @@ abstract public class State {
                     return isSolved(LevelPack.EASY.getLevel(0).getNumber());
                 } else if (level.getPack() == LevelPack.HARD) {
                     return isSolved(LevelPack.MEDIUM.getLevel(0).getNumber());
+                } else if (level.getPack() == LevelPack.COMMUNITY) {
+                    return isSolved(LevelPack.MEDIUM.getLevel(0).getNumber());
                 }
                 return false;
             } else if (isSolved(level.getNumber())) {

@@ -52,6 +52,7 @@ android {
             compress(projectDir.path + '/src/main/assets/levelsEasy.xml')
             compress(projectDir.path + '/src/main/assets/levelsMedium.xml')
             compress(projectDir.path + '/src/main/assets/levelsHard.xml')
+            compress(projectDir.path + '/src/main/assets/levelsCommunity.xml')
         }
     }
     preBuild.dependsOn compressLevelFile

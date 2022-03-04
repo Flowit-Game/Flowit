@@ -6,5 +6,4 @@ local.properties
 app/src/main/assets/levelsEasy.xml.compressed
 app/src/main/assets/levelsMedium.xml.compressed
 app/src/main/assets/levelsHard.xml.compressed
-
-
+app/src/main/assets/levelsCommunity.xml.compressed
