@@ -37,4 +37,39 @@
                000a0
                xF00F" />
 
+    <level number="138"
+        author="A-Nicoladie"
+        color="ooogbb
+               ooogbb
+               rgggbb
+               rgggrb
+               rgggrb
+               rrrrrr
+               rrrrrr
+               rroggr"
+        modifier="
+               w00000
+               0000BB
+               0s000w
+               0BB000
+               000000
+               0a0000
+               000000
+               F0Fs00" />
+
+    <level number="139"
+           author="A-Nicoladie"
+           color="bbbrr
+               bbbrr
+               boogg
+               ooogg
+               roogg
+               rrrrr"
+           modifier="
+               DB0B0
+               0B0B0
+               BB0B0
+               B0BFB
+               0000L
+               F00UB" />
 </levels>
