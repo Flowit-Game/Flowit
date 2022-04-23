@@ -105,4 +105,19 @@
                F0000
                XXXXX" />
 
+    <level number="142"
+           author="Paulchen"
+           color="gdggg
+               ggddg
+               ggddg
+               ggddg
+               ggddg
+               dggdg"
+           modifier="
+               0x000
+               000x0
+               R0B00
+               00000
+               F0a00
+               F000U" />
 </levels>
