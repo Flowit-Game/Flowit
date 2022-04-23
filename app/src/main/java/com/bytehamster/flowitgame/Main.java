@@ -113,11 +113,11 @@ public class Main extends Activity {
     protected void onResume() {
         super.onResume();
 
-        new Handler().postDelayed(() -> {
+        glSurfaceView.postDelayed(() -> {
             glSurfaceView.getRenderer().onResume();
             glSurfaceView.onResume();
             glSurfaceView.invalidate();
-        }, 200);
+        }, 500);
     }
 
     @Override

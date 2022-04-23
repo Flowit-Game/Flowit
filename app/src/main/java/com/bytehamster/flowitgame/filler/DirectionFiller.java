@@ -56,12 +56,7 @@ public class DirectionFiller extends Filler {
             somethingWasFilled = true;
             f.setModifier(fillTo);
             state.playSound(R.raw.fill);
-
-            try {
-                Thread.sleep(40);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            sleep(40);
 
             x += dx;
             y += dy;
