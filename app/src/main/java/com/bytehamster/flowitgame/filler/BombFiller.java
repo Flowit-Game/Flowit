@@ -26,19 +26,19 @@ public class BombFiller extends Filler {
                 fillTo = Converter.convertColor(levelData.fieldAt(col, row).getColor());
 
                 try {
-                    Thread.sleep(100);
+                    sleep(100);
                     state.playSound(R.raw.fill);
 
                     doFill(col, row);
 
-                    Thread.sleep(100);
+                    sleep(100);
 
                     doFill(col + 1, row);
                     doFill(col, row + 1);
                     doFill(col - 1, row);
                     doFill(col, row - 1);
 
-                    Thread.sleep(100);
+                    sleep(100);
 
                     doFill(col + 1, row - 1);
                     doFill(col + 1, row + 1);
