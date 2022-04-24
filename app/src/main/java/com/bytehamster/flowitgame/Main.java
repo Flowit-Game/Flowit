@@ -1,18 +1,16 @@
 package com.bytehamster.flowitgame;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
-import android.app.Activity;
-import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
-
 import com.bytehamster.flowitgame.model.LevelPack;
 import com.bytehamster.flowitgame.state.ExitState;
 import com.bytehamster.flowitgame.state.GameState;
@@ -51,37 +49,34 @@ public class Main extends Activity {
     }
 
     private void createViews() {
-        glSurfaceView.getRenderer().setOnReady(new Runnable() {
-            @Override
-            public void run() {
-                soundPool = new SoundPool(Main.this);
-                soundPool.loadSound(R.raw.click);
-                soundPool.loadSound(R.raw.fill);
-                soundPool.loadSound(R.raw.won);
+        glSurfaceView.getRenderer().setOnViewportSetupComplete(() -> {
+            soundPool = new SoundPool(Main.this);
+            soundPool.loadSound(R.raw.click);
+            soundPool.loadSound(R.raw.fill);
+            soundPool.loadSound(R.raw.won);
 
-                State[] states = new State[]{
-                        MainMenuState.getInstance(),
-                        ExitState.getInstance(),
-                        SettingsState.getInstance(),
-                        LevelPackSelectState.getInstance(),
-                        LevelSelectState.getInstance(),
-                        GameState.getInstance(),
-                        TutorialState.getInstance()
-                };
+            State[] states = new State[]{
+                    MainMenuState.getInstance(),
+                    ExitState.getInstance(),
+                    SettingsState.getInstance(),
+                    LevelPackSelectState.getInstance(),
+                    LevelSelectState.getInstance(),
+                    GameState.getInstance(),
+                    TutorialState.getInstance()
+            };
 
-                for (State state : states) {
-                    state.initialize(glSurfaceView.getRenderer(), soundPool, Main.this);
-                }
-
-                currentState = MainMenuState.getInstance();
-                currentState.entry();
+            for (State state : states) {
+                state.initialize(glSurfaceView.getRenderer(), soundPool, Main.this);
             }
+
+            currentState = MainMenuState.getInstance();
+            currentState.entry();
         });
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (currentState != null && glSurfaceView.getRenderer().isReady()) {
+        if (currentState != null) {
             if (keyCode == KeyEvent.KEYCODE_BACK
                     && event.getAction() == KeyEvent.ACTION_DOWN
                     && event.getRepeatCount() == 0) {
@@ -93,7 +88,7 @@ public class Main extends Activity {
     }
 
     public boolean onTouchEvent(MotionEvent event) {
-        if (currentState != null && glSurfaceView.getRenderer().isReady()) {
+        if (currentState != null) {
             currentState.onTouchEvent(event);
             switchState();
         }
@@ -112,12 +107,7 @@ public class Main extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        glSurfaceView.postDelayed(() -> {
-            glSurfaceView.getRenderer().onResume();
-            glSurfaceView.onResume();
-            glSurfaceView.invalidate();
-        }, 500);
+        glSurfaceView.onResume();
     }
 
     @Override
