@@ -136,4 +136,24 @@
                0U00F
                d000L
                0UUdF" />
+
+    <level number="144"
+           author="Dezi"
+           color="bbboo0
+               bbboo0
+               bbboo0
+               ogrrb0
+               ggbrr0
+               ggbrr0
+               ogorb0
+               000000"
+           modifier="
+               00D00X
+               00000X
+               00000X
+               R000LX
+               00000X
+               00000X
+               FFUFFX
+               XXXXXX" />
 </levels>
