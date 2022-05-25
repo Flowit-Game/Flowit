@@ -156,4 +156,56 @@
                00000X
                FFUFFX
                XXXXXX" />
+
+    <level number="145"
+        author="Tom"
+        color="bddddb
+               bbddbb
+               bobbob
+               bddddb
+               bddddb
+               bddddb
+               bddddb
+               bddddb"
+        modifier="
+               x0xa0a
+               0D00D0
+               0BDDB0
+               0a00x0
+               0a00x0
+               0a00x0
+               0a00x0
+               0a00x0" />
+
+    <level number="146"
+        author="Tom"
+        color="bbbbb
+               bbdbb
+               bbbbb
+               ooooo
+               ooroo
+               ooooo"
+        modifier="
+               rdFrd
+               ddFrr
+               wbbbb
+               soooo
+               rrFdd
+               drFdr" />
+
+    <level number="147"
+        author="Luke Meyer"
+        color="rooog
+               rooog
+               rooog
+               rrrrg
+               grrrr
+               rrrrg"
+        modifier="
+               00000
+               00B00
+               00000
+               U0000
+               Rggg0
+               F000U" />
 </levels>
