@@ -1,5 +1,3 @@
-- 6 new community levels
-- French translation
-- Bug fixes and improvements
+7 new community levels designed by Dezi, Tom, Luke, Bo Bo, Nico207 and Wraith
 
 You can contribute your own levels by visiting https://flowit.bytehamster.com/ :)
