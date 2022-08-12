@@ -224,4 +224,36 @@
                00L00
                0U0L0
                R000U" />
+
+    <level number="149"
+           author="Nico207"
+           color="rrrrr
+               ggbbo
+               ggdbo
+               ggrro
+               rrrdo
+               dddoo"
+           modifier="
+               F0000
+               000a0
+               B0F00
+               00s00
+               000x0
+               0000s" />
+
+    <level number="150"
+           author="Wraith "
+           color="obbrg
+               orrro
+               oorrg
+               brgro
+               rrrrb
+               bbobb"
+           modifier="
+               rDDbF
+               0000F
+               0000L
+               R0g0L
+               F000b
+               0FUbF" />
 </levels>
