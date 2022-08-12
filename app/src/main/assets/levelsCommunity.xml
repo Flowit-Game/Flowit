@@ -136,4 +136,124 @@
                0U00F
                d000L
                0UUdF" />
+
+    <level number="144"
+           author="Dezi"
+           color="bbboo0
+               bbboo0
+               bbboo0
+               ogrrb0
+               ggbrr0
+               ggbrr0
+               ogorb0
+               000000"
+           modifier="
+               00D00X
+               00000X
+               00000X
+               R000LX
+               00000X
+               00000X
+               FFUFFX
+               XXXXXX" />
+
+    <level number="145"
+        author="Tom"
+        color="bddddb
+               bbddbb
+               bobbob
+               bddddb
+               bddddb
+               bddddb
+               bddddb
+               bddddb"
+        modifier="
+               x0xa0a
+               0D00D0
+               0BDDB0
+               0a00x0
+               0a00x0
+               0a00x0
+               0a00x0
+               0a00x0" />
+
+    <level number="146"
+        author="Tom"
+        color="bbbbb
+               bbdbb
+               bbbbb
+               ooooo
+               ooroo
+               ooooo"
+        modifier="
+               rdFrd
+               ddFrr
+               wbbbb
+               soooo
+               rrFdd
+               drFdr" />
+
+    <level number="147"
+        author="Luke Meyer"
+        color="rooog
+               rooog
+               rooog
+               rrrrg
+               grrrr
+               rrrrg"
+        modifier="
+               00000
+               00B00
+               00000
+               U0000
+               Rggg0
+               F000U" />
+
+    <level number="148"
+           author="Bo Bo"
+           color="gbbbb
+               gggbo
+               grbbo
+               grrbo
+               grooo
+               rrrro"
+           modifier="
+               D000L
+               0R0D0
+               00R00
+               00L00
+               0U0L0
+               R000U" />
+
+    <level number="149"
+           author="Nico207"
+           color="rrrrr
+               ggbbo
+               ggdbo
+               ggrro
+               rrrdo
+               dddoo"
+           modifier="
+               F0000
+               000a0
+               B0F00
+               00s00
+               000x0
+               0000s" />
+
+    <level number="150"
+           author="Wraith "
+           color="obbrg
+               orrro
+               oorrg
+               brgro
+               rrrrb
+               bbobb"
+           modifier="
+               rDDbF
+               0000F
+               0000L
+               R0g0L
+               F000b
+               0FUbF" />
 </levels>
