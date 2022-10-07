@@ -47,6 +47,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    aaptOptions {
+        ignoreAssetsPattern '!.git:!*.xml:!LICENSE'
+    }
+
     tasks.register("compressLevelFile") {
         doLast {
             compress(projectDir.path + '/src/main/assets/levelsEasy.xml')

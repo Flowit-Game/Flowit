@@ -1,0 +1,4 @@
+[submodule "app/src/main/assets"]
+	path = app/src/main/assets
+	url = git@github.com:Flowit-Game/Levels.git
+	branch = main
