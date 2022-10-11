@@ -16,11 +16,17 @@ import java.util.ArrayList;
 public class GLRenderer implements Renderer {
     private static final String TAG = "GLRenderer";
     private final Context myContext;
+
+    private final int[] textureDrawables = new int[] {R.drawable.texture_colorscheme_0, R.drawable.texture_colorscheme_1};
+    public final int numberOfColorschemes = textureDrawables.length;
+
     private int width = 0;
     private int height = 0;
-    private final int[] textures = new int[1];
+    private final int[] textures = new int[numberOfColorschemes];
     private Runnable onViewportSetupComplete = null;
     private final ArrayList<Drawable> objects = new ArrayList<>();
+
+    private int currentColorschemeIndex = 0;
 
     public GLRenderer(Context c) {
         myContext = c;
@@ -31,7 +37,7 @@ public class GLRenderer implements Renderer {
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
         gl.glLoadIdentity();
 
-        gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[0]);
+        gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[currentColorschemeIndex]);
         for (Drawable o : objects) {
             o.draw(gl);
         }
@@ -55,7 +61,8 @@ public class GLRenderer implements Renderer {
         gl.glEnable(GL10.GL_TEXTURE_2D);
         gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
         gl.glGenTextures(textures.length, textures, 0);
-        loadTexture(gl, 0, R.drawable.texture);
+        loadAllTextures(gl);
+
         debugOutput(gl);
     }
 
@@ -68,7 +75,7 @@ public class GLRenderer implements Renderer {
         this.width = width;
         this.height = height;
 
-        gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[0]);
+        gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[currentColorschemeIndex]);
         gl.glMatrixMode(GL10.GL_PROJECTION);
         GLU.gluOrtho2D(gl, 0, width, 0, height);
         gl.glMatrixMode(GL10.GL_MODELVIEW);
@@ -77,6 +84,22 @@ public class GLRenderer implements Renderer {
         if (onViewportSetupComplete != null) {
             onViewportSetupComplete.run();
             onViewportSetupComplete = null;
+        }
+    }
+
+    public void setColorscheme(int colorschemeIndex) {
+        // Return to default colorscheme if given an invalid colorschemeIndex.
+        // For example, if the number of colorschemes decreases after an update.
+        if ((0 <= colorschemeIndex) && (colorschemeIndex < numberOfColorschemes)) {
+            currentColorschemeIndex = colorschemeIndex;
+        } else {
+            currentColorschemeIndex = 0;
+        }
+    }
+
+    private void loadAllTextures(GL10 gl) {
+        for (int i = 0; i < numberOfColorschemes; i++) {
+            loadTexture(gl, i, textureDrawables[i]);
         }
     }
 

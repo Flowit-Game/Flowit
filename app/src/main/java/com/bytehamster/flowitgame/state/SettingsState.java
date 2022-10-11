@@ -24,6 +24,11 @@ public class SettingsState extends State {
     private Plane tutorialButton;
     private Plane volumeButton;
     private Plane editorButton;
+    private Plane colorsExample;
+    private Plane colorsButton;
+
+    private int numberOfColorschemes;
+    private GLRenderer glRenderer;
 
     private SettingsState() {
 
@@ -37,7 +42,11 @@ public class SettingsState extends State {
     }
 
     @Override
-    protected void initialize(GLRenderer glRenderer) {
+    protected void initialize(GLRenderer glRendererIn) {
+        glRenderer = glRendererIn;
+
+        numberOfColorschemes = glRenderer.numberOfColorschemes;
+
         float menuEntriesWidth = glRenderer.getWidth() * 0.75f;
         float menuEntriesHeight = menuEntriesWidth / 6;
         float menuEntriesAvailableSpace = getScreenHeight();
@@ -47,8 +56,12 @@ public class SettingsState extends State {
         volumeButton = new Plane(-menuEntriesWidth, menuEntriesStartY, menuEntriesWidth, menuEntriesHeight, coordinatesVolume);
         glRenderer.addDrawable(volumeButton);
 
+        TextureCoordinates coordinatesColors = TextureCoordinates.getFromBlocks(6, 16, 12, 17);
+        colorsButton = new Plane(-menuEntriesWidth, volumeButton.getY() - 2 * menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesColors);
+        glRenderer.addDrawable(colorsButton);
+
         TextureCoordinates coordinatesTutorial = TextureCoordinates.getFromBlocks(6, 12, 12, 13);
-        tutorialButton = new Plane(-menuEntriesWidth, volumeButton.getY() - 2 * menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesTutorial);
+        tutorialButton = new Plane(-menuEntriesWidth, colorsButton.getY() - 2 * menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesTutorial);
         glRenderer.addDrawable(tutorialButton);
 
         TextureCoordinates coordinatesEditor = TextureCoordinates.getFromBlocks(6, 15, 12, 16);
@@ -65,6 +78,13 @@ public class SettingsState extends State {
         volumeOff.setX(menuEntriesWidth);
         volumeOff.setY(volumeButton.getY());
         glRenderer.addDrawable(volumeOff);
+
+        TextureCoordinates coordinatesColorsExample = TextureCoordinates.getFromBlocks(0, 16, 2, 17);
+        colorsExample = new Plane(-menuEntriesWidth/2, menuEntriesStartY, menuEntriesHeight*2, menuEntriesHeight, coordinatesColorsExample);
+        colorsExample.setVisible(false);
+        colorsExample.setX(menuEntriesWidth);
+        colorsExample.setY(colorsButton.getY());
+        glRenderer.addDrawable(colorsExample);
     }
 
     @Override
@@ -79,9 +99,17 @@ public class SettingsState extends State {
         scaleAnimation.setTo(1);
         scaleAnimation.start();
 
+        colorsExample.setVisible(true);
+        colorsExample.setScale(0);
+        ScaleAnimation colorsScaleAnimation = new ScaleAnimation(colorsExample,
+                Animation.DURATION_LONG, Animation.DURATION_LONG + (int) 1.0f * Animation.DURATION_SHORT);
+        colorsScaleAnimation.setTo(1);
+        colorsScaleAnimation.start();
+
         AnimationFactory.startMenuAnimationEnter(volumeButton, (int) (2.0f * Animation.DURATION_SHORT));
-        AnimationFactory.startMenuAnimationEnter(tutorialButton, (int) (2.5f * Animation.DURATION_SHORT));
-        AnimationFactory.startMenuAnimationEnter(editorButton, (int) (3.0f * Animation.DURATION_SHORT));
+        AnimationFactory.startMenuAnimationEnter(colorsButton, (int) (2.5f * Animation.DURATION_SHORT));
+        AnimationFactory.startMenuAnimationEnter(tutorialButton, (int) (3.0f * Animation.DURATION_SHORT));
+        AnimationFactory.startMenuAnimationEnter(editorButton, (int) (3.5f * Animation.DURATION_SHORT));
     }
 
     @Override
@@ -93,6 +121,12 @@ public class SettingsState extends State {
         scaleAnimation.setHideAfter(true);
         scaleAnimation.start();
 
+        ScaleAnimation colorsScaleAnimation = new ScaleAnimation(colorsExample,
+                Animation.DURATION_LONG, 0);
+        colorsScaleAnimation.setTo(0);
+        colorsScaleAnimation.setHideAfter(true);
+        colorsScaleAnimation.start();
+
         if (nextState == TutorialState.getInstance()) {
             AnimationFactory.startMenuAnimationOutPressed(tutorialButton);
         } else {
@@ -100,6 +134,7 @@ public class SettingsState extends State {
         }
 
         AnimationFactory.startMenuAnimationOut(volumeButton);
+        AnimationFactory.startMenuAnimationOut(colorsButton);
         AnimationFactory.startMenuAnimationOut(editorButton);
     }
 
@@ -123,6 +158,13 @@ public class SettingsState extends State {
                 getPreferences().edit().putBoolean("volumeOn", newVolume).apply();
                 volumeOff.setVisible(!newVolume);
                 volumeOn.setVisible(newVolume);
+            } else if (colorsExample.collides(event, getScreenHeight()) || colorsButton.collides(event, getScreenHeight())) {
+                    playSound(R.raw.click);
+                    int newColorschemeIndex = (getPreferences().getInt("colorschemeIndex", 0) + 1) % numberOfColorschemes;
+                    getPreferences().edit().putInt("colorschemeIndex", newColorschemeIndex).apply();
+
+                    glRenderer.setColorscheme(newColorschemeIndex);
+
             } else if (tutorialButton.collides(event, getScreenHeight())) {
                 nextState = TutorialState.getInstance();
                 playSound(R.raw.click);

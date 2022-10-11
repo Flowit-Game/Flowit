@@ -14,10 +14,12 @@ public class TextureCoordinates {
     }
 
     public static TextureCoordinates getFromBlocks(int fromX, int fromY, int toX, int toY) {
-        float blockPercentage = 128f / 2048f;
-        float padding = 1f / 2048f;
-        return new TextureCoordinates((float)fromX * blockPercentage + padding, (float)fromY * blockPercentage + padding,
-                (float)toX * blockPercentage - padding, (float)toY * blockPercentage - padding);
+        float blockPercentageX = 128f / 2048f;
+        float blockPercentageY = 128f / 2176f;
+        float paddingX = 1f / 2048f;
+        float paddingY = 1f / 2176f;
+        return new TextureCoordinates((float)fromX * blockPercentageX + paddingX, (float)fromY * blockPercentageY + paddingY,
+                (float)toX * blockPercentageX - paddingX, (float)toY * blockPercentageY - paddingY);
     }
 
     public float getToY() {
