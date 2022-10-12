@@ -56,7 +56,7 @@ public class SettingsState extends State {
         volumeButton = new Plane(-menuEntriesWidth, menuEntriesStartY, menuEntriesWidth, menuEntriesHeight, coordinatesVolume);
         glRenderer.addDrawable(volumeButton);
 
-        TextureCoordinates coordinatesColors = TextureCoordinates.getFromBlocks(6, 16, 12, 17);
+        TextureCoordinates coordinatesColors = TextureCoordinates.getFromBlocks(0, 15, 6, 16);
         colorsButton = new Plane(-menuEntriesWidth, volumeButton.getY() - 2 * menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesColors);
         glRenderer.addDrawable(colorsButton);
 
@@ -68,18 +68,18 @@ public class SettingsState extends State {
         editorButton = new Plane(-menuEntriesWidth, tutorialButton.getY() - 2 * menuEntriesHeight, menuEntriesWidth, menuEntriesHeight, coordinatesEditor);
         glRenderer.addDrawable(editorButton);
 
-        volumeOn  = ObjectFactory.createSingleBox(0, 15, menuEntriesHeight);
+        volumeOn  = ObjectFactory.createSingleBox(12, 12, menuEntriesHeight);
         volumeOn.setVisible(false);
         volumeOn.setX(menuEntriesWidth);
         volumeOn.setY(volumeButton.getY());
         glRenderer.addDrawable(volumeOn);
-        volumeOff = ObjectFactory.createSingleBox(1, 15, menuEntriesHeight);
+        volumeOff = ObjectFactory.createSingleBox(13, 12, menuEntriesHeight);
         volumeOff.setVisible(false);
         volumeOff.setX(menuEntriesWidth);
         volumeOff.setY(volumeButton.getY());
         glRenderer.addDrawable(volumeOff);
 
-        TextureCoordinates coordinatesColorsExample = TextureCoordinates.getFromBlocks(0, 16, 2, 17);
+        TextureCoordinates coordinatesColorsExample = TextureCoordinates.getFromBlocks(14, 1, 16, 2);
         colorsExample = new Plane(-menuEntriesWidth/2, menuEntriesStartY, menuEntriesHeight*2, menuEntriesHeight, coordinatesColorsExample);
         colorsExample.setVisible(false);
         colorsExample.setX(menuEntriesWidth);
