@@ -22,11 +22,12 @@ public class GLRenderer implements Renderer {
 
     private int width = 0;
     private int height = 0;
-    private final int[] textures = new int[numberOfColorschemes];
+    private final int[] textures = new int[1];
     private Runnable onViewportSetupComplete = null;
     private final ArrayList<Drawable> objects = new ArrayList<>();
 
     private int currentColorschemeIndex = 0;
+    private boolean reloadTextureNextFrame = false;
 
     public GLRenderer(Context c) {
         myContext = c;
@@ -37,7 +38,12 @@ public class GLRenderer implements Renderer {
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
         gl.glLoadIdentity();
 
-        gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[currentColorschemeIndex]);
+        if (reloadTextureNextFrame) {
+            loadTexture(gl, 0, textureDrawables[currentColorschemeIndex]);
+            reloadTextureNextFrame = false;
+        }
+
+        gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[0]);
         for (Drawable o : objects) {
             o.draw(gl);
         }
@@ -61,7 +67,7 @@ public class GLRenderer implements Renderer {
         gl.glEnable(GL10.GL_TEXTURE_2D);
         gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
         gl.glGenTextures(textures.length, textures, 0);
-        loadAllTextures(gl);
+        loadTexture(gl, 0, textureDrawables[currentColorschemeIndex]);
 
         debugOutput(gl);
     }
@@ -75,7 +81,7 @@ public class GLRenderer implements Renderer {
         this.width = width;
         this.height = height;
 
-        gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[currentColorschemeIndex]);
+        gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[0]);
         gl.glMatrixMode(GL10.GL_PROJECTION);
         GLU.gluOrtho2D(gl, 0, width, 0, height);
         gl.glMatrixMode(GL10.GL_MODELVIEW);
@@ -95,12 +101,8 @@ public class GLRenderer implements Renderer {
         } else {
             currentColorschemeIndex = 0;
         }
-    }
 
-    private void loadAllTextures(GL10 gl) {
-        for (int i = 0; i < numberOfColorschemes; i++) {
-            loadTexture(gl, i, textureDrawables[i]);
-        }
+        reloadTextureNextFrame = true;
     }
 
     private void loadTexture(GL10 gl, int position, @DrawableRes int resource) {
