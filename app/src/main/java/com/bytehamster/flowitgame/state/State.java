@@ -49,6 +49,7 @@ abstract public class State {
         this.playedPrefs = activity.getSharedPreferences("playedState", Context.MODE_PRIVATE);
         this.prefs = activity.getSharedPreferences("preferences", Context.MODE_PRIVATE);
 
+        renderer.setColorscheme(getPreferences().getInt("colorschemeIndex", 0));
         initialize(renderer);
     }
 

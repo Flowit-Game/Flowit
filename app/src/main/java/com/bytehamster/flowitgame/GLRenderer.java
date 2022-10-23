@@ -16,11 +16,18 @@ import java.util.ArrayList;
 public class GLRenderer implements Renderer {
     private static final String TAG = "GLRenderer";
     private final Context myContext;
+
+    private final int[] textureDrawables = new int[] {R.drawable.texture_colorscheme_0, R.drawable.texture_colorscheme_1};
+    public final int numberOfColorschemes = textureDrawables.length;
+
     private int width = 0;
     private int height = 0;
     private final int[] textures = new int[1];
     private Runnable onViewportSetupComplete = null;
     private final ArrayList<Drawable> objects = new ArrayList<>();
+
+    private int currentColorschemeIndex = 0;
+    private boolean reloadTextureNextFrame = false;
 
     public GLRenderer(Context c) {
         myContext = c;
@@ -30,6 +37,11 @@ public class GLRenderer implements Renderer {
     public void onDrawFrame(GL10 gl) {
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
         gl.glLoadIdentity();
+
+        if (reloadTextureNextFrame) {
+            loadTexture(gl, 0, textureDrawables[currentColorschemeIndex]);
+            reloadTextureNextFrame = false;
+        }
 
         gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[0]);
         for (Drawable o : objects) {
@@ -55,7 +67,8 @@ public class GLRenderer implements Renderer {
         gl.glEnable(GL10.GL_TEXTURE_2D);
         gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
         gl.glGenTextures(textures.length, textures, 0);
-        loadTexture(gl, 0, R.drawable.texture);
+        loadTexture(gl, 0, textureDrawables[currentColorschemeIndex]);
+
         debugOutput(gl);
     }
 
@@ -78,6 +91,18 @@ public class GLRenderer implements Renderer {
             onViewportSetupComplete.run();
             onViewportSetupComplete = null;
         }
+    }
+
+    public void setColorscheme(int colorschemeIndex) {
+        // Return to default colorscheme if given an invalid colorschemeIndex.
+        // For example, if the number of colorschemes decreases after an update.
+        if ((0 <= colorschemeIndex) && (colorschemeIndex < numberOfColorschemes)) {
+            currentColorschemeIndex = colorschemeIndex;
+        } else {
+            currentColorschemeIndex = 0;
+        }
+
+        reloadTextureNextFrame = true;
     }
 
     private void loadTexture(GL10 gl, int position, @DrawableRes int resource) {

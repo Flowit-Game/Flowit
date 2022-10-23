@@ -76,7 +76,7 @@ public class GameState extends State {
         stepsUsedCurrentYDelta = topButtonSize * 0.6f;
         stepsUsedBestYDelta = topButtonSize * 0.1f;
 
-        TextureCoordinates coordinatesHeader = TextureCoordinates.getFromBlocks(2, 15, 3, 16);
+        TextureCoordinates coordinatesHeader = TextureCoordinates.getFromBlocks(14, 12, 15, 13);
         headerBackground = new Plane(0, glRenderer.getHeight(), glRenderer.getWidth(), topBarHeight, coordinatesHeader);
         headerBackground.setVisible(false);
         glRenderer.addDrawable(headerBackground);
