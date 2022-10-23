@@ -159,12 +159,10 @@ public class SettingsState extends State {
                 volumeOff.setVisible(!newVolume);
                 volumeOn.setVisible(newVolume);
             } else if (colorsExample.collides(event, getScreenHeight()) || colorsButton.collides(event, getScreenHeight())) {
-                    playSound(R.raw.click);
-                    int newColorschemeIndex = (getPreferences().getInt("colorschemeIndex", 0) + 1) % numberOfColorschemes;
-                    getPreferences().edit().putInt("colorschemeIndex", newColorschemeIndex).apply();
-
-                    glRenderer.setColorscheme(newColorschemeIndex);
-
+                playSound(R.raw.click);
+                int newColorschemeIndex = (getPreferences().getInt("colorschemeIndex", 0) + 1) % numberOfColorschemes;
+                getPreferences().edit().putInt("colorschemeIndex", newColorschemeIndex).apply();
+                glRenderer.setColorscheme(newColorschemeIndex);
             } else if (tutorialButton.collides(event, getScreenHeight())) {
                 nextState = TutorialState.getInstance();
                 playSound(R.raw.click);
