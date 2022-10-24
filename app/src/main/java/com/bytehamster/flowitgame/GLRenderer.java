@@ -69,6 +69,8 @@ public class GLRenderer implements Renderer {
         gl.glGenTextures(textures.length, textures, 0);
         loadTexture(gl, 0, textureDrawables[currentColorschemeIndex]);
 
+        gl.glLoadIdentity();
+
         debugOutput(gl);
     }
 
@@ -83,6 +85,7 @@ public class GLRenderer implements Renderer {
 
         gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[0]);
         gl.glMatrixMode(GL10.GL_PROJECTION);
+        gl.glLoadIdentity();
         GLU.gluOrtho2D(gl, 0, width, 0, height);
         gl.glMatrixMode(GL10.GL_MODELVIEW);
         debugOutput(gl);
