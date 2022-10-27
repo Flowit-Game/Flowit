@@ -69,8 +69,6 @@ public class GLRenderer implements Renderer {
         gl.glGenTextures(textures.length, textures, 0);
         loadTexture(gl, 0, textureDrawables[currentColorschemeIndex]);
 
-        gl.glLoadIdentity();
-
         debugOutput(gl);
     }
 
