@@ -1,3 +1,4 @@
-7 new community levels designed by Dezi, Tom, Luke, Bo Bo, Nico207 and Wraith
-
-You can contribute your own levels by visiting https://flowit.bytehamster.com/ :)
+- Fix screen sometimes being blank (by @ywnico)
+- Add additional color scheme (by @ywnico)
+- 1 new community level designed by Hornochse
+- You can contribute your own levels by visiting https://flowit.bytehamster.com/

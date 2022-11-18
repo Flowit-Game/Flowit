@@ -10,8 +10,8 @@ android {
         applicationId "com.bytehamster.flowitgame"
         minSdkVersion 14
         targetSdkVersion 31
-        versionCode 303
-        versionName "3.3"
+        versionCode 304
+        versionName "3.4"
     }
 
     signingConfigs {
