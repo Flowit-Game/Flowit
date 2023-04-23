@@ -1,4 +1,2 @@
-- Fix screen sometimes being blank (by @ywnico)
-- Add additional color scheme (by @ywnico)
-- 1 new community level designed by Hornochse
+- 14 new community levels
 - You can contribute your own levels by visiting https://flowit.bytehamster.com/
