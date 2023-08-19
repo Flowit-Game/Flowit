@@ -1,2 +1,2 @@
-- 14 new community levels
+- 3 new community levels
 - You can contribute your own levels by visiting https://flowit.bytehamster.com/
