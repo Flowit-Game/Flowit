@@ -1,2 +1,3 @@
-- 3 new community levels
+- Italian translation
+- 6 new community levels
 - You can contribute your own levels by visiting https://flowit.bytehamster.com/
