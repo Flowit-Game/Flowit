@@ -1,15 +1,16 @@
 plugins {
     id 'com.android.application'
-    id('com.github.triplet.play') version '3.7.0-agp4.2' apply false
+    id('com.github.triplet.play') version '3.9.0' apply false
 }
 
 android {
-    compileSdkVersion 33
+    compileSdk 34
+    namespace "com.bytehamster.flowitgame"
 
     defaultConfig {
         applicationId "com.bytehamster.flowitgame"
-        minSdkVersion 14
-        targetSdkVersion 33
+        minSdk 14
+        targetSdk 34
         versionCode 308
         versionName "3.8"
     }
@@ -59,7 +60,12 @@ android {
             compress(projectDir.path + '/src/main/assets/levelsCommunity.xml')
         }
     }
+
     preBuild.dependsOn compressLevelFile
+
+    buildFeatures {
+        buildConfig true
+    }
 }
 
 if (project.hasProperty("TRIPLET_API_KEY")) {
