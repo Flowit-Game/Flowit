@@ -1,3 +1,2 @@
-- Support Material You icon on more devices
-- 5 new community levels
+- 2 new community levels
 - You can contribute your own levels by visiting https://flowit.bytehamster.com/
