@@ -48,8 +48,13 @@ public class LevelPack {
             int number = Integer.parseInt(levelEl.getAttribute("number"));
             String colors = levelEl.getAttribute("color");
             String modifiers = levelEl.getAttribute("modifier");
+            int optimalSteps = 0;
+            if (levelEl.hasAttribute("solution")) {
+                String solution = levelEl.getAttribute("solution");
+                optimalSteps = solution.split(",").length;
+            }
 
-            levels.add(new Level(indexInPack, number, this, colors, modifiers));
+            levels.add(new Level(indexInPack, number, this, colors, modifiers, optimalSteps));
             indexInPack++;
         }
     }

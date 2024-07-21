@@ -67,7 +67,7 @@ abstract public class State {
         }
     }
 
-    int loadSteps(int level) {
+    public int loadSteps(int level) {
         return playedPrefs.getInt("s"+level, STEPS_NOT_SOLVED);
     }
 

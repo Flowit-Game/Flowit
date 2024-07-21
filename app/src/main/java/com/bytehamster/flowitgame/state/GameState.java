@@ -9,7 +9,6 @@ import com.bytehamster.flowitgame.GLRenderer;
 import com.bytehamster.flowitgame.R;
 import com.bytehamster.flowitgame.animation.Animation;
 import com.bytehamster.flowitgame.animation.AnimationFactory;
-import com.bytehamster.flowitgame.animation.AnimationRepeated;
 import com.bytehamster.flowitgame.animation.ScaleAnimation;
 import com.bytehamster.flowitgame.animation.TranslateAnimation;
 import com.bytehamster.flowitgame.filler.Filler;
@@ -41,6 +40,7 @@ public class GameState extends State {
     private Plane headerBackground;
     private Number stepsUsed;
     private Number stepsBest;
+    private Number stepsOptimal;
     private boolean isFilling = false;
     private boolean won = false;
     private float topBarHeight;
@@ -49,6 +49,7 @@ public class GameState extends State {
     private float topBarPadding;
     private float stepsUsedCurrentYDelta;
     private float stepsUsedBestYDelta;
+    private float stepsOptimalYDelta;
     private LastLevelState lastLevelState = LastLevelState.NO_LEVEL;
     private Filler filler;
 
@@ -75,6 +76,7 @@ public class GameState extends State {
         topButtonY = glRenderer.getHeight() - topButtonSize - topBarPadding;
         stepsUsedCurrentYDelta = topButtonSize * 0.6f;
         stepsUsedBestYDelta = topButtonSize * 0.1f;
+        stepsOptimalYDelta = topButtonSize * -0.4f;
 
         TextureCoordinates coordinatesHeader = TextureCoordinates.getFromBlocks(14, 12, 15, 13);
         headerBackground = new Plane(0, glRenderer.getHeight(), glRenderer.getWidth(), topBarHeight, coordinatesHeader);
@@ -109,19 +111,25 @@ public class GameState extends State {
         stepsUsed = new Number();
         stepsUsed.setFontSize(topButtonSize * 0.35f);
         stepsUsed.setX(5 * topButtonSize + 3 * topBarPadding);
-        stepsUsed.setY(glRenderer.getHeight() + topBarPadding + stepsUsedCurrentYDelta);
+        stepsUsed.setY(glRenderer.getHeight() + topBarPadding + stepsUsedCurrentYDelta + 0.25f * topButtonSize);
         glRenderer.addDrawable(stepsUsed);
 
         stepsBest = new Number();
         stepsBest.setFontSize(topButtonSize * 0.35f);
         stepsBest.setX(5 * topButtonSize + 3 * topBarPadding);
-        stepsBest.setY(glRenderer.getHeight() + topBarPadding + stepsUsedBestYDelta);
+        stepsBest.setY(glRenderer.getHeight() + topBarPadding + stepsUsedBestYDelta + 0.25f * topButtonSize);
         glRenderer.addDrawable(stepsBest);
 
-        TextureCoordinates coordinateSteps = TextureCoordinates.getFromBlocks(12, 10, 15, 11);
-        stepsLabel = new Plane(0, 0, 3 * topButtonSize, topButtonSize, coordinateSteps);
+        stepsOptimal = new Number();
+        stepsOptimal.setFontSize(topButtonSize * 0.35f);
+        stepsOptimal.setX(5 * topButtonSize + 3 * topBarPadding);
+        stepsOptimal.setY(glRenderer.getHeight() + topBarPadding + stepsOptimalYDelta + 0.25f * topButtonSize);
+        glRenderer.addDrawable(stepsOptimal);
+
+        TextureCoordinates coordinateSteps = TextureCoordinates.getFromBlocks(12, 10, 15, 12);
+        stepsLabel = new Plane(0, 0, 3 * topButtonSize, 2 * topButtonSize, coordinateSteps);
         stepsLabel.setX(2 * topButtonSize + 3 * topBarPadding);
-        stepsLabel.setY(glRenderer.getHeight() + topBarPadding);
+        stepsLabel.setY(glRenderer.getHeight() + topBarPadding - 0.75f * topButtonSize);
         stepsLabel.setVisible(false);
         glRenderer.addDrawable(stepsLabel);
 
@@ -160,9 +168,10 @@ public class GameState extends State {
         AnimationFactory.startMoveYTo(left, topButtonY);
         AnimationFactory.startMoveYTo(right, topButtonY);
         AnimationFactory.startMoveYTo(restart, topButtonY);
-        AnimationFactory.startMoveYTo(stepsLabel, topButtonY);
-        AnimationFactory.startMoveYTo(stepsBest, topButtonY + stepsUsedBestYDelta);
-        AnimationFactory.startMoveYTo(stepsUsed, topButtonY + stepsUsedCurrentYDelta);
+        AnimationFactory.startMoveYTo(stepsLabel, topButtonY - 0.75f * topButtonSize);
+        AnimationFactory.startMoveYTo(stepsBest, topButtonY + stepsUsedBestYDelta + 0.25f * topButtonSize);
+        AnimationFactory.startMoveYTo(stepsUsed, topButtonY + stepsUsedCurrentYDelta + 0.25f * topButtonSize);
+        AnimationFactory.startMoveYTo(stepsOptimal, topButtonY + stepsOptimalYDelta + 0.25f * topButtonSize);
         AnimationFactory.startMoveYTo(headerBackground, getScreenHeight() - topBarHeight);
     }
 
@@ -173,6 +182,11 @@ public class GameState extends State {
             stepsBest.setValue(Number.VALUE_NAN);
         } else {
             stepsBest.setValue(loadSteps(level.getNumber()));
+        }
+        if (level.getOptimalSteps() <= 0) {
+            stepsOptimal.setValue(Number.VALUE_NAN);
+        } else {
+            stepsOptimal.setValue(level.getOptimalSteps());
         }
         AnimationFactory.startScaleHide(stepsImproved, 0);
         isFilling = false;
@@ -261,9 +275,13 @@ public class GameState extends State {
         AnimationFactory.startMoveYTo(right, getScreenHeight() + topBarPadding);
         AnimationFactory.startMoveYTo(restart, getScreenHeight() + topBarPadding);
         AnimationFactory.startMoveYTo(solved, getScreenHeight() + topBarPadding);
-        AnimationFactory.startMoveYTo(stepsLabel, getScreenHeight() + topBarPadding);
-        AnimationFactory.startMoveYTo(stepsBest, getScreenHeight() + topBarPadding + stepsUsedBestYDelta);
-        AnimationFactory.startMoveYTo(stepsUsed, getScreenHeight() + topBarPadding + stepsUsedCurrentYDelta);
+        AnimationFactory.startMoveYTo(stepsLabel, getScreenHeight() + topBarPadding - 0.75f * topButtonSize);
+        AnimationFactory.startMoveYTo(stepsBest, getScreenHeight() + topBarPadding
+                + stepsUsedBestYDelta + 0.25f * topButtonSize);
+        AnimationFactory.startMoveYTo(stepsUsed, getScreenHeight() + topBarPadding
+                + stepsUsedCurrentYDelta + 0.25f * topButtonSize);
+        AnimationFactory.startMoveYTo(stepsOptimal, getScreenHeight() + topBarPadding
+                + stepsOptimalYDelta + 0.25f * topButtonSize);
         AnimationFactory.startMoveYTo(headerBackground, getScreenHeight());
         AnimationFactory.startMoveYTo(winMessage, -getScreenWidth() * 0.5f);
         AnimationFactory.startScaleHide(stepsImproved, 0);

@@ -6,11 +6,13 @@ public class Level {
     private int number;
     private int indexInPack;
     private LevelPack pack;
+    private int optimalSteps;
 
-    public Level(int indexInPack, int number, LevelPack pack, String color, String modifier) {
+    public Level(int indexInPack, int number, LevelPack pack, String color, String modifier, int optimalSteps) {
         this.number = number;
         this.indexInPack = indexInPack;
         this.pack = pack;
+        this.optimalSteps = optimalSteps;
 
         color = color.replaceAll("\\s", "");
         modifier = modifier.replaceAll("\\s", "");
@@ -73,5 +75,9 @@ public class Level {
 
     public LevelPack getPack() {
         return pack;
+    }
+
+    public int getOptimalSteps() {
+        return optimalSteps;
     }
 }

@@ -11,6 +11,7 @@ import javax.microedition.khronos.opengles.GL10;
 public class LevelList extends Drawable {
     private final Plane planeLevel;
     private final Plane planeLevelDone;
+    private final Plane planeLevelPerfect;
     private final Plane planeLevelLocked;
     private final Number number;
     private final float boxHeight;
@@ -25,9 +26,11 @@ public class LevelList extends Drawable {
 
         TextureCoordinates coordinatesLevel = TextureCoordinates.getFromBlocks(6, 0, 7, 1);
         TextureCoordinates coordinatesLevelDone = TextureCoordinates.getFromBlocks(7, 0, 8, 1);
-        TextureCoordinates coordinatesLevelLocked = TextureCoordinates.getFromBlocks(6, 3, 7, 4);
+        TextureCoordinates coordinatesLevelPerfect = TextureCoordinates.getFromBlocks(6, 1, 7, 2);
+        TextureCoordinates coordinatesLevelLocked = TextureCoordinates.getFromBlocks(7, 1, 8, 2);
         planeLevel = new Plane(0, 0, boxSize, boxSize, coordinatesLevel);
         planeLevelDone = new Plane(0, 0, boxSize, boxSize, coordinatesLevelDone);
+        planeLevelPerfect = new Plane(0, 0, boxSize, boxSize, coordinatesLevelPerfect);
         planeLevelLocked = new Plane(0, 0, boxSize, boxSize, coordinatesLevelLocked);
         number = new Number();
         number.setFontSize(boxSize / 3);
@@ -55,7 +58,11 @@ public class LevelList extends Drawable {
     private void drawButton(int indexInPack, Level level, GL10 gl) {
         Plane draw;
         if (context.isSolved(level.getNumber())) {
-            draw = planeLevelDone;
+            if (level.getOptimalSteps() != 0 && context.loadSteps(level.getNumber()) <= level.getOptimalSteps()) {
+                draw = planeLevelPerfect;
+            } else {
+                draw = planeLevelDone;
+            }
         } else if (!context.isPlayable(level)) {
             draw = planeLevelLocked;
         } else {
