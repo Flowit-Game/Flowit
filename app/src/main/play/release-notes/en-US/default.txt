@@ -1,2 +1,2 @@
-- 2 new community levels
+- Try to achieve the optimal number of clicks in many levels
 - You can contribute your own levels by visiting https://flowit.bytehamster.com/
