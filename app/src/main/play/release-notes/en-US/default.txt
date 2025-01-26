@@ -1,2 +1,3 @@
-- Try to achieve the optimal number of clicks in many levels
+- Fix optimal solution in Medium-48
+- One new community level
 - You can contribute your own levels by visiting https://flowit.bytehamster.com/
