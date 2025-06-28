@@ -12,6 +12,7 @@ Fill all boxes with the color of their border by using the special boxes. Those,
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
      alt="Get it on Google Play"
      height="80">](https://play.google.com/store/apps/details?id=com.bytehamster.flowitgame)
+
 [<img src="https://raw.githubusercontent.com/Flowit-Game/Flowit/master/assets/get-psvita.png"
      alt="Get Desktop and PS Vita version"
      height="80">](https://github.com/Flowit-Game/flowit-vita)
