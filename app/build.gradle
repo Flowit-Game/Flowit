@@ -11,8 +11,8 @@ android {
         applicationId "com.bytehamster.flowitgame"
         minSdk 14
         targetSdk 35
-        versionCode 401
-        versionName "4.1"
+        versionCode 402
+        versionName "4.2"
     }
 
     signingConfigs {
