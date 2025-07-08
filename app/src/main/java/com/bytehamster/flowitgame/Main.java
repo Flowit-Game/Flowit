@@ -89,6 +89,7 @@ public class Main extends Activity {
 
     public boolean onTouchEvent(MotionEvent event) {
         if (currentState != null) {
+            event.offsetLocation(-glSurfaceView.getX(), -glSurfaceView.getY());
             currentState.onTouchEvent(event);
             switchState();
         }

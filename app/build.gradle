@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    compileSdk 34
+    compileSdk 35
     namespace "com.bytehamster.flowitgame"
 
     defaultConfig {
         applicationId "com.bytehamster.flowitgame"
         minSdk 14
-        targetSdk 34
+        targetSdk 35
         versionCode 401
         versionName "4.1"
     }
