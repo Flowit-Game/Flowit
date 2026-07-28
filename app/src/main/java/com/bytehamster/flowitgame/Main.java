@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
+import android.window.OnBackInvokedDispatcher;
 import com.bytehamster.flowitgame.model.LevelPack;
 import com.bytehamster.flowitgame.state.ExitState;
 import com.bytehamster.flowitgame.state.GameState;
@@ -46,6 +47,11 @@ public class Main extends Activity {
                     getString(R.string.app_name), bm, 0xff206dbc);
             setTaskDescription(taskDesc);
         }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            getOnBackInvokedDispatcher().registerOnBackInvokedCallback(
+                    OnBackInvokedDispatcher.PRIORITY_DEFAULT, this::handleBackPressed);
+        }
     }
 
     private void createViews() {
@@ -76,15 +82,19 @@ public class Main extends Activity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (currentState != null) {
-            if (keyCode == KeyEvent.KEYCODE_BACK
-                    && event.getAction() == KeyEvent.ACTION_DOWN
-                    && event.getRepeatCount() == 0) {
-                currentState.onBackPressed();
-                switchState();
-            }
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getAction() == KeyEvent.ACTION_DOWN
+                && event.getRepeatCount() == 0) {
+            handleBackPressed();
         }
         return false;
+    }
+
+    private void handleBackPressed() {
+        if (currentState != null) {
+            currentState.onBackPressed();
+            switchState();
+        }
     }
 
     public boolean onTouchEvent(MotionEvent event) {
