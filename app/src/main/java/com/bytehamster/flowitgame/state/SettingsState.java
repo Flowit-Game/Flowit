@@ -151,7 +151,7 @@ public class SettingsState extends State {
 
     @Override
     public void onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+        if (event.getAction() == MotionEvent.ACTION_UP) {
             if (volumeOn.collides(event, getScreenHeight()) || volumeButton.collides(event, getScreenHeight())) {
                 playSound(R.raw.click);
                 boolean newVolume = ! getPreferences().getBoolean("volumeOn", true);

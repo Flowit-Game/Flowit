@@ -111,7 +111,7 @@ public class TutorialState extends State {
 
     @Override
     public void onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+        if (event.getAction() == MotionEvent.ACTION_UP) {
             if (screenNumber == 1) {
                 playSound(R.raw.click);
                 exit();

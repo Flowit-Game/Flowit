@@ -109,7 +109,7 @@ public class MainMenuState extends State {
 
     @Override
     public void onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+        if (event.getAction() == MotionEvent.ACTION_UP) {
             if (startButton.collides(event, getScreenHeight())) {
                 playSound(R.raw.click);
                 if (isSolved(0)) {
