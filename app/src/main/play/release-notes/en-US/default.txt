@@ -1,3 +1,5 @@
-- 7 new community levels
+- 1 new community level
+- 3 more levels with optimal number of clicks
 - Better support for Android 17
+- Add Hungarian translation
 - You can contribute your own levels by visiting https://flowit.bytehamster.com/
