@@ -1,6 +1,6 @@
 plugins {
     id 'com.android.application'
-    id('com.github.triplet.play') version '3.9.0' apply false
+    id('com.github.triplet.play') version '4.1.1' apply false
 }
 
 android {
@@ -39,7 +39,7 @@ android {
             buildConfigField "boolean", "DEBUG_LEVELS", "false"
             signingConfig signingConfigs.release
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-project.txt'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-project.txt'
         }
     }
 
@@ -48,7 +48,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    aaptOptions {
+    androidResources {
         ignoreAssetsPattern '!.git:!*.xml:!LICENSE'
     }
 
