@@ -1,6 +1,9 @@
-# Flowit
+# Flowit — Block Puzzle
 
-<img src="https://raw.githubusercontent.com/Flowit-Game/Flowit/master/app/src/main/play/listings/en-US/graphics/icon/ic_launcher_web.png" width="150" />
+[![License: GPL v3](https://img.shields.io/github/license/Flowit-Game/Flowit)](https://www.gnu.org/licenses/gpl-3.0)
+[![GitHub Release](https://img.shields.io/github/v/release/Flowit-Game/Flowit)](https://github.com/Flowit-Game/Flowit/releases)
+
+<img src="https://raw.githubusercontent.com/Flowit-Game/Flowit/master/app/src/main/play/listings/en-US/graphics/icon/ic_launcher_web.png" width="120" />
 
 Easy to learn, hard to master. Play the addicting puzzle game Flowit now and to think outside the box.
 There are already over 100 levels available and even more to come. The game features a clean and elegant design - you will be amazed by the simplicity and complexity at the same time. 
@@ -8,17 +11,16 @@ Fill all boxes with the color of their border by using the special boxes. Those,
 
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
      alt="Get it on F-Droid"
-     height="80">](https://f-droid.org/packages/com.bytehamster.flowitgame/)
+     height="70">](https://f-droid.org/packages/com.bytehamster.flowitgame/)
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
      alt="Get it on Google Play"
-     height="80">](https://play.google.com/store/apps/details?id=com.bytehamster.flowitgame)
-
+     height="70">](https://play.google.com/store/apps/details?id=com.bytehamster.flowitgame)
 [<img src="https://raw.githubusercontent.com/Flowit-Game/Flowit/master/assets/get-psvita.png"
      alt="Get Desktop and PS Vita version"
-     height="80">](https://github.com/Flowit-Game/flowit-vita)
+     height="70">](https://github.com/Flowit-Game/flowit-vita)
 [<img src="https://raw.githubusercontent.com/Flowit-Game/Flowit/master/assets/get-website.png"
      alt="Get Web version"
-     height="80">](https://flowit-game.github.io/flowit-react/)
+     height="70">](https://flowit-game.github.io/flowit-react/)
 
 ## Screenshots
 
@@ -26,45 +28,7 @@ Fill all boxes with the color of their border by using the special boxes. Those,
 
 ## Contributing levels
 
-### Level editor
-
 Levels can easily be created on https://flowit.bytehamster.com using a visual editor.
-
-### Level definitions
-
-Alternatively, levels can be designed in xml.
-
-```
-<level number="0"
-    color="b0ooo
-           b0000
-           b0r0g
-           b0r0g
-           b0r0g
-           00000"
-    modifier="
-           0X00L
-           0XXXX
-           0XDX0
-           0X0X0
-           UX0XU
-           XXXXX" />
-```
-
-| Modifier  | Action |
-|--------------|--------|
-| 0 | No modifier |
-| X | Field disabled |
-| F | Flood |
-| U | Up |
-| R | Right |
-| L | Left |
-| D | Down |
-| B | Bomb |
-| w | Up |
-| x | Right |
-| a | Left |
-| s | Down |
 
 ### Level packs
 
