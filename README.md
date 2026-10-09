@@ -22,7 +22,7 @@ Fill all boxes with the color of their border by using the special boxes. Those,
 
 ## Screenshots
 
-<img src="https://raw.githubusercontent.com/Flowit-Game/Flowit/master/app/src/main/play/listings/en-US/graphics/phone-screenshots/01.png" width="100" /> <img src="https://raw.githubusercontent.com/Flowit-Game/Flowit/master/app/src/main/play/listings/en-US/graphics/phone-screenshots/02.png" width="100" /> <img src="https://raw.githubusercontent.com/Flowit-Game/Flowit/master/app/src/main/play/listings/en-US/graphics/phone-screenshots/03.png" width="100" /> <img src="https://raw.githubusercontent.com/Flowit-Game/Flowit/master/app/src/main/play/listings/en-US/graphics/phone-screenshots/04.png" width="100" /> <img src="https://raw.githubusercontent.com/Flowit-Game/Flowit/master/app/src/main/play/listings/en-US/graphics/phone-screenshots/05.png" width="100" />
+<img src="https://raw.githubusercontent.com/Flowit-Game/Flowit/master/app/src/main/play/listings/en-US/graphics/phone-screenshots/01.png" width="150" /> <img src="https://raw.githubusercontent.com/Flowit-Game/Flowit/master/app/src/main/play/listings/en-US/graphics/phone-screenshots/02.png" width="150" /> <img src="https://raw.githubusercontent.com/Flowit-Game/Flowit/master/app/src/main/play/listings/en-US/graphics/phone-screenshots/03.png" width="150" /> <img src="https://raw.githubusercontent.com/Flowit-Game/Flowit/master/app/src/main/play/listings/en-US/graphics/phone-screenshots/04.png" width="150" /> <img src="https://raw.githubusercontent.com/Flowit-Game/Flowit/master/app/src/main/play/listings/en-US/graphics/phone-screenshots/05.png" width="150" />
 
 ## Contributing levels
 

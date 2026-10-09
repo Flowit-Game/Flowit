@@ -405,12 +405,16 @@ public class GameState extends State {
             saveSteps(level.getNumber(), stepsUsed.getValue());
             lastLevelState = LastLevelState.SOLVED;
 
-            float availableSpace = getScreenHeight();
-            winMessage.setY(-getScreenWidth() * 0.5f);
-            winMessage.setVisible(true);
-            TranslateAnimation inAnimation = new TranslateAnimation(winMessage, Animation.DURATION_SHORT, 0);
-            inAnimation.setTo(0, (availableSpace - winMessage.getHeight()) / 2);
-            inAnimation.start();
+            // Store screenshots (scripts/screenshots) show the solved board without the message
+            boolean screenshotMode = BuildConfig.DEBUG && getPreferences().getBoolean("screenshotMode", false);
+            if (!screenshotMode) {
+                float availableSpace = getScreenHeight();
+                winMessage.setY(-getScreenWidth() * 0.5f);
+                winMessage.setVisible(true);
+                TranslateAnimation inAnimation = new TranslateAnimation(winMessage, Animation.DURATION_SHORT, 0);
+                inAnimation.setTo(0, (availableSpace - winMessage.getHeight()) / 2);
+                inAnimation.start();
+            }
 
             if (!solved.isVisible()) {
                 showSolved(Animation.DURATION_LONG);
